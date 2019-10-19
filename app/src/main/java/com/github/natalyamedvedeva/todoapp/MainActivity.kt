@@ -2,8 +2,8 @@ package com.github.natalyamedvedeva.todoapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Button
 import android.widget.ListView
 
 class MainActivity : AppCompatActivity() {
@@ -17,10 +17,8 @@ class MainActivity : AppCompatActivity() {
         listView = findViewById(R.id.list_view)
         val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tasks)
         listView.adapter = adapter
-        // Create add button
-        var addBtn = Button(this)
-        addBtn.setText(R.string.add)
-        listView.addFooterView(addBtn)
+
+        val addBtn: View = findViewById(R.id.add_btn)
         addBtn.setOnClickListener {
             tasks.add("Task" + (tasks.size + 1))
             adapter.notifyDataSetChanged()
