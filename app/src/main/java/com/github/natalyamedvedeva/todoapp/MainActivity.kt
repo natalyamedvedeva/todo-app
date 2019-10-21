@@ -3,10 +3,8 @@ package com.github.natalyamedvedeva.todoapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ListView
+import android.widget.*
+import androidx.cardview.widget.CardView
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -20,9 +18,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val calendarCard: CardView = findViewById(R.id.calendar_card)
+
         val calendarBtn: Button = findViewById(R.id.calendar_btn)
         val dateFormat = SimpleDateFormat.getDateInstance()
         calendarBtn.text = dateFormat.format(currentDay.time)
+        calendarBtn.setOnClickListener {
+            if (calendarCard.visibility == View.GONE) {
+                calendarCard.visibility = View.VISIBLE
+            } else {
+                calendarCard.visibility = View.GONE
+            }
+        }
 
         val prevBtn: ImageButton = findViewById(R.id.prev_btn)
         prevBtn.setOnClickListener {
