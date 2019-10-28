@@ -31,6 +31,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        val calendarView: CalendarView = findViewById(R.id.calendar_view)
+        calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
+            currentDay.set(year, month, dayOfMonth)
+            calendarBtn.text = dateFormat.format(currentDay.time)
+        }
+
         val prevBtn: ImageButton = findViewById(R.id.prev_btn)
         prevBtn.setOnClickListener {
             currentDay.add(Calendar.DAY_OF_MONTH, -1)
