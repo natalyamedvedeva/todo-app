@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
 
     private var currentDay = Calendar.getInstance()
     private lateinit var listView: ListView
-    private val tasks = mutableListOf("Task1", "Task2", "Task3", "Task4", "Task5")
+    private val tasks = mutableListOf("Сходить в магазин", "Погулять с песиком", "Посмотреть фильм", "Приготовить ужин")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
