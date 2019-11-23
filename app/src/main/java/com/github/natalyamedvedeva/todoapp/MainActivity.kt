@@ -1,5 +1,7 @@
 package com.github.natalyamedvedeva.todoapp
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -9,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import java.text.SimpleDateFormat
 import java.util.*
 import androidx.recyclerview.widget.LinearLayoutManager
+
+private const val ADD_TASK_ACTIVITY_REQUEST_CODE = 1
 
 class MainActivity : AppCompatActivity() {
 
@@ -60,7 +64,19 @@ class MainActivity : AppCompatActivity() {
 
         val addBtn: View = findViewById(R.id.add_btn)
         addBtn.setOnClickListener {
-            taskManager.addTask(currentDate.time, Task("Task"))
+            val addTaskActivityIntent = Intent(this, AddTaskActivity::class.java)
+            startActivityForResult(addTaskActivityIntent, ADD_TASK_ACTIVITY_REQUEST_CODE)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == ADD_TASK_ACTIVITY_REQUEST_CODE
+            && resultCode == Activity.RESULT_OK
+            && data != null
+        ) {
+            val addedName = data.getStringExtra(ADDED_NAME_KEY)
+            taskManager.addTask(currentDate.time, Task(addedName))
             taskListChanged()
         }
     }

@@ -3,4 +3,5 @@
     <string name="add">Add</string>
     <string name="prev_day">Previous day</string>
     <string name="next_day">Next day</string>
+    <string name="name">Name</string>
 </resources>
