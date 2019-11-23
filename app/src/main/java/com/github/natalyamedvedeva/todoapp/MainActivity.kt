@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val calendarView: CalendarView = findViewById(R.id.calendar_view)
-        calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
+        calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             currentDate.set(year, month, dayOfMonth)
             calendarBtn.text = dateFormat.format(currentDate.time)
             taskListChanged()
