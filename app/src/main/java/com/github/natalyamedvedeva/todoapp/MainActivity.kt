@@ -75,8 +75,9 @@ class MainActivity : AppCompatActivity() {
             && resultCode == Activity.RESULT_OK
             && data != null
         ) {
-            val addedName = data.getStringExtra(ADDED_NAME_KEY)
-            taskManager.addTask(currentDate.time, Task(addedName))
+            val addedName = data.getStringExtra(ADDED_NAME_KEY) ?: ""
+            val addedPriority = data.getSerializableExtra(ADDED_PRIORITY_KEY) as Priority
+            taskManager.addTask(currentDate.time, Task(addedName, addedPriority))
             taskListChanged()
         }
     }
