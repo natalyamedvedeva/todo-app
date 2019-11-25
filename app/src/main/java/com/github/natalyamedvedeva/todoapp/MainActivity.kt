@@ -13,6 +13,7 @@ import java.util.*
 import androidx.recyclerview.widget.LinearLayoutManager
 
 private const val ADD_TASK_ACTIVITY_REQUEST_CODE = 1
+private const val TASK_ACTIVITY_REQUEST_CODE = 2
 
 class MainActivity : AppCompatActivity() {
 

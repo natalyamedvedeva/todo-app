@@ -16,6 +16,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="@string/prev_day"/>
+
     <Button
             android:id="@+id/calendar_btn"
             android:layout_width="wrap_content"
@@ -23,6 +24,7 @@
             app:layout_constraintEnd_toStartOf="@+id/next_btn"
             app:layout_constraintStart_toEndOf="@+id/prev_btn"
             app:layout_constraintTop_toTopOf="parent"/>
+
     <ImageButton
             android:id="@+id/next_btn"
             app:srcCompat="@drawable/ic_chevron_right_black_24dp"
@@ -31,6 +33,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="@string/next_day"/>
+
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/tasks_recycler_view"
             android:layout_width="match_parent"
@@ -38,6 +41,7 @@
             app:layout_constraintTop_toBottomOf="@+id/calendar_btn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
+
     <androidx.cardview.widget.CardView
             android:id="@+id/calendar_card"
             android:visibility="gone"
@@ -46,6 +50,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tasks_recycler_view">
+
         <CalendarView
                 android:id="@+id/calendar_view"
                 android:layout_width="match_parent"
@@ -65,4 +70,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_margin="16dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
