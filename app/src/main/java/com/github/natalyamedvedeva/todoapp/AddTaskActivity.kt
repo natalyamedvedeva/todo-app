@@ -3,13 +3,11 @@ package com.github.natalyamedvedeva.todoapp
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcel
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
-import java.io.Serializable
 
 const val ADDED_NAME_KEY = "ADDED_NAME_KEY"
 const val ADDED_PRIORITY_KEY = "ADDED_PRIORITY_KEY"
