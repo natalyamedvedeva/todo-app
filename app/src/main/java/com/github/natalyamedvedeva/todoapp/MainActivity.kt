@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
             currentDate.set(year, month, dayOfMonth)
             calendarBtn.text = dateFormat.format(currentDate.time)
             taskListChanged()
+            calendarCard.visibility = View.GONE
         }
 
         val prevBtn: ImageButton = findViewById(R.id.prev_btn)
