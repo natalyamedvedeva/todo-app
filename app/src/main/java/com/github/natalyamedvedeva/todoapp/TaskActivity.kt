@@ -11,6 +11,8 @@ class TaskActivity : AppCompatActivity() {
         setContentView(R.layout.activity_task)
         val task = intent.extras?.getSerializable("task") as Task
         val nameTextView: TextView = findViewById(R.id.name_text_view)
+        val descriptionTextView: TextView = findViewById(R.id.description_text_view)
         nameTextView.text = String.format("%s - %s", task.name, task.priority.name)
+        descriptionTextView.text = task.description
     }
 }

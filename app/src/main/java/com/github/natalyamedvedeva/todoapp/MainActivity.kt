@@ -71,13 +71,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == ADD_TASK_ACTIVITY_REQUEST_CODE
-            && resultCode == Activity.RESULT_OK
-            && data != null
-        ) {
+        if (requestCode == ADD_TASK_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
             val addedName = data.getStringExtra(ADDED_NAME_KEY) ?: ""
             val addedPriority = data.getSerializableExtra(ADDED_PRIORITY_KEY) as Priority
-            taskManager.addTask(currentDate.time, Task(addedName, addedPriority))
+            val addedDescription = data.getStringExtra(ADDED_DESCRIPTION_KEY)
+            val task = Task(addedName, addedPriority)
+            task.description = addedDescription
+            taskManager.addTask(currentDate.time, task)
             taskListChanged()
         }
     }
