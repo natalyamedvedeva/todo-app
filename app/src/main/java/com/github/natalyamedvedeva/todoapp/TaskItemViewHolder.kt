@@ -7,11 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 
 class TaskItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+    private val taskItem: View = itemView.findViewById(R.id.task_item)
     private val taskNameTextView: TextView = itemView.findViewById(R.id.task_name_text_view)
 
     fun bind(task: Task) {
         taskNameTextView.text = String.format("%s - %s", task.name, task.priority.name)
-        taskNameTextView.setOnClickListener {
+        taskItem.setOnClickListener {
             val context = itemView.context
             val taskActivityIntent = Intent(context, TaskActivity::class.java)
             taskActivityIntent.putExtra("task", task)

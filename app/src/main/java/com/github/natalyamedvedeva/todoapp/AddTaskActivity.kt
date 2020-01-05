@@ -12,8 +12,8 @@ import java.util.*
 
 const val ADDED_NAME_KEY = "ADDED_NAME_KEY"
 const val ADDED_PRIORITY_KEY = "ADDED_PRIORITY_KEY"
-const val ADDED_DESCRIPTION_KEY = "ADDED_DESCRIPTION_KEY"
 const val ADDED_DEADLINE_KEY = "ADDED_DEADLINE_KEY"
+const val ADDED_DESCRIPTION_KEY = "ADDED_DESCRIPTION_KEY"
 
 class AddTaskActivity : AppCompatActivity() {
 
