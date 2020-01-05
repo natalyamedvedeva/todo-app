@@ -75,8 +75,11 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == ADD_TASK_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
             val addedName = data.getStringExtra(ADDED_NAME_KEY) ?: ""
             val addedPriority = data.getSerializableExtra(ADDED_PRIORITY_KEY) as Priority
+            val addedDeadline = data.getSerializableExtra(ADDED_DEADLINE_KEY) as Calendar?
             val addedDescription = data.getStringExtra(ADDED_DESCRIPTION_KEY)
+
             val task = Task(addedName, addedPriority)
+            task.deadline = addedDeadline
             task.description = addedDescription
             taskManager.addTask(currentDate.time, task)
             taskListChanged()

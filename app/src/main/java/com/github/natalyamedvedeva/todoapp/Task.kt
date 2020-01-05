@@ -9,8 +9,8 @@ enum class Priority {
 
 class Task(var name: String, var priority: Priority) : Serializable {
 
-    var description: String? = null
-    var deadline: Date? = null
+    var deadline: Calendar? = null
     var autoTransfer: Boolean = true
+    var description: String? = null
 
 }
