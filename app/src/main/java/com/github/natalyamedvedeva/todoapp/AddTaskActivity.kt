@@ -3,6 +3,8 @@ package com.github.natalyamedvedeva.todoapp
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -25,10 +27,10 @@ class AddTaskActivity : AppCompatActivity() {
 
         val nameEditText: EditText = findViewById(R.id.name_edit_text)
         val prioritySpinner: Spinner = findViewById(R.id.priority_spinner)
-        val deadlineEditText: TextView = findViewById(R.id.deadline_text_view)
+        val deadlineTextView: TextView = findViewById(R.id.deadline_text_view)
         val descriptionEditText: EditText = findViewById(R.id.description_edit_text)
         initPrioritySpinner(prioritySpinner)
-        initDeadlineEditText(deadlineEditText)
+        initDeadlineTextView(deadlineTextView)
 
         val acceptButton: View = findViewById(R.id.accept_btn)
         acceptButton.setOnClickListener {
@@ -54,7 +56,7 @@ class AddTaskActivity : AppCompatActivity() {
         spinner.setSelection(1)
     }
 
-    private fun initDeadlineEditText(textView: TextView) {
+    private fun initDeadlineTextView(textView: TextView) {
         val defaultText = getString(R.string.deadline) + ": " +  getString(R.string.none)
         textView.text = defaultText
 

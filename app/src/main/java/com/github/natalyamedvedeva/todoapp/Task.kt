@@ -4,7 +4,7 @@ import java.util.*
 import java.io.Serializable
 
 enum class Priority {
-    Low, Normal, High, Urgent, Immediate
+    Low, Normal, High
 }
 
 class Task(var name: String, var priority: Priority) : Serializable {
