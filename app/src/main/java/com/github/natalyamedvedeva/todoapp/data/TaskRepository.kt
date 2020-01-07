@@ -1,4 +1,4 @@
-package com.github.natalyamedvedeva.todoapp
+package com.github.natalyamedvedeva.todoapp.data
 
 import java.util.*
 
@@ -15,7 +15,8 @@ class TaskRepository private constructor(private val taskDao: TaskDao) {
 
         fun getInstance(taskDao: TaskDao) =
             instance ?: synchronized(this) {
-                instance ?: TaskRepository(taskDao).also { instance = it }
+                instance
+                    ?: TaskRepository(taskDao).also { instance = it }
             }
     }
 }

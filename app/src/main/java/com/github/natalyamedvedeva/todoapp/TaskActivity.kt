@@ -1,9 +1,9 @@
 package com.github.natalyamedvedeva.todoapp
 
 import android.os.Bundle
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.github.natalyamedvedeva.todoapp.data.Task
 import com.github.natalyamedvedeva.todoapp.databinding.ActivityTaskBinding
 import java.text.SimpleDateFormat
 

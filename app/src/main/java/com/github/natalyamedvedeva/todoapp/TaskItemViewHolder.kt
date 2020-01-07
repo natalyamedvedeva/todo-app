@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.github.natalyamedvedeva.todoapp.data.Task
 
 class TaskItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

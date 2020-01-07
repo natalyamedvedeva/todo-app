@@ -12,6 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import java.text.SimpleDateFormat
 import java.util.*
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.natalyamedvedeva.todoapp.data.AppDatabase
+import com.github.natalyamedvedeva.todoapp.data.Priority
+import com.github.natalyamedvedeva.todoapp.data.Task
+import com.github.natalyamedvedeva.todoapp.data.TaskRepository
 import com.github.natalyamedvedeva.todoapp.databinding.ActivityMainBinding
 
 private const val ADD_TASK_ACTIVITY_REQUEST_CODE = 1
@@ -79,7 +83,11 @@ class MainActivity : AppCompatActivity() {
             val addedDeadline = data.getSerializableExtra(ADDED_DEADLINE_KEY) as Date?
             val addedDescription = data.getStringExtra(ADDED_DESCRIPTION_KEY)
 
-            val task = Task(addedName, addedPriority, currentDate.time)
+            val task = Task(
+                addedName,
+                addedPriority,
+                currentDate.time
+            )
             task.deadline = addedDeadline
             task.description = addedDescription
             taskRepository!!.insert(task)

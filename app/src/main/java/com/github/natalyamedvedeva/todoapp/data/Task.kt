@@ -1,4 +1,4 @@
-package com.github.natalyamedvedeva.todoapp
+package com.github.natalyamedvedeva.todoapp.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

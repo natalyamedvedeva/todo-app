@@ -3,6 +3,7 @@ package com.github.natalyamedvedeva.todoapp
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
+import com.github.natalyamedvedeva.todoapp.data.Task
 
 class TaskItemAdapter : RecyclerView.Adapter<TaskItemViewHolder>() {
 
