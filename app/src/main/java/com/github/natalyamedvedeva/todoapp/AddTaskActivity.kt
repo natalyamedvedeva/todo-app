@@ -4,9 +4,10 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import com.github.natalyamedvedeva.todoapp.databinding.ActivityAddTaskBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -17,24 +18,21 @@ const val ADDED_DESCRIPTION_KEY = "ADDED_DESCRIPTION_KEY"
 
 class AddTaskActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityAddTaskBinding
+
     private var deadlineDate: Calendar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_task)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_task)
 
-        val nameEditText: EditText = findViewById(R.id.name_edit_text)
-        val prioritySpinner: Spinner = findViewById(R.id.priority_spinner)
-        val deadlineTextView: TextView = findViewById(R.id.deadline_text_view)
-        val descriptionEditText: EditText = findViewById(R.id.description_edit_text)
-        initPrioritySpinner(prioritySpinner)
-        initDeadlineTextView(deadlineTextView)
+        initPrioritySpinner(binding.prioritySpinner)
+        initDeadlineTextView(binding.deadlineTextView)
 
-        val acceptButton: View = findViewById(R.id.accept_btn)
-        acceptButton.setOnClickListener {
-            val addedName = nameEditText.text.toString()
-            val addedPriority = prioritySpinner.selectedItem as Priority
-            val addedDescription = descriptionEditText.text.toString()
+        binding.acceptBtn.setOnClickListener {
+            val addedName = binding.nameEditText.text.toString()
+            val addedPriority = binding.prioritySpinner.selectedItem as Priority
+            val addedDescription = binding.descriptionEditText.text.toString()
 
             val resultIntent = Intent()
             resultIntent.putExtra(ADDED_NAME_KEY, addedName)
@@ -65,14 +63,14 @@ class AddTaskActivity : AppCompatActivity() {
             textView.text = text
         }
 
-        findViewById<Button>(R.id.set_deadline_button).setOnClickListener {
+        binding.setDeadlineButton.setOnClickListener {
             val currentDate = Calendar.getInstance()
             val datePickerDialog = DatePickerDialog(this, listener,
                 currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH))
             datePickerDialog.show()
         }
 
-        findViewById<Button>(R.id.clear_deadline_button).setOnClickListener {
+        binding.clearDeadlineButton.setOnClickListener {
             deadlineDate = null
             textView.text = defaultText
         }

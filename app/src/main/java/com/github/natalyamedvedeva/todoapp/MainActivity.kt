@@ -7,15 +7,18 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.cardview.widget.CardView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import java.text.SimpleDateFormat
 import java.util.*
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.natalyamedvedeva.todoapp.databinding.ActivityMainBinding
 
 private const val ADD_TASK_ACTIVITY_REQUEST_CODE = 1
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
     private lateinit var tasksRecyclerView: RecyclerView
     private lateinit var taskItemAdapter: TaskItemAdapter
 
@@ -26,11 +29,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(applicationContext).taskDao())
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        val calendarCard: CardView = findViewById(R.id.calendar_card)
+        val calendarCard: CardView = binding.calendarCard
 
-        val calendarBtn: Button = findViewById(R.id.calendar_btn)
+        val calendarBtn: Button = binding.calendarBtn
         val dateFormat = SimpleDateFormat.getDateInstance()
         calendarBtn.text = dateFormat.format(currentDate.time)
         calendarBtn.setOnClickListener {
@@ -41,23 +44,20 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val calendarView: CalendarView = findViewById(R.id.calendar_view)
-        calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
+        binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             currentDate.set(year, month, dayOfMonth)
             calendarBtn.text = dateFormat.format(currentDate.time)
             updateTaskList()
             calendarCard.visibility = View.GONE
         }
 
-        val prevBtn: ImageButton = findViewById(R.id.prev_btn)
-        prevBtn.setOnClickListener {
+        binding.prevBtn.setOnClickListener {
             currentDate.add(Calendar.DAY_OF_MONTH, -1)
             calendarBtn.text = dateFormat.format(currentDate.time)
             updateTaskList()
         }
 
-        val nextBtn: ImageButton = findViewById(R.id.next_btn)
-        nextBtn.setOnClickListener {
+        binding.nextBtn.setOnClickListener {
             currentDate.add(Calendar.DAY_OF_MONTH, 1)
             calendarBtn.text = dateFormat.format(currentDate.time)
             updateTaskList()
@@ -65,8 +65,7 @@ class MainActivity : AppCompatActivity() {
 
         initRecyclerView()
 
-        val addBtn: View = findViewById(R.id.add_btn)
-        addBtn.setOnClickListener {
+        binding.addBtn.setOnClickListener {
             val addTaskActivityIntent = Intent(this, AddTaskActivity::class.java)
             startActivityForResult(addTaskActivityIntent, ADD_TASK_ACTIVITY_REQUEST_CODE)
         }
@@ -89,7 +88,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        tasksRecyclerView = findViewById(R.id.tasks_recycler_view)
+        tasksRecyclerView = binding.tasksRecyclerView
         tasksRecyclerView.layoutManager = LinearLayoutManager(this)
         taskItemAdapter = TaskItemAdapter()
         updateTaskList()
