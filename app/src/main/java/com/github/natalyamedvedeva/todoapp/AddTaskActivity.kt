@@ -3,8 +3,6 @@ package com.github.natalyamedvedeva.todoapp
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -42,7 +40,7 @@ class AddTaskActivity : AppCompatActivity() {
             resultIntent.putExtra(ADDED_NAME_KEY, addedName)
             resultIntent.putExtra(ADDED_PRIORITY_KEY, addedPriority)
             resultIntent.putExtra(ADDED_DESCRIPTION_KEY, addedDescription)
-            resultIntent.putExtra(ADDED_DEADLINE_KEY, deadlineDate)
+            resultIntent.putExtra(ADDED_DEADLINE_KEY, deadlineDate?.time)
             setResult(Activity.RESULT_OK, resultIntent)
             finish()
         }

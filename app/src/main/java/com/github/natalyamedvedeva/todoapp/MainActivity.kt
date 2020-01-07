@@ -20,10 +20,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var taskItemAdapter: TaskItemAdapter
 
     private var currentDate = Calendar.getInstance()
-    private var taskManager = TaskManager()
+
+    private var taskRepository: TaskRepository? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(applicationContext).taskDao())
         setContentView(R.layout.activity_main)
 
         val calendarCard: CardView = findViewById(R.id.calendar_card)
@@ -43,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             currentDate.set(year, month, dayOfMonth)
             calendarBtn.text = dateFormat.format(currentDate.time)
-            taskListChanged()
+            updateTaskList()
             calendarCard.visibility = View.GONE
         }
 
@@ -51,14 +53,14 @@ class MainActivity : AppCompatActivity() {
         prevBtn.setOnClickListener {
             currentDate.add(Calendar.DAY_OF_MONTH, -1)
             calendarBtn.text = dateFormat.format(currentDate.time)
-            taskListChanged()
+            updateTaskList()
         }
 
         val nextBtn: ImageButton = findViewById(R.id.next_btn)
         nextBtn.setOnClickListener {
             currentDate.add(Calendar.DAY_OF_MONTH, 1)
             calendarBtn.text = dateFormat.format(currentDate.time)
-            taskListChanged()
+            updateTaskList()
         }
 
         initRecyclerView()
@@ -75,14 +77,14 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == ADD_TASK_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
             val addedName = data.getStringExtra(ADDED_NAME_KEY) ?: ""
             val addedPriority = data.getSerializableExtra(ADDED_PRIORITY_KEY) as Priority
-            val addedDeadline = data.getSerializableExtra(ADDED_DEADLINE_KEY) as Calendar?
+            val addedDeadline = data.getSerializableExtra(ADDED_DEADLINE_KEY) as Date?
             val addedDescription = data.getStringExtra(ADDED_DESCRIPTION_KEY)
 
-            val task = Task(addedName, addedPriority)
+            val task = Task(addedName, addedPriority, currentDate.time)
             task.deadline = addedDeadline
             task.description = addedDescription
-            taskManager.addTask(currentDate.time, task)
-            taskListChanged()
+            taskRepository!!.insert(task)
+            updateTaskList()
         }
     }
 
@@ -90,12 +92,13 @@ class MainActivity : AppCompatActivity() {
         tasksRecyclerView = findViewById(R.id.tasks_recycler_view)
         tasksRecyclerView.layoutManager = LinearLayoutManager(this)
         taskItemAdapter = TaskItemAdapter()
-        taskItemAdapter.addItems(taskManager.getTaskList(currentDate.time))
+        updateTaskList()
         tasksRecyclerView.adapter = taskItemAdapter
     }
 
-    private fun taskListChanged() {
+    private fun updateTaskList() {
         taskItemAdapter.clearItems()
-        taskItemAdapter.addItems(taskManager.getTaskList(currentDate.time))
+        val data = taskRepository!!.getTaskList(currentDate.time)
+        taskItemAdapter.addItems(data)
     }
 }

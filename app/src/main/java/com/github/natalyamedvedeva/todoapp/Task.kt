@@ -1,16 +1,24 @@
 package com.github.natalyamedvedeva.todoapp
 
-import java.util.*
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.io.Serializable
+import java.util.*
 
 enum class Priority {
     Low, Normal, High
 }
 
-class Task(var name: String, var priority: Priority) : Serializable {
+@Entity(tableName = "task")
+data class Task(
+    var name: String,
+    var priority: Priority,
+    var date: Date
+) : Serializable {
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0
 
-    var deadline: Calendar? = null
+    var deadline: Date? = null
     var autoTransfer: Boolean = true
     var description: String? = null
-
 }
