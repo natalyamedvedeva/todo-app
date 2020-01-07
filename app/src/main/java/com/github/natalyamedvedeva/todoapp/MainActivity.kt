@@ -13,7 +13,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.natalyamedvedeva.todoapp.data.AppDatabase
-import com.github.natalyamedvedeva.todoapp.data.Priority
 import com.github.natalyamedvedeva.todoapp.data.Task
 import com.github.natalyamedvedeva.todoapp.data.TaskRepository
 import com.github.natalyamedvedeva.todoapp.databinding.ActivityMainBinding
@@ -78,18 +77,8 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == ADD_TASK_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
-            val addedName = data.getStringExtra(ADDED_NAME_KEY) ?: ""
-            val addedPriority = data.getSerializableExtra(ADDED_PRIORITY_KEY) as Priority
-            val addedDeadline = data.getSerializableExtra(ADDED_DEADLINE_KEY) as Date?
-            val addedDescription = data.getStringExtra(ADDED_DESCRIPTION_KEY)
-
-            val task = Task(
-                addedName,
-                addedPriority,
-                currentDate.time
-            )
-            task.deadline = addedDeadline
-            task.description = addedDescription
+            val task = data.getSerializableExtra(ADDED_TASK_KEY) as Task
+            task.date = currentDate.time
             taskRepository!!.insert(task)
             updateTaskList()
         }

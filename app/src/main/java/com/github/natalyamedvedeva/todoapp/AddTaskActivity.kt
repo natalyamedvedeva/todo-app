@@ -8,14 +8,12 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.github.natalyamedvedeva.todoapp.data.Priority
+import com.github.natalyamedvedeva.todoapp.data.Task
 import com.github.natalyamedvedeva.todoapp.databinding.ActivityAddTaskBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-const val ADDED_NAME_KEY = "ADDED_NAME_KEY"
-const val ADDED_PRIORITY_KEY = "ADDED_PRIORITY_KEY"
-const val ADDED_DEADLINE_KEY = "ADDED_DEADLINE_KEY"
-const val ADDED_DESCRIPTION_KEY = "ADDED_DESCRIPTION_KEY"
+const val ADDED_TASK_KEY = "ADDED_TASK_KEY"
 
 class AddTaskActivity : AppCompatActivity() {
 
@@ -35,11 +33,12 @@ class AddTaskActivity : AppCompatActivity() {
             val addedPriority = binding.prioritySpinner.selectedItem as Priority
             val addedDescription = binding.descriptionEditText.text.toString()
 
+            val task = Task(addedName, addedPriority, Date())
+            task.deadline = deadlineDate?.time
+            task.description = addedDescription
+
             val resultIntent = Intent()
-            resultIntent.putExtra(ADDED_NAME_KEY, addedName)
-            resultIntent.putExtra(ADDED_PRIORITY_KEY, addedPriority)
-            resultIntent.putExtra(ADDED_DESCRIPTION_KEY, addedDescription)
-            resultIntent.putExtra(ADDED_DEADLINE_KEY, deadlineDate?.time)
+            resultIntent.putExtra(ADDED_TASK_KEY, task)
             setResult(Activity.RESULT_OK, resultIntent)
             finish()
         }
