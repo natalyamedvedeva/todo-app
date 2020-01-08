@@ -17,17 +17,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                <EditText
-                        android:id="@+id/name_edit_text"
-                        style="@style/Base.Widget.MaterialComponents.TextInputEditText"
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/name_text_input_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:hint="@string/name"
-                        android:inputType="text"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_margin="10dp">
+                        <EditText
+                                android:id="@+id/name_edit_text"
+                                style="@style/Base.Widget.MaterialComponents.TextInputEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:hint="@string/name"
+                                android:inputType="text"
+                                 />
+                </com.google.android.material.textfield.TextInputLayout>
+
 
                 <TextView
                         android:id="@+id/priority_hint"
@@ -52,7 +59,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_weight="2"
                         app:layout_constraintStart_toEndOf="@id/priority_hint"
-                        app:layout_constraintTop_toBottomOf="@id/name_edit_text" />
+                        app:layout_constraintTop_toBottomOf="@id/name_text_input_layout" />
 
                 <TextView
                         android:id="@+id/deadline_text_view"
@@ -90,20 +97,44 @@
                         app:layout_constraintTop_toBottomOf="@+id/priority_spinner"
                         app:layout_constraintStart_toEndOf="@id/set_deadline_button"/>
 
-                <EditText
-                        android:id="@+id/description_edit_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
+                <TextView
+                        android:id="@+id/auto_transfer_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:background="@drawable/description_background"
-                        android:gravity="top"
-                        android:hint="@string/description"
-                        android:inputType="textMultiLine"
-                        android:padding="12dp"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        style="@style/TextAppearance.AppCompat.Medium"
+                        android:text="Auto-transfer"
+                        app:layout_constraintTop_toBottomOf="@id/set_deadline_button"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/auto_transfer_switch"/>
+
+                <Switch
+                        android:id="@+id/auto_transfer_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toEndOf="@id/auto_transfer_text_view"
+                        app:layout_constraintTop_toTopOf="@id/auto_transfer_text_view" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/description_text_input_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_margin="10dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/set_deadline_button" />
-
+                        app:layout_constraintTop_toBottomOf="@+id/auto_transfer_text_view">
+                    <EditText
+                            android:id="@+id/description_edit_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:gravity="top"
+                            android:hint="@string/description"
+                            android:inputType="textMultiLine"
+                            android:padding="12dp"/>
+                </com.google.android.material.textfield.TextInputLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 

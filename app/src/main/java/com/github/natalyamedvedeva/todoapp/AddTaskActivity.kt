@@ -28,6 +28,15 @@ class AddTaskActivity : AppCompatActivity() {
         initPrioritySpinner(binding.prioritySpinner)
         initDeadlineTextView(binding.deadlineTextView)
 
+        binding.autoTransferSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                Toast.makeText(
+                    applicationContext,
+                    "The task will be rescheduled the next day",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
         binding.acceptBtn.setOnClickListener {
             val addedName = binding.nameEditText.text.toString()
             val addedPriority = binding.prioritySpinner.selectedItem as Priority
@@ -36,6 +45,7 @@ class AddTaskActivity : AppCompatActivity() {
             val task = Task(addedName, addedPriority, Date())
             task.deadline = deadlineDate?.time
             task.description = addedDescription
+            task.autoTransfer = binding.autoTransferSwitch.isChecked
 
             val resultIntent = Intent()
             resultIntent.putExtra(ADDED_TASK_KEY, task)

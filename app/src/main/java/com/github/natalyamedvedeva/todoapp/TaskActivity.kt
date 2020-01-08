@@ -22,5 +22,6 @@ class TaskActivity : AppCompatActivity() {
             binding.deadlineTextView.text = dateFormat.format(task.deadline!!.time)
         }
         binding.descriptionTextView.text = task.description
+        binding.autoTransferTextView.text = task.autoTransfer.toString()
     }
 }
