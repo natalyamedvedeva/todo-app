@@ -4,10 +4,11 @@
     <string name="prev_day">Previous day</string>
     <string name="next_day">Next day</string>
     <string name="name">Name</string>
+    <string name="priority">Priority</string>
     <string name="deadline">Deadline</string>
+    <string name="auto_transfer">Auto-transfer</string>
     <string name="none">None</string>
     <string name="set">Set</string>
     <string name="clear">Clear</string>
     <string name="description">Description</string>
-    <string name="priority">Priority</string>
 </resources>

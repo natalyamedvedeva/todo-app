@@ -31,8 +31,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:hint="@string/name"
-                                android:inputType="text"
-                                 />
+                                android:inputType="text"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -105,7 +104,7 @@
                         android:paddingLeft="12dp"
                         android:paddingRight="12dp"
                         style="@style/TextAppearance.AppCompat.Medium"
-                        android:text="Auto-transfer"
+                        android:text="@string/auto_transfer"
                         app:layout_constraintTop_toBottomOf="@id/set_deadline_button"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/auto_transfer_switch"/>
