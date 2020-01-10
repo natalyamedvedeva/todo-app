@@ -23,7 +23,6 @@ private const val ADD_TASK_ACTIVITY_REQUEST_CODE = 1
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var toolbar: Toolbar
     private lateinit var tasksRecyclerView: RecyclerView
     private lateinit var taskItemAdapter: TaskItemAdapter
 
