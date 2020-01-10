@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.Toolbar
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         val calendarCard: CardView = binding.calendarCard
+        val calendarView: CalendarView = binding.calendarView
 
         val calendarBtn: Button = binding.calendarBtn
         val dateFormat = SimpleDateFormat.getDateInstance()
@@ -59,12 +61,14 @@ class MainActivity : AppCompatActivity() {
 
         binding.prevBtn.setOnClickListener {
             currentDate.add(Calendar.DAY_OF_MONTH, -1)
+            calendarView.date = currentDate.time.time
             calendarBtn.text = dateFormat.format(currentDate.time)
             updateTaskList()
         }
 
         binding.nextBtn.setOnClickListener {
             currentDate.add(Calendar.DAY_OF_MONTH, 1)
+            calendarView.date = currentDate.time.time
             calendarBtn.text = dateFormat.format(currentDate.time)
             updateTaskList()
         }
