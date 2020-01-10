@@ -31,7 +31,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:hint="@string/name"
-                                android:inputType="text"/>
+                                android:inputType="text"
+                                android:importantForAutofill="no"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -132,7 +133,8 @@
                             android:gravity="top"
                             android:hint="@string/description"
                             android:inputType="textMultiLine"
-                            android:padding="12dp"/>
+                            android:padding="12dp"
+                            android:importantForAutofill="no"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
