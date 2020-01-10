@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.appcompat.widget.Toolbar
 import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +23,7 @@ private const val ADD_TASK_ACTIVITY_REQUEST_CODE = 1
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var toolbar: Toolbar
     private lateinit var tasksRecyclerView: RecyclerView
     private lateinit var taskItemAdapter: TaskItemAdapter
 
@@ -33,6 +35,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(applicationContext).taskDao())
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        setSupportActionBar(binding.toolbar)
 
         val calendarCard: CardView = binding.calendarCard
 

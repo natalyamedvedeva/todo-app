@@ -25,6 +25,8 @@ class AddTaskActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_task)
 
+        setSupportActionBar(binding.toolbar)
+
         initPrioritySpinner(binding.prioritySpinner)
         initDeadlineTextView(binding.deadlineTextView)
 

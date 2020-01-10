@@ -15,6 +15,8 @@ class TaskActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_task)
 
+        setSupportActionBar(binding.toolbar)
+
         val task = intent.extras?.getSerializable("task") as Task
         binding.nameTextView.text = String.format("%s - %s", task.name, task.priority.name)
         if (task.deadline != null) {
