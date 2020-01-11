@@ -34,7 +34,12 @@ class MainActivity : AppCompatActivity() {
         taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(applicationContext).taskDao())
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        setSupportActionBar(binding.toolbar)
+        val toolbar = binding.toolbar
+        setSupportActionBar(toolbar)
+        toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp)
+        toolbar.setNavigationOnClickListener {
+            binding.drawerLayout.openDrawer(binding.navView)
+        }
         supportActionBar?.title = getString(R.string.main_activity_title)
 
         val calendarCard: CardView = binding.calendarCard
