@@ -31,7 +31,6 @@ class AddTaskActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         initPrioritySpinner(binding.prioritySpinner)
         initDeadlineTextView(binding.deadlineTextView)

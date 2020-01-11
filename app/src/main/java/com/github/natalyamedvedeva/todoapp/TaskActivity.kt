@@ -16,6 +16,7 @@ class TaskActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_task)
 
         setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val task = intent.extras?.getSerializable("task") as Task
         binding.nameTextView.text = String.format("%s - %s", task.name, task.priority.name)
@@ -25,5 +26,10 @@ class TaskActivity : AppCompatActivity() {
         }
         binding.descriptionTextView.text = task.description
         binding.autoTransferTextView.text = task.autoTransfer.toString()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }
