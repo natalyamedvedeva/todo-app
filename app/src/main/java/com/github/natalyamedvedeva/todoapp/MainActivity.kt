@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         setSupportActionBar(binding.toolbar)
+        supportActionBar?.title = getString(R.string.main_activity_title)
 
         val calendarCard: CardView = binding.calendarCard
         val calendarView: CalendarView = binding.calendarView

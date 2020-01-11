@@ -17,6 +17,7 @@ class TaskActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = getString(R.string.task_activity_title)
 
         val task = intent.extras?.getSerializable("task") as Task
         binding.nameTextView.text = String.format("%s - %s", task.name, task.priority.name)

@@ -11,4 +11,7 @@
     <string name="set">Set</string>
     <string name="clear">Clear</string>
     <string name="description">Description</string>
+    <string name="main_activity_title">My tasks</string>
+    <string name="task_activity_title">Task</string>`
+    <string name="new_task_activity_title">New task</string>
 </resources>
