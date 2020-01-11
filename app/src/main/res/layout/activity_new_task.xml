@@ -110,24 +110,24 @@
                             app:layout_constraintStart_toEndOf="@id/set_deadline_button"/>
 
                     <TextView
-                            android:id="@+id/auto_transfer_text_view"
+                            android:id="@+id/auto_reschedule_text_view"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
                             android:paddingLeft="12dp"
                             android:paddingRight="12dp"
                             style="@style/TextAppearance.AppCompat.Medium"
-                            android:text="@string/auto_transfer"
+                            android:text="@string/auto_reschedule"
                             app:layout_constraintTop_toBottomOf="@id/set_deadline_button"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/auto_transfer_switch"/>
+                            app:layout_constraintEnd_toStartOf="@id/auto_reschedule_switch"/>
 
                     <Switch
-                            android:id="@+id/auto_transfer_switch"
+                            android:id="@+id/auto_reschedule_switch"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintStart_toEndOf="@id/auto_transfer_text_view"
-                            app:layout_constraintTop_toTopOf="@id/auto_transfer_text_view" />
+                            app:layout_constraintStart_toEndOf="@id/auto_reschedule_text_view"
+                            app:layout_constraintTop_toTopOf="@id/auto_reschedule_text_view" />
 
                     <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/description_text_input_layout"
@@ -137,7 +137,7 @@
                             android:layout_margin="10dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/auto_transfer_text_view">
+                            app:layout_constraintTop_toBottomOf="@+id/auto_reschedule_text_view">
                         <EditText
                                 android:id="@+id/description_edit_text"
                                 android:layout_width="match_parent"

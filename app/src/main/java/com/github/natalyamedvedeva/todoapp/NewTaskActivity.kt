@@ -35,7 +35,7 @@ class NewTaskActivity : AppCompatActivity() {
         initPrioritySpinner(binding.prioritySpinner)
         initDeadlineTextView(binding.deadlineTextView)
 
-        binding.autoTransferSwitch.setOnCheckedChangeListener { _, isChecked ->
+        binding.autoRescheduleSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 Toast.makeText(
                     applicationContext,
@@ -52,7 +52,7 @@ class NewTaskActivity : AppCompatActivity() {
             val task = Task(addedName, addedPriority, Date())
             task.deadline = deadlineDate?.time
             task.description = addedDescription
-            task.autoTransfer = binding.autoTransferSwitch.isChecked
+            task.autoReschedule = binding.autoRescheduleSwitch.isChecked
 
             val resultIntent = Intent()
             resultIntent.putExtra(ADDED_TASK_KEY, task)

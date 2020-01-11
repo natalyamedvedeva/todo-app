@@ -19,6 +19,6 @@ data class Task(
     var id: Int = 0
 
     var deadline: Date? = null
-    var autoTransfer: Boolean = true
+    var autoReschedule: Boolean = true
     var description: String? = null
 }
