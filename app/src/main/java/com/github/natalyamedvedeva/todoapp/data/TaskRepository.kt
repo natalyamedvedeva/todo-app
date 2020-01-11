@@ -6,6 +6,8 @@ class TaskRepository private constructor(private val taskDao: TaskDao) {
 
     fun insert(task: Task) = taskDao.insert(task)
 
+    fun delete(task: Task) = taskDao.delete(task)
+
     fun getTaskList(date: Date) = taskDao.getTaskList(date)
 
     companion object {
