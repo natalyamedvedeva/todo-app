@@ -53,6 +53,6 @@ class TaskActivity : AppCompatActivity() {
             taskRepository.delete(task)
             onBackPressed()
         }
-        return true
+        return super.onOptionsItemSelected(item)
     }
 }
