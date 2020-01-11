@@ -37,11 +37,7 @@ class NewTaskActivity : AppCompatActivity() {
 
         binding.autoRescheduleSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                Toast.makeText(
-                    applicationContext,
-                    "The task will be rescheduled the next day",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(applicationContext, getString(R.string.auto_reschedule_hint), Toast.LENGTH_SHORT).show()
             }
         }
         binding.acceptBtn.setOnClickListener {
