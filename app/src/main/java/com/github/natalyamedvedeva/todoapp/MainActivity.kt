@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
         initRecyclerView()
 
         binding.addBtn.setOnClickListener {
-            val addTaskActivityIntent = Intent(this, AddTaskActivity::class.java)
+            val addTaskActivityIntent = Intent(this, NewTaskActivity::class.java)
             startActivityForResult(addTaskActivityIntent, ADD_TASK_ACTIVITY_REQUEST_CODE)
         }
     }

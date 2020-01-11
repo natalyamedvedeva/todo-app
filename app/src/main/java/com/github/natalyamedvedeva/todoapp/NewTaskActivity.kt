@@ -12,22 +12,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.github.natalyamedvedeva.todoapp.data.Priority
 import com.github.natalyamedvedeva.todoapp.data.Task
-import com.github.natalyamedvedeva.todoapp.databinding.ActivityAddTaskBinding
+import com.github.natalyamedvedeva.todoapp.databinding.ActivityNewTaskBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 const val ADDED_TASK_KEY = "ADDED_TASK_KEY"
 
-class AddTaskActivity : AppCompatActivity() {
+class NewTaskActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAddTaskBinding
+    private lateinit var binding: ActivityNewTaskBinding
 
     private var deadlineDate: Calendar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_task)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_new_task)
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
