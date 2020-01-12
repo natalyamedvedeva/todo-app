@@ -16,6 +16,8 @@ import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.Task
 import com.github.natalyamedvedeva.todoapp.data.TaskRepository
 import com.github.natalyamedvedeva.todoapp.databinding.ActivityMainBinding
+import com.vanniktech.emoji.EmojiManager
+import com.vanniktech.emoji.ios.IosEmojiProvider
 
 private const val ADD_TASK_ACTIVITY_REQUEST_CODE = 1
 
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private var taskRepository: TaskRepository? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        EmojiManager.install(IosEmojiProvider())
         super.onCreate(savedInstanceState)
         taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(applicationContext).taskDao())
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)

@@ -148,6 +148,37 @@
                                 android:padding="12dp"
                                 android:importantForAutofill="no"/>
                     </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/categories_label_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/categories"
+                        android:layout_margin="10dp"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        style="@style/TextAppearance.AppCompat.Medium"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/categories_content_text_view"
+                        app:layout_constraintTop_toTopOf="@id/categories_add_button"
+                        app:layout_constraintBottom_toBottomOf="@id/categories_add_button"/>
+
+                    <com.vanniktech.emoji.EmojiTextView
+                        android:id="@+id/categories_content_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toEndOf="@+id/categories_label_text_view"
+                        app:layout_constraintBaseline_toBaselineOf="@id/categories_label_text_view"/>
+                    
+                    <Button
+                        android:id="@+id/categories_add_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="+"
+                        app:layout_constraintStart_toEndOf="@id/categories_content_text_view"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/description_text_input_layout"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </ScrollView>
 

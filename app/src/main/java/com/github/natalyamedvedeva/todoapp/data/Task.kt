@@ -16,7 +16,7 @@ data class Task(
     var date: Date
 ) : Serializable {
     @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
+    var id: Long = 0
 
     var deadline: Date? = null
     var autoReschedule: Boolean = true
