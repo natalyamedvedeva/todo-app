@@ -8,9 +8,9 @@ import android.view.View
 import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import java.text.SimpleDateFormat
-import java.util.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.Task
@@ -18,6 +18,7 @@ import com.github.natalyamedvedeva.todoapp.data.TaskRepository
 import com.github.natalyamedvedeva.todoapp.databinding.ActivityMainBinding
 import com.vanniktech.emoji.EmojiManager
 import com.vanniktech.emoji.ios.IosEmojiProvider
+import java.util.Calendar
 
 private const val ADD_TASK_ACTIVITY_REQUEST_CODE = 1
 
@@ -62,7 +63,6 @@ class MainActivity : AppCompatActivity() {
         binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             currentDate.set(year, month, dayOfMonth)
             calendarBtn.text = dateFormat.format(currentDate.time)
-            updateTaskList()
             calendarCard.visibility = View.GONE
         }
 
@@ -70,14 +70,12 @@ class MainActivity : AppCompatActivity() {
             currentDate.add(Calendar.DAY_OF_MONTH, -1)
             calendarView.date = currentDate.time.time
             calendarBtn.text = dateFormat.format(currentDate.time)
-            updateTaskList()
         }
 
         binding.nextBtn.setOnClickListener {
             currentDate.add(Calendar.DAY_OF_MONTH, 1)
             calendarView.date = currentDate.time.time
             calendarBtn.text = dateFormat.format(currentDate.time)
-            updateTaskList()
         }
 
         initRecyclerView()
@@ -88,18 +86,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        updateTaskList()
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == ADD_TASK_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
             val task = data.getSerializableExtra(ADDED_TASK_KEY) as Task
             task.date = currentDate.time
             taskRepository!!.insert(task)
-            updateTaskList()
         }
     }
 
@@ -107,13 +99,11 @@ class MainActivity : AppCompatActivity() {
         tasksRecyclerView = binding.tasksRecyclerView
         tasksRecyclerView.layoutManager = LinearLayoutManager(this)
         taskItemAdapter = TaskItemAdapter()
-        updateTaskList()
+        val taskListLiveData = taskRepository!!.getTaskList(currentDate.time)
+        taskListLiveData.observe(this, Observer {
+            taskItemAdapter.clearItems()
+            taskItemAdapter.addItems(it)
+        })
         tasksRecyclerView.adapter = taskItemAdapter
-    }
-
-    private fun updateTaskList() {
-        taskItemAdapter.clearItems()
-        val data = taskRepository!!.getTaskList(currentDate.time)
-        taskItemAdapter.addItems(data)
     }
 }

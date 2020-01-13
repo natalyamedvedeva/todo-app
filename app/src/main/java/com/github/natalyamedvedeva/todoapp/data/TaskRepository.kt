@@ -4,9 +4,17 @@ import java.util.*
 
 class TaskRepository private constructor(private val taskDao: TaskDao) {
 
-    fun insert(task: Task) = taskDao.insert(task)
+    fun insert(task: Task) {
+        Thread {
+            taskDao.insert(task)
+        }.start()
+    }
 
-    fun delete(task: Task) = taskDao.delete(task)
+    fun delete(task: Task) {
+        Thread {
+            taskDao.delete(task)
+        }.start()
+    }
 
     fun getTaskList(date: Date) = taskDao.getTaskList(date)
 
