@@ -58,6 +58,7 @@ class NewTaskFragment : BaseFragment() {
             taskRepository.insert(task)
 
             it.findNavController().navigate(R.id.action_newTaskFragment_to_dayTaskListFragment)
+            view?.clearFocus();
         }
         return  binding.root
     }
