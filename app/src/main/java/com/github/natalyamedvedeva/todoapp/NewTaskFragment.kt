@@ -23,6 +23,7 @@ class NewTaskFragment : BaseFragment() {
 
     private lateinit var binding: FragmentNewTaskBinding
 
+    private val date: Calendar = Calendar.getInstance()
     private var deadlineDate: Calendar? = null
 
     override fun onCreateView(
@@ -31,6 +32,7 @@ class NewTaskFragment : BaseFragment() {
     ): View? {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_new_task, container, false)
+        date.time = arguments?.getSerializable("date") as Date
 
         initPrioritySpinner(binding.prioritySpinner)
         initDeadlineTextView(binding.deadlineTextView)
@@ -48,8 +50,8 @@ class NewTaskFragment : BaseFragment() {
             val addedName = binding.nameEditText.text.toString()
             val addedPriority = binding.prioritySpinner.selectedItem as Priority
             val addedDescription = binding.descriptionEditText.text.toString()
-            //TODO select date and get date from DayTaskListActivity
-            val task = Task(addedName, addedPriority, Date())
+
+            val task = Task(addedName, addedPriority, date.time)
             task.deadline = deadlineDate?.time
             task.description = addedDescription
             task.autoReschedule = binding.autoRescheduleSwitch.isChecked
@@ -58,9 +60,9 @@ class NewTaskFragment : BaseFragment() {
             taskRepository.insert(task)
 
             it.findNavController().navigate(R.id.action_newTaskFragment_to_dayTaskListFragment)
-            view?.clearFocus();
+            view?.clearFocus()
         }
-        return  binding.root
+        return binding.root
     }
 
     private fun initPrioritySpinner(spinner: Spinner) {
