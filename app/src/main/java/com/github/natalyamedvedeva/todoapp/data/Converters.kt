@@ -3,6 +3,7 @@ package com.github.natalyamedvedeva.todoapp.data
 import androidx.room.TypeConverter
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.stream.Collectors
 
 class Converters {
 
@@ -26,5 +27,15 @@ class Converters {
     @TypeConverter
     fun priorityToInt(priority: Priority?): Int? {
         return priority?.ordinal
+    }
+
+    @TypeConverter
+    fun stringToImages(value: String?): List<String>? {
+        return value?.split(", ")
+    }
+
+    @TypeConverter
+    fun imagesToString(images: List<String>?): String? {
+        return images?.joinToString()
     }
 }

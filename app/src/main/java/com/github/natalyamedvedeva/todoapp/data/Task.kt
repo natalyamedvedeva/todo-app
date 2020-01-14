@@ -21,4 +21,6 @@ data class Task(
     var deadline: Date? = null
     var autoReschedule: Boolean = true
     var description: String? = null
+
+    var images: List<String>? = null
 }
