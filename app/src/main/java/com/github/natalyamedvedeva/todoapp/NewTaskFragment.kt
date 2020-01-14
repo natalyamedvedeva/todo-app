@@ -1,70 +1,69 @@
 package com.github.natalyamedvedeva.todoapp
 
-import android.app.Activity
 import android.app.DatePickerDialog
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.Priority
 import com.github.natalyamedvedeva.todoapp.data.Task
-import com.github.natalyamedvedeva.todoapp.databinding.ActivityNewTaskBinding
+import com.github.natalyamedvedeva.todoapp.data.TaskRepository
+import com.github.natalyamedvedeva.todoapp.databinding.FragmentNewTaskBinding
+import java.lang.RuntimeException
 import java.text.SimpleDateFormat
 import java.util.*
 
-const val ADDED_TASK_KEY = "ADDED_TASK_KEY"
+class NewTaskFragment : BaseFragment() {
 
-class NewTaskActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityNewTaskBinding
+    private lateinit var binding: FragmentNewTaskBinding
 
     private var deadlineDate: Calendar? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_new_task)
-
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = getString(R.string.new_task_activity_title)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_new_task, container, false)
 
         initPrioritySpinner(binding.prioritySpinner)
         initDeadlineTextView(binding.deadlineTextView)
 
         binding.autoRescheduleSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                Toast.makeText(applicationContext, getString(R.string.auto_reschedule_hint), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this.context, getString(R.string.auto_reschedule_hint), Toast.LENGTH_SHORT).show()
             }
         }
         binding.acceptBtn.setOnClickListener {
             val addedName = binding.nameEditText.text.toString()
             val addedPriority = binding.prioritySpinner.selectedItem as Priority
             val addedDescription = binding.descriptionEditText.text.toString()
-
+            //TODO select date and get date from DayTaskListActivity
             val task = Task(addedName, addedPriority, Date())
             task.deadline = deadlineDate?.time
             task.description = addedDescription
             task.autoReschedule = binding.autoRescheduleSwitch.isChecked
 
-            val resultIntent = Intent()
-            resultIntent.putExtra(ADDED_TASK_KEY, task)
-            setResult(Activity.RESULT_OK, resultIntent)
-            finish()
-        }
-    }
+            val taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(requireContext()).taskDao())
+            taskRepository.insert(task)
 
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
+            it.findNavController().navigate(R.id.action_newTaskFragment_to_dayTaskListFragment)
+        }
+        return  binding.root
     }
 
     private fun initPrioritySpinner(spinner: Spinner) {
         val priorityArray = Priority.values()
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, priorityArray)
+        val adapter = ArrayAdapter(this.requireContext(), android.R.layout.simple_spinner_item, priorityArray)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
         spinner.setSelection(1)
@@ -83,7 +82,7 @@ class NewTaskActivity : AppCompatActivity() {
 
         binding.setDeadlineButton.setOnClickListener {
             val currentDate = Calendar.getInstance()
-            val datePickerDialog = DatePickerDialog(this, listener,
+            val datePickerDialog = DatePickerDialog(this.requireContext(), listener,
                 currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH))
             datePickerDialog.show()
         }

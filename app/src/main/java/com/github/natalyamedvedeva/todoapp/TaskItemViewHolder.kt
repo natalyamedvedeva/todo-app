@@ -15,9 +15,7 @@ class TaskItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         taskNameTextView.text = String.format("%s - %s", task.name, task.priority.name)
         taskItem.setOnClickListener {
             val context = itemView.context
-            val taskActivityIntent = Intent(context, TaskActivity::class.java)
-            taskActivityIntent.putExtra("task", task)
-            context.startActivity(taskActivityIntent)
+            //TODO navigate DayTaskListFragment to TaskFragment with task
         }
     }
 }

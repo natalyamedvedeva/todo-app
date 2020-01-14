@@ -1,0 +1,52 @@
+package com.github.natalyamedvedeva.todoapp
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.github.natalyamedvedeva.todoapp.data.Task
+import com.github.natalyamedvedeva.todoapp.databinding.FragmentTaskListBinding
+
+class TaskListFragment : BaseFragment(), BaseFragment.OnTaskListFragmentDataListener {
+
+    private lateinit var binding: FragmentTaskListBinding
+    private lateinit var tasksRecyclerView: RecyclerView
+    private lateinit var taskItemAdapter: TaskItemAdapter
+    private var taskListLiveData: LiveData<List<Task>>? = null
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_task_list, container, false)
+        initRecyclerView()
+        return binding.root
+    }
+
+    private fun initRecyclerView() {
+        tasksRecyclerView = binding.tasksRecyclerView
+        tasksRecyclerView.layoutManager = LinearLayoutManager(this.context)
+        taskItemAdapter = TaskItemAdapter()
+        tasksRecyclerView.adapter = taskItemAdapter
+        updateTaskList()
+    }
+
+    private fun updateTaskList() {
+        if (taskListLiveData != null) {
+            (taskListLiveData as LiveData<List<Task>>).observe(this, Observer {
+                taskItemAdapter.clearItems()
+                taskItemAdapter.addItems(it)
+            })
+        }
+    }
+
+    override fun onTaskListAppeared(data: LiveData<List<Task>>) {
+        taskListLiveData = data
+        updateTaskList()
+    }
+}

@@ -3,15 +3,6 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto" >
 
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-        <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                style="@style/Toolbar"/>
-
         <androidx.constraintlayout.widget.ConstraintLayout
                 xmlns:tools="http://schemas.android.com/tools"
                android:layout_width="match_parent"
@@ -192,5 +183,4 @@
                     app:srcCompat="@drawable/ic_check_white_24dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
 </layout>

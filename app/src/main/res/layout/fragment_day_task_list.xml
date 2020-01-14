@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
+
+        <ImageButton
+            android:id="@+id/prev_btn"
+            app:srcCompat="@drawable/ic_chevron_left_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/prev_day"/>
+
+        <Button
+            android:id="@+id/calendar_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/next_btn"
+            app:layout_constraintStart_toEndOf="@+id/prev_btn"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageButton
+            android:id="@+id/next_btn"
+            app:srcCompat="@drawable/ic_chevron_right_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/next_day"/>
+
+        <FrameLayout
+            android:id="@+id/child_content_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/calendar_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/calendar_card"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/child_content_container">
+
+            <CalendarView
+                android:id="@+id/calendar_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            style="@style/Widget.MaterialComponents.FloatingActionButton"
+            app:srcCompat="@drawable/ic_add_white_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="16dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

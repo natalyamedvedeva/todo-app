@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
+    app:startDestination="@id/dayTaskListFragment">
+
+    <fragment
+        android:id="@+id/dayTaskListFragment"
+        android:name="com.github.natalyamedvedeva.todoapp.DayTaskListFragment"
+        android:label="DayTaskListFragment" >
+        <action
+            android:id="@+id/action_dayTaskListFragment_to_newTaskFragment"
+            app:destination="@id/newTaskFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newTaskFragment"
+        android:name="com.github.natalyamedvedeva.todoapp.NewTaskFragment"
+        android:label="NewTaskFragment" >
+        <action
+            android:id="@+id/action_newTaskFragment_to_dayTaskListFragment"
+            app:destination="@id/dayTaskListFragment" />
+    </fragment>
+</navigation>
