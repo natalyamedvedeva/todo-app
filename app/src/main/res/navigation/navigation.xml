@@ -10,6 +10,7 @@
         <action
             android:id="@+id/action_dayTaskListFragment_to_newTaskFragment"
             app:destination="@id/newTaskFragment" />
+        <action android:id="@+id/action_dayTaskListFragment_to_taskFragment" app:destination="@id/taskFragment"/>
     </fragment>
     <fragment
         android:id="@+id/newTaskFragment"
@@ -19,5 +20,10 @@
             android:id="@+id/action_newTaskFragment_to_dayTaskListFragment"
             app:destination="@id/dayTaskListFragment" />
         <argument android:name="date" app:argType="java.util.Date"/>
+    </fragment>
+    <fragment android:id="@+id/taskFragment" android:name="com.github.natalyamedvedeva.todoapp.TaskFragment"
+              android:label="TaskFragment">
+        <action android:id="@+id/action_taskFragment_to_dayTaskListFragment" app:destination="@id/dayTaskListFragment"/>
+        <argument android:name="task" app:argType="com.github.natalyamedvedeva.todoapp.data.Task"/>
     </fragment>
 </navigation>

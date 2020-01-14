@@ -10,7 +10,7 @@ import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
+import androidx.navigation.Navigation
 import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.TaskRepository
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentDayTaskListBinding
@@ -67,10 +67,12 @@ class DayTaskListFragment : BaseFragment() {
             updateChild()
         }
 
-        binding.addBtn.setOnClickListener {
-            val bundle = bundleOf("date" to currentDate.time)
-            view?.findNavController()?.navigate(R.id.action_dayTaskListFragment_to_newTaskFragment, bundle)
-        }
+        binding.addBtn.setOnClickListener(
+            Navigation.createNavigateOnClickListener(
+                R.id.action_dayTaskListFragment_to_newTaskFragment,
+                bundleOf("date" to currentDate.time)
+            )
+        )
 
         return binding.root
     }

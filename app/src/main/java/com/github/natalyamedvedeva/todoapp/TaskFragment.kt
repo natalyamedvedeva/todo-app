@@ -11,16 +11,15 @@ class TaskFragment : BaseFragment() {
 
     private lateinit var binding: FragmentTaskBinding
 
-    lateinit var task: Task
+    private lateinit var task: Task
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_task, container, false
-        )
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_task, container, false)
+        task = arguments?.getSerializable("task") as Task
 
         binding.nameTextView.text = String.format("%s - %s", task.name, task.priority.name)
         if (task.deadline != null) {

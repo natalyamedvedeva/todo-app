@@ -2,6 +2,8 @@ package com.github.natalyamedvedeva.todoapp
 
 import android.view.View
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.github.natalyamedvedeva.todoapp.data.Task
 
@@ -12,9 +14,11 @@ class TaskItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(task: Task) {
         taskNameTextView.text = String.format("%s - %s", task.name, task.priority.name)
-        taskItem.setOnClickListener {
-            val context = itemView.context
-            //TODO navigate DayTaskListFragment to TaskFragment with task
-        }
+        taskItem.setOnClickListener(
+            Navigation.createNavigateOnClickListener(
+                R.id.action_dayTaskListFragment_to_taskFragment,
+                bundleOf("task" to task)
+            )
+        )
     }
 }

@@ -46,6 +46,7 @@ class NewTaskFragment : BaseFragment() {
                 ).show()
             }
         }
+
         binding.acceptBtn.setOnClickListener {
             val addedName = binding.nameEditText.text.toString()
             val addedPriority = binding.prioritySpinner.selectedItem as Priority
@@ -62,6 +63,7 @@ class NewTaskFragment : BaseFragment() {
             it.findNavController().navigate(R.id.action_newTaskFragment_to_dayTaskListFragment)
             view?.clearFocus()
         }
+
         return binding.root
     }
 
