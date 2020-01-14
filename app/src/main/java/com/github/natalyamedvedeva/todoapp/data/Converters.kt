@@ -27,4 +27,14 @@ class Converters {
     fun priorityToInt(priority: Priority?): Int? {
         return priority?.ordinal
     }
+
+    @TypeConverter
+    fun stringToImages(value: String?): List<String>? {
+        return value?.split(", ")
+    }
+
+    @TypeConverter
+    fun imagesToString(images: List<String>?): String? {
+        return images?.joinToString()
+    }
 }
