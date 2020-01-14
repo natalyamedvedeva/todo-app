@@ -10,7 +10,6 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
 import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.Priority
 import com.github.natalyamedvedeva.todoapp.data.Task
@@ -60,8 +59,8 @@ class NewTaskFragment : BaseFragment() {
             val taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(requireContext()).taskDao())
             taskRepository.insert(task)
 
-            it.findNavController().navigate(R.id.action_newTaskFragment_to_dayTaskListFragment)
             view?.clearFocus()
+            fragmentManager?.popBackStack()
         }
 
         return binding.root

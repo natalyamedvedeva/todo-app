@@ -5,11 +5,6 @@ import androidx.lifecycle.LiveData
 import com.github.natalyamedvedeva.todoapp.data.Task
 
 open class BaseFragment: Fragment() {
-
-    interface OnNewTaskFragmentDataListener {
-        fun onNewTaskCreated(task: Task)
-    }
-
     interface OnTaskListFragmentDataListener {
         fun onTaskListAppeared(data: LiveData<List<Task>>)
     }
