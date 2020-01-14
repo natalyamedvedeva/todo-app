@@ -6,10 +6,12 @@
         android:id="@+id/task_item"
         android:background="?android:attr/selectableItemBackground"
         android:padding="8dp">
+
     <TextView
             android:id="@+id/task_name_text_view"
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|start"/>
+
 </RelativeLayout>

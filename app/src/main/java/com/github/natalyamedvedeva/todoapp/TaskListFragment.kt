@@ -37,12 +37,10 @@ class TaskListFragment : BaseFragment(), BaseFragment.OnTaskListFragmentDataList
     }
 
     private fun updateTaskList() {
-        if (taskListLiveData != null) {
-            (taskListLiveData as LiveData<List<Task>>).observe(this, Observer {
-                taskItemAdapter.clearItems()
-                taskItemAdapter.addItems(it)
-            })
-        }
+        taskListLiveData?.observe(this, Observer {
+            taskItemAdapter.clearItems()
+            taskItemAdapter.addItems(it)
+        })
     }
 
     override fun onTaskListAppeared(data: LiveData<List<Task>>) {

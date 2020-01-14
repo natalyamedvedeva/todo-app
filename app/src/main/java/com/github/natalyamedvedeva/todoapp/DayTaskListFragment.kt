@@ -17,7 +17,6 @@ import java.lang.RuntimeException
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class DayTaskListFragment : BaseFragment() {
 
     private lateinit var binding: FragmentDayTaskListBinding

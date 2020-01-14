@@ -20,12 +20,13 @@
                     style="@style/Toolbar"/>
 
             <fragment
-                android:id="@+id/navHostFragment"
-                android:name="androidx.navigation.fragment.NavHostFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:defaultNavHost="true"
-                app:navGraph="@navigation/navigation"/>
+                    android:id="@+id/navHostFragment"
+                    android:name="androidx.navigation.fragment.NavHostFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:defaultNavHost="true"
+                    app:navGraph="@navigation/navigation"/>
+
         </LinearLayout>
 
         <com.google.android.material.navigation.NavigationView
@@ -34,7 +35,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
                 android:fitsSystemWindows="true"
-                app:menu="@menu/nav_menu" />
+                app:menu="@menu/nav_menu"/>
 
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>
