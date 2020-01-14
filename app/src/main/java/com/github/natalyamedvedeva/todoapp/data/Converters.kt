@@ -3,7 +3,6 @@ package com.github.natalyamedvedeva.todoapp.data
 import androidx.room.TypeConverter
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.stream.Collectors
 
 class Converters {
 
