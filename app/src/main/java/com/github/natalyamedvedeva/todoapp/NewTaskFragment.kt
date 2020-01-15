@@ -60,7 +60,7 @@ class NewTaskFragment : BaseFragment() {
             taskRepository.insert(task)
 
             view?.clearFocus()
-            fragmentManager?.popBackStack()
+            activity?.onBackPressed()
         }
 
         return binding.root
