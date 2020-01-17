@@ -4,16 +4,16 @@
     app:startDestination="@id/dayTaskListFragment">
 
     <fragment
-        android:id="@+id/dayTaskListFragment"
-        android:name="com.github.natalyamedvedeva.todoapp.view.DayTaskListFragment"
-        android:label="Day Tasks">
+            android:id="@+id/dayTaskListFragment"
+            android:name="com.github.natalyamedvedeva.todoapp.view.DayTaskListFragment"
+            android:label="My Tasks">
         <action
-            android:id="@+id/action_dayTaskListFragment_to_newTaskFragment"
-            app:destination="@id/newTaskFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+                android:id="@+id/action_dayTaskListFragment_to_newTaskFragment"
+                app:destination="@id/newTaskFragment"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment
         android:id="@+id/newTaskFragment"
