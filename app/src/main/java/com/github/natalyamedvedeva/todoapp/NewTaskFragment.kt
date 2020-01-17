@@ -10,6 +10,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.Priority
 import com.github.natalyamedvedeva.todoapp.data.Task
@@ -60,7 +61,7 @@ class NewTaskFragment : BaseFragment() {
             taskRepository.insert(task)
 
             view?.clearFocus()
-            activity?.onBackPressed()
+            view?.findNavController()?.popBackStack()
         }
 
         return binding.root

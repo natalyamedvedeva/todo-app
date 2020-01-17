@@ -1,29 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_activity_graph"
     app:startDestination="@id/dayTaskListFragment">
 
     <fragment
         android:id="@+id/dayTaskListFragment"
         android:name="com.github.natalyamedvedeva.todoapp.DayTaskListFragment"
-        android:label="DayTaskListFragment" >
+        android:label="Day Tasks">
         <action
-                android:id="@+id/action_dayTaskListFragment_to_newTaskFragment"
-                app:destination="@id/newTaskFragment" app:enterAnim="@anim/nav_default_enter_anim"
-                app:exitAnim="@anim/nav_default_exit_anim" app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
-        <action android:id="@+id/action_dayTaskListFragment_to_taskFragment" app:destination="@id/taskFragment"
-                app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
-                app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+            android:id="@+id/action_dayTaskListFragment_to_newTaskFragment"
+            app:destination="@id/newTaskFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/newTaskFragment"
         android:name="com.github.natalyamedvedeva.todoapp.NewTaskFragment"
-        android:label="NewTaskFragment" >
-        <argument android:name="date" app:argType="java.util.Date"/>
+        android:label="New Task">
+        <argument
+            android:name="date"
+            app:argType="java.util.Date" />
     </fragment>
-    <fragment android:id="@+id/taskFragment" android:name="com.github.natalyamedvedeva.todoapp.TaskFragment"
-              android:label="TaskFragment">
-        <argument android:name="task" app:argType="com.github.natalyamedvedeva.todoapp.data.Task"/>
+    <fragment
+        android:id="@+id/taskFragment"
+        android:name="com.github.natalyamedvedeva.todoapp.TaskFragment"
+        android:label="Task">
+        <argument
+            android:name="task"
+            app:argType="com.github.natalyamedvedeva.todoapp.data.Task" />
     </fragment>
+    <action
+        android:id="@+id/action_global_taskFragment"
+        app:destination="@id/taskFragment" />
 </navigation>

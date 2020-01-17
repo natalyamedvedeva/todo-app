@@ -16,7 +16,7 @@ class TaskItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         taskNameTextView.text = String.format("%s - %s", task.name, task.priority.name)
         taskItem.setOnClickListener(
             Navigation.createNavigateOnClickListener(
-                R.id.action_dayTaskListFragment_to_taskFragment,
+                R.id.action_global_taskFragment,
                 bundleOf("task" to task)
             )
         )
