@@ -1,8 +1,9 @@
-package com.github.natalyamedvedeva.todoapp
+package com.github.natalyamedvedeva.todoapp.taskList
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
+import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.Task
 
 class TaskItemAdapter : RecyclerView.Adapter<TaskItemViewHolder>() {
@@ -11,7 +12,9 @@ class TaskItemAdapter : RecyclerView.Adapter<TaskItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskItemViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.task_item_view, parent, false)
-        return TaskItemViewHolder(view)
+        return TaskItemViewHolder(
+            view
+        )
     }
 
     override fun onBindViewHolder(holder: TaskItemViewHolder, position: Int) {

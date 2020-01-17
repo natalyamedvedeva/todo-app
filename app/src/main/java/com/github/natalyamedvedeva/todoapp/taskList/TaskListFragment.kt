@@ -1,4 +1,4 @@
-package com.github.natalyamedvedeva.todoapp
+package com.github.natalyamedvedeva.todoapp.taskList
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,10 +9,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.github.natalyamedvedeva.todoapp.BaseFragment
+import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.Task
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentTaskListBinding
 
-class TaskListFragment : BaseFragment(), BaseFragment.OnTaskListFragmentDataListener {
+class TaskListFragment : BaseFragment(),
+    BaseFragment.OnTaskListFragmentDataListener {
 
     private lateinit var binding: FragmentTaskListBinding
     private lateinit var tasksRecyclerView: RecyclerView
@@ -23,7 +26,8 @@ class TaskListFragment : BaseFragment(), BaseFragment.OnTaskListFragmentDataList
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_task_list, container, false)
+        binding = DataBindingUtil.inflate(inflater,
+            R.layout.fragment_task_list, container, false)
         initRecyclerView()
         return binding.root
     }
@@ -31,7 +35,8 @@ class TaskListFragment : BaseFragment(), BaseFragment.OnTaskListFragmentDataList
     private fun initRecyclerView() {
         tasksRecyclerView = binding.tasksRecyclerView
         tasksRecyclerView.layoutManager = LinearLayoutManager(this.context)
-        taskItemAdapter = TaskItemAdapter()
+        taskItemAdapter =
+            TaskItemAdapter()
         tasksRecyclerView.adapter = taskItemAdapter
         updateTaskList()
     }

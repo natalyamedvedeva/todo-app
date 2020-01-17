@@ -14,6 +14,7 @@ import androidx.navigation.findNavController
 import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.TaskRepository
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentDayTaskListBinding
+import com.github.natalyamedvedeva.todoapp.taskList.TaskListFragment
 import java.lang.RuntimeException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -78,7 +79,8 @@ class DayTaskListFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val childFragment = TaskListFragment()
+        val childFragment =
+            TaskListFragment()
         childFragmentManager.beginTransaction()
             .replace(R.id.child_content_container, childFragment)
             .commit()
