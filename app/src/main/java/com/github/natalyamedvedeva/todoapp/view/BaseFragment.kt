@@ -1,4 +1,4 @@
-package com.github.natalyamedvedeva.todoapp
+package com.github.natalyamedvedeva.todoapp.view
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData

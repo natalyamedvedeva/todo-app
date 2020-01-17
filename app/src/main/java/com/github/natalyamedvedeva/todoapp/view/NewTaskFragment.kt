@@ -1,4 +1,4 @@
-package com.github.natalyamedvedeva.todoapp
+package com.github.natalyamedvedeva.todoapp.view
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.Priority
 import com.github.natalyamedvedeva.todoapp.data.Task
@@ -31,7 +32,8 @@ class NewTaskFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_new_task, container, false)
+        binding = DataBindingUtil.inflate(inflater,
+            R.layout.fragment_new_task, container, false)
         date.time = arguments?.getSerializable("date") as Date
 
         initPrioritySpinner(binding.prioritySpinner)
@@ -76,7 +78,9 @@ class NewTaskFragment : BaseFragment() {
     }
 
     private fun initDeadlineTextView(textView: TextView) {
-        val defaultText = getString(R.string.deadline) + ": " +  getString(R.string.none)
+        val defaultText = getString(R.string.deadline) + ": " +  getString(
+            R.string.none
+        )
         textView.text = defaultText
 
         val listener = DatePickerDialog.OnDateSetListener { _, year, month, day ->

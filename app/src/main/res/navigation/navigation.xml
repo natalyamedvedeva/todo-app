@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/dayTaskListFragment"
-        android:name="com.github.natalyamedvedeva.todoapp.DayTaskListFragment"
+        android:name="com.github.natalyamedvedeva.todoapp.view.DayTaskListFragment"
         android:label="Day Tasks">
         <action
             android:id="@+id/action_dayTaskListFragment_to_newTaskFragment"
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/newTaskFragment"
-        android:name="com.github.natalyamedvedeva.todoapp.NewTaskFragment"
+        android:name="com.github.natalyamedvedeva.todoapp.view.NewTaskFragment"
         android:label="New Task">
         <argument
             android:name="date"
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/taskFragment"
-        android:name="com.github.natalyamedvedeva.todoapp.TaskFragment"
+        android:name="com.github.natalyamedvedeva.todoapp.view.TaskFragment"
         android:label="Task">
         <argument
             android:name="task"

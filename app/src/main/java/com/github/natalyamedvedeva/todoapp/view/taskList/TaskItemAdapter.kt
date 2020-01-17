@@ -1,4 +1,4 @@
-package com.github.natalyamedvedeva.todoapp.taskList
+package com.github.natalyamedvedeva.todoapp.view.taskList
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

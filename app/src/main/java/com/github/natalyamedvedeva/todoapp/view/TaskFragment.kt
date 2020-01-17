@@ -1,8 +1,9 @@
-package com.github.natalyamedvedeva.todoapp
+package com.github.natalyamedvedeva.todoapp.view
 
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
+import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.Task
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentTaskBinding
 import java.text.SimpleDateFormat
@@ -18,7 +19,8 @@ class TaskFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_task, container, false)
+        binding = DataBindingUtil.inflate(inflater,
+            R.layout.fragment_task, container, false)
         task = arguments?.getSerializable("task") as Task
 
         binding.nameTextView.text = String.format("%s - %s", task.name, task.priority.name)

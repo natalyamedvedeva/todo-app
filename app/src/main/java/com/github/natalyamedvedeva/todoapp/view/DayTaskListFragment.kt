@@ -1,4 +1,4 @@
-package com.github.natalyamedvedeva.todoapp
+package com.github.natalyamedvedeva.todoapp.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,10 +11,11 @@ import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.TaskRepository
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentDayTaskListBinding
-import com.github.natalyamedvedeva.todoapp.taskList.TaskListFragment
+import com.github.natalyamedvedeva.todoapp.view.taskList.TaskListFragment
 import java.lang.RuntimeException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -31,7 +32,8 @@ class DayTaskListFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_day_task_list, container, false
+            inflater,
+            R.layout.fragment_day_task_list, container, false
         )
         val calendarCard: CardView = binding.calendarCard
         val calendarView: CalendarView = binding.calendarView

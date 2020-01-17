@@ -1,4 +1,4 @@
-package com.github.natalyamedvedeva.todoapp.taskList
+package com.github.natalyamedvedeva.todoapp.view.taskList
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.github.natalyamedvedeva.todoapp.BaseFragment
+import com.github.natalyamedvedeva.todoapp.view.BaseFragment
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.Task
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentTaskListBinding

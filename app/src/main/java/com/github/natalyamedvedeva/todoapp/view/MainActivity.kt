@@ -1,13 +1,13 @@
-package com.github.natalyamedvedeva.todoapp
+package com.github.natalyamedvedeva.todoapp.view
 
 import android.os.Bundle
-import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.databinding.ActivityMainBinding
 import com.vanniktech.emoji.EmojiManager
 import com.vanniktech.emoji.ios.IosEmojiProvider
@@ -21,7 +21,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         EmojiManager.install(IosEmojiProvider())
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this,
+            R.layout.activity_main
+        )
 
         drawerLayout = binding.drawerLayout
         setSupportActionBar(binding.toolbar)
