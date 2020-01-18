@@ -17,4 +17,7 @@
     <string name="new_task_activity_title">New task</string>
     <string name="delete">Delete</string>
     <string name="categories">Categories</string>
+    <string name="label">Label</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
 </resources>
