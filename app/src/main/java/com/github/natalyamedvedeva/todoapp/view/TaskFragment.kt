@@ -1,7 +1,11 @@
 package com.github.natalyamedvedeva.todoapp.view
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.widget.ImageView
+import android.widget.LinearLayout
+import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.github.natalyamedvedeva.todoapp.R
@@ -34,6 +38,16 @@ class TaskFragment : BaseFragment() {
         }
         binding.descriptionTextView.text = task.description
         binding.autoRescheduleTextView.text = task.autoReschedule.toString()
+
+        // Add the images to images layout
+        task.images?.forEach {
+            val image = ImageView(context)
+            image.setImageURI(Uri.parse(it))
+            image.layoutParams = LinearLayout.LayoutParams(600, 600)
+            image.scaleType = ImageView.ScaleType.CENTER_CROP
+            binding.imagesLayout.addView(image)
+        }
+
         return  binding.root
     }
 

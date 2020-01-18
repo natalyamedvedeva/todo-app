@@ -1,16 +1,16 @@
 package com.github.natalyamedvedeva.todoapp.view
 
 import android.app.DatePickerDialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import com.esafirm.imagepicker.features.ImagePicker
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.Priority
@@ -26,6 +26,7 @@ class NewTaskFragment : BaseFragment() {
 
     private val date: Calendar = Calendar.getInstance()
     private var deadlineDate: Calendar? = null
+    private var images: MutableList<String>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +50,15 @@ class NewTaskFragment : BaseFragment() {
             }
         }
 
-        binding.acceptBtn.setOnClickListener {
+        val imagePicker = ImagePicker.create(this)
+            .theme(R.style.AppTheme)
+            .toolbarImageTitle("Tap to select")
+
+        binding.imagesButton.setOnClickListener {
+            imagePicker.start()
+        }
+
+        binding.acceptButton.setOnClickListener {
             val addedName = binding.nameEditText.text.toString()
             val addedPriority = binding.prioritySpinner.selectedItem as Priority
             val addedDescription = binding.descriptionEditText.text.toString()
@@ -58,6 +67,7 @@ class NewTaskFragment : BaseFragment() {
             task.deadline = deadlineDate?.time
             task.description = addedDescription
             task.autoReschedule = binding.autoRescheduleSwitch.isChecked
+            task.images = images
 
             val taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(requireContext()).taskDao())
             taskRepository.insert(task)
@@ -67,6 +77,26 @@ class NewTaskFragment : BaseFragment() {
         }
 
         return binding.root
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
+            if (images == null) {
+                images = mutableListOf()
+            }
+            val result = ImagePicker.getImages(data)
+            result.forEach {
+                images?.add(it.path)
+
+                // Add the image to images layout
+                val image = ImageView(context)
+                image.setImageURI(Uri.parse(it.path))
+                image.layoutParams = LinearLayout.LayoutParams(600, 600)
+                image.scaleType = ImageView.ScaleType.CENTER_CROP
+                binding.imagesLayout.addView(image)
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun initPrioritySpinner(spinner: Spinner) {

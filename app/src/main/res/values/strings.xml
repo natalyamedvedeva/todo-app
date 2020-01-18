@@ -16,5 +16,7 @@
     <string name="task_fragment_title">Task</string>
     <string name="new_task_fragment_title">New task</string>
     <string name="delete">Delete</string>
+    <string name="images">Images</string>
+    <string name="add_images">Add images...</string>
     <string name="categories">Categories</string>
 </resources>
