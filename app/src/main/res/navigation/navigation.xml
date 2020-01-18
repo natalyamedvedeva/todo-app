@@ -6,7 +6,7 @@
     <fragment
             android:id="@+id/dayTaskListFragment"
             android:name="com.github.natalyamedvedeva.todoapp.view.DayTaskListFragment"
-            android:label="My Tasks">
+            android:label="@string/day_task_list_fragment_title">
         <action
                 android:id="@+id/action_dayTaskListFragment_to_newTaskFragment"
                 app:destination="@id/newTaskFragment"
@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/newTaskFragment"
         android:name="com.github.natalyamedvedeva.todoapp.view.NewTaskFragment"
-        android:label="New Task">
+        android:label="@string/new_task_fragment_title">
         <argument
             android:name="date"
             app:argType="java.util.Date" />
@@ -26,7 +26,7 @@
     <fragment
         android:id="@+id/taskFragment"
         android:name="com.github.natalyamedvedeva.todoapp.view.TaskFragment"
-        android:label="Task">
+        android:label="@string/task_fragment_title">
         <argument
             android:name="task"
             app:argType="com.github.natalyamedvedeva.todoapp.data.Task" />

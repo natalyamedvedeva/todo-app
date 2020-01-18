@@ -12,9 +12,9 @@
     <string name="set">Set</string>
     <string name="clear">Clear</string>
     <string name="description">Description</string>
-    <string name="main_activity_title">My tasks</string>
-    <string name="task_activity_title">Task</string>
-    <string name="new_task_activity_title">New task</string>
+    <string name="day_task_list_fragment_title">My tasks</string>
+    <string name="task_fragment_title">Task</string>
+    <string name="new_task_fragment_title">New task</string>
     <string name="delete">Delete</string>
     <string name="categories">Categories</string>
 </resources>

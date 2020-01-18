@@ -1,6 +1,7 @@
 package com.github.natalyamedvedeva.todoapp.view.taskList
 
 import android.os.Bundle
+import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,11 @@ class TaskListFragment : BaseFragment(),
             R.layout.fragment_task_list, container, false)
         initRecyclerView()
         return binding.root
+    }
+
+    override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        activity?.menuInflater?.inflate(R.menu.task_menu, menu)
     }
 
     private fun initRecyclerView() {
