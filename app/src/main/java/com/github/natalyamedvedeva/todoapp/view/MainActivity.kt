@@ -12,7 +12,6 @@ import com.github.natalyamedvedeva.todoapp.databinding.ActivityMainBinding
 import com.vanniktech.emoji.EmojiManager
 import com.vanniktech.emoji.ios.IosEmojiProvider
 
-
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
