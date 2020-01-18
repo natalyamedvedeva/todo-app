@@ -17,6 +17,7 @@ import com.github.natalyamedvedeva.todoapp.data.Priority
 import com.github.natalyamedvedeva.todoapp.data.Task
 import com.github.natalyamedvedeva.todoapp.data.TaskRepository
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentNewTaskBinding
+import com.github.natalyamedvedeva.todoapp.utils.saveImage
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -67,7 +68,10 @@ class NewTaskFragment : BaseFragment() {
             task.deadline = deadlineDate?.time
             task.description = addedDescription
             task.autoReschedule = binding.autoRescheduleSwitch.isChecked
-            task.images = images
+
+            val paths = mutableListOf<String>()
+            images?.forEach { paths.add(saveImage(context!!, it)) }
+            task.images = paths
 
             val taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(requireContext()).taskDao())
             taskRepository.insert(task)
