@@ -11,16 +11,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.esafirm.imagepicker.features.ImagePicker
-import com.facebook.drawee.view.SimpleDraweeView
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.Priority
 import com.github.natalyamedvedeva.todoapp.data.Task
 import com.github.natalyamedvedeva.todoapp.data.TaskRepository
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentNewTaskBinding
-import com.github.natalyamedvedeva.todoapp.utils.getImagePath
-import com.github.natalyamedvedeva.todoapp.utils.saveImage
-import com.stfalcon.frescoimageviewer.ImageViewer
 import java.lang.RuntimeException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -78,10 +74,7 @@ class NewTaskFragment : BaseFragment() {
             task.deadline = deadlineDate?.time
             task.description = addedDescription
             task.autoReschedule = binding.autoRescheduleSwitch.isChecked
-
-            val uuidList = mutableListOf<String>()
-            images?.forEach { uuidList.add(saveImage(context!!, it)) }
-            task.images = uuidList
+            task.images = images
 
             val taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(requireContext()).taskDao())
             taskRepository.insert(task)

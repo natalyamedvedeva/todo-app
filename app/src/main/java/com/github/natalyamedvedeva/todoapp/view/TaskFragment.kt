@@ -60,9 +60,9 @@ class TaskFragment : BaseFragment() {
     }
 
     private fun updateChild() {
-        val paths = mutableListOf<String>()
-        task.images?.forEach { paths.add(getImagePath(context!!, it)) }
-        child.onImagesAppeared(paths)
+        task.images.let {
+            child.onImagesAppeared(task.images!!)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
