@@ -19,4 +19,7 @@
     <string name="images">Images</string>
     <string name="add_images">Add images...</string>
     <string name="categories">Categories</string>
+    <string name="label">Label</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
 </resources>
