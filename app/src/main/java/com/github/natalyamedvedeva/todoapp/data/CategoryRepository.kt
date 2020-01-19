@@ -10,6 +10,12 @@ class CategoryRepository private constructor(private val categoryDao: CategoryDa
         }.start()
     }
 
+    fun delete(category: Category) {
+        Thread {
+            categoryDao.delete(category)
+        }.start()
+    }
+
     companion object {
 
         // For Singleton instantiation

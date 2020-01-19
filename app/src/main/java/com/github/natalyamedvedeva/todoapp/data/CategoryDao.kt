@@ -1,10 +1,7 @@
 package com.github.natalyamedvedeva.todoapp.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface CategoryDao {
@@ -14,4 +11,7 @@ interface CategoryDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(category: Category)
+
+    @Delete
+    fun delete(category: Category)
 }
