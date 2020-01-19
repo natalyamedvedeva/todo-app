@@ -1,11 +1,7 @@
 package com.github.natalyamedvedeva.todoapp.view
 
-import android.content.Context
-import android.content.ContextWrapper
-import android.net.Uri
 import android.os.Bundle
 import android.view.*
-import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
@@ -15,7 +11,7 @@ import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.Task
 import com.github.natalyamedvedeva.todoapp.data.TaskRepository
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentTaskBinding
-import com.github.natalyamedvedeva.todoapp.utils.getImageFile
+import com.github.natalyamedvedeva.todoapp.utils.getImagePath
 import java.text.SimpleDateFormat
 
 class TaskFragment : BaseFragment() {
@@ -42,11 +38,11 @@ class TaskFragment : BaseFragment() {
         binding.descriptionTextView.text = task.description
         binding.autoRescheduleTextView.text = task.autoReschedule.toString()
 
-        // Read the images from internal storage and add to the images layout
+        // Read the images from the internal storage and add to the images layout
         task.images?.forEach {
             val image = SimpleDraweeView(context)
             image.layoutParams = LinearLayout.LayoutParams(600, 600)
-            image.setImageURI("file://" + getImageFile(context!!, it).absolutePath)
+            image.setImageURI("file://" + getImagePath(context!!, it))
             binding.imagesLayout.addView(image)
         }
 

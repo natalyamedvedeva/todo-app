@@ -2,7 +2,6 @@ package com.github.natalyamedvedeva.todoapp.view
 
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +18,6 @@ import com.github.natalyamedvedeva.todoapp.data.Task
 import com.github.natalyamedvedeva.todoapp.data.TaskRepository
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentNewTaskBinding
 import com.github.natalyamedvedeva.todoapp.utils.saveImage
-import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -71,9 +69,9 @@ class NewTaskFragment : BaseFragment() {
             task.description = addedDescription
             task.autoReschedule = binding.autoRescheduleSwitch.isChecked
 
-            val paths = mutableListOf<String>()
-            images?.forEach { paths.add(saveImage(context!!, it)) }
-            task.images = paths
+            val uuidList = mutableListOf<String>()
+            images?.forEach { uuidList.add(saveImage(context!!, it)) }
+            task.images = uuidList
 
             val taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(requireContext()).taskDao())
             taskRepository.insert(task)

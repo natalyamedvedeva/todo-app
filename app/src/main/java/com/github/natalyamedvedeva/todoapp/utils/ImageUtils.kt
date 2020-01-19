@@ -17,12 +17,12 @@ fun saveImage(context: Context, path: String): String {
     val uuid = UUID.randomUUID().toString()
     val imgPath = File(dir, uuid)
     FileOutputStream(imgPath).use {
-        img.compress(Bitmap.CompressFormat.PNG, 100, it)
+        img.compress(Bitmap.CompressFormat.JPEG, 100, it)
     }
     return uuid
 }
 
-fun getImageFile(context: Context, uuid: String): File {
+fun getImagePath(context: Context, uuid: String): String {
     val dir = ContextWrapper(context).getDir("images", Context.MODE_PRIVATE)
-    return File(dir, uuid)
+    return File(dir, uuid).absolutePath
 }
