@@ -32,6 +32,9 @@ class NewTaskFragment : BaseFragment() {
 
     private val date: Calendar = Calendar.getInstance()
     private var deadlineDate: Calendar? = null
+
+    private val maxImagesCount = 10
+    private var imagesCount = 0
     private var images: MutableList<String>? = null
 
     override fun onCreateView(
@@ -61,7 +64,9 @@ class NewTaskFragment : BaseFragment() {
             .toolbarImageTitle("Tap to select")
 
         binding.imagesButton.setOnClickListener {
-            imagePicker.start()
+            imagePicker
+                .limit(maxImagesCount - imagesCount)
+                .start()
         }
 
         binding.acceptButton.setOnClickListener {
@@ -94,6 +99,7 @@ class NewTaskFragment : BaseFragment() {
                 images = mutableListOf()
             }
             val result = ImagePicker.getImages(data)
+            imagesCount += result.size
             result.forEach { images?.add(it.path) }
             updateChild()
         }
