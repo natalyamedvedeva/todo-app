@@ -10,7 +10,6 @@ import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.Task
 import com.github.natalyamedvedeva.todoapp.data.TaskRepository
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentTaskBinding
-import com.github.natalyamedvedeva.todoapp.utils.getImagePath
 import java.lang.RuntimeException
 import java.text.SimpleDateFormat
 
