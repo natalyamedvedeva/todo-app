@@ -1,7 +1,6 @@
 package com.github.natalyamedvedeva.todoapp.view.categoryList
 
 import android.view.View
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.Category

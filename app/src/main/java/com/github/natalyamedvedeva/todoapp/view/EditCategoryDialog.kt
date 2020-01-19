@@ -3,10 +3,7 @@ package com.github.natalyamedvedeva.todoapp.view
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.widget.EditText
-import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.github.natalyamedvedeva.todoapp.R
@@ -14,8 +11,6 @@ import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.Category
 import com.github.natalyamedvedeva.todoapp.data.CategoryRepository
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentEditCategoryDialogBinding
-import com.vanniktech.emoji.EmojiEditText
-
 
 class EditCategoryDialog : DialogFragment() {
 

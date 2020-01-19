@@ -9,7 +9,7 @@ import java.io.FileOutputStream
 import java.util.*
 
 /**
- * Saves the image to internal storage and returns uuid.
+ * Saves the image to the internal storage and returns uuid.
  */
 fun saveImage(context: Context, path: String): String {
     val img = BitmapFactory.decodeFile(path)
