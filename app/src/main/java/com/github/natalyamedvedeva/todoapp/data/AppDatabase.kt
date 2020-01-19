@@ -11,6 +11,7 @@ import androidx.room.TypeConverters
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun taskDao() : TaskDao
+    abstract fun categoryDao(): CategoryDao
 
     companion object {
 
