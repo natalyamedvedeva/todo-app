@@ -11,6 +11,7 @@ import androidx.room.TypeConverters
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun taskDao() : TaskDao
+    abstract fun categoryDao(): CategoryDao
 
     companion object {
 
@@ -26,6 +27,6 @@ abstract class AppDatabase : RoomDatabase() {
 
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(context.applicationContext,
-                AppDatabase::class.java, "todo_database.db").build()
+                AppDatabase::class.java, "todo_database3.db").build()
     }
 }
