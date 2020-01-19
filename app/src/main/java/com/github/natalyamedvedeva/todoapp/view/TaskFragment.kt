@@ -1,25 +1,23 @@
 package com.github.natalyamedvedeva.todoapp.view
 
-import android.content.Context
-import android.content.ContextWrapper
-import android.net.Uri
 import android.os.Bundle
 import android.view.*
-import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.Task
 import com.github.natalyamedvedeva.todoapp.data.TaskRepository
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentTaskBinding
-import com.github.natalyamedvedeva.todoapp.utils.getImageFile
+import com.github.natalyamedvedeva.todoapp.utils.getImagePath
+import java.lang.RuntimeException
 import java.text.SimpleDateFormat
 
 class TaskFragment : BaseFragment() {
 
     private lateinit var binding: FragmentTaskBinding
+    private lateinit var child: OnImagesFragmentDataListener
 
     private lateinit var task: Task
 
@@ -41,16 +39,30 @@ class TaskFragment : BaseFragment() {
         binding.descriptionTextView.text = task.description
         binding.autoRescheduleTextView.text = task.autoReschedule.toString()
 
-        // Read the images from internal storage and add to the images layout
-        task.images?.forEach {
-            val image = ImageView(context)
-            image.setImageURI(Uri.fromFile(getImageFile(context!!, it)))
-            image.layoutParams = LinearLayout.LayoutParams(600, 600)
-            image.scaleType = ImageView.ScaleType.CENTER_CROP
-            binding.imagesLayout.addView(image)
-        }
-
         return  binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val childFragment = ImagesFragment()
+        childFragmentManager.beginTransaction()
+            .replace(R.id.child_fragment_container, childFragment)
+            .commit()
+    }
+
+    override fun onAttachFragment(childFragment: Fragment) {
+        super.onAttachFragment(childFragment)
+        if (childFragment is OnImagesFragmentDataListener) {
+            child = childFragment
+            updateChild()
+        } else {
+            throw RuntimeException("$childFragment must implements OnImagesFragmentDataListener")
+        }
+    }
+
+    private fun updateChild() {
+        val paths = mutableListOf<String>()
+        task.images?.forEach { paths.add(getImagePath(context!!, it)) }
+        child.onImagesAppeared(paths)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

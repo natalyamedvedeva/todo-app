@@ -2,28 +2,33 @@ package com.github.natalyamedvedeva.todoapp.view
 
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.esafirm.imagepicker.features.ImagePicker
+import com.facebook.drawee.view.SimpleDraweeView
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.Priority
 import com.github.natalyamedvedeva.todoapp.data.Task
 import com.github.natalyamedvedeva.todoapp.data.TaskRepository
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentNewTaskBinding
+import com.github.natalyamedvedeva.todoapp.utils.getImagePath
 import com.github.natalyamedvedeva.todoapp.utils.saveImage
+import com.stfalcon.frescoimageviewer.ImageViewer
+import java.lang.RuntimeException
 import java.text.SimpleDateFormat
 import java.util.*
 
 class NewTaskFragment : BaseFragment() {
 
     private lateinit var binding: FragmentNewTaskBinding
+    private lateinit var child: OnImagesFragmentDataListener
 
     private val date: Calendar = Calendar.getInstance()
     private var deadlineDate: Calendar? = null
@@ -69,9 +74,9 @@ class NewTaskFragment : BaseFragment() {
             task.description = addedDescription
             task.autoReschedule = binding.autoRescheduleSwitch.isChecked
 
-            val paths = mutableListOf<String>()
-            images?.forEach { paths.add(saveImage(context!!, it)) }
-            task.images = paths
+            val uuidList = mutableListOf<String>()
+            images?.forEach { uuidList.add(saveImage(context!!, it)) }
+            task.images = uuidList
 
             val taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(requireContext()).taskDao())
             taskRepository.insert(task)
@@ -89,18 +94,33 @@ class NewTaskFragment : BaseFragment() {
                 images = mutableListOf()
             }
             val result = ImagePicker.getImages(data)
-            result.forEach {
-                images?.add(it.path)
-
-                // Add the image to images layout
-                val image = ImageView(context)
-                image.setImageURI(Uri.parse(it.path))
-                image.layoutParams = LinearLayout.LayoutParams(600, 600)
-                image.scaleType = ImageView.ScaleType.CENTER_CROP
-                binding.imagesLayout.addView(image)
-            }
+            result.forEach { images?.add(it.path) }
+            updateChild()
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val childFragment = ImagesFragment()
+        childFragmentManager.beginTransaction()
+            .replace(R.id.child_fragment_container, childFragment)
+            .commit()
+    }
+
+    override fun onAttachFragment(childFragment: Fragment) {
+        super.onAttachFragment(childFragment)
+        if (childFragment is OnImagesFragmentDataListener) {
+            child = childFragment
+            updateChild()
+        } else {
+            throw RuntimeException("$childFragment must implements OnImagesFragmentDataListener")
+        }
+    }
+
+    private fun updateChild() {
+        if (images != null) {
+            child.onImagesAppeared(images!!)
+        }
     }
 
     private fun initPrioritySpinner(spinner: Spinner) {

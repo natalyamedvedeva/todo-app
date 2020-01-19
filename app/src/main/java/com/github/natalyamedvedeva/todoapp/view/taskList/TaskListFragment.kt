@@ -41,8 +41,7 @@ class TaskListFragment : BaseFragment(),
     private fun initRecyclerView() {
         tasksRecyclerView = binding.tasksRecyclerView
         tasksRecyclerView.layoutManager = LinearLayoutManager(this.context)
-        taskItemAdapter =
-            TaskItemAdapter()
+        taskItemAdapter = TaskItemAdapter()
         tasksRecyclerView.adapter = taskItemAdapter
         updateTaskList()
     }
