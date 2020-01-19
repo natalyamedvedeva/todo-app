@@ -11,28 +11,26 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.esafirm.imagepicker.features.ImagePicker
-import com.facebook.drawee.view.SimpleDraweeView
+import com.esafirm.imagepicker.model.Image
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.Priority
 import com.github.natalyamedvedeva.todoapp.data.Task
 import com.github.natalyamedvedeva.todoapp.data.TaskRepository
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentNewTaskBinding
-import com.github.natalyamedvedeva.todoapp.utils.getImagePath
-import com.github.natalyamedvedeva.todoapp.utils.saveImage
-import com.stfalcon.frescoimageviewer.ImageViewer
 import java.lang.RuntimeException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class NewTaskFragment : BaseFragment() {
 
     private lateinit var binding: FragmentNewTaskBinding
     private lateinit var child: OnImagesFragmentDataListener
 
-    private val date: Calendar = Calendar.getInstance()
     private var deadlineDate: Calendar? = null
-    private var images: MutableList<String>? = null
+
+    private var images: ArrayList<Image> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +39,7 @@ class NewTaskFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_new_task, container, false)
-        date.time = arguments?.getSerializable("date") as Date
+        val task = arguments?.getSerializable("task") as Task
 
         initPrioritySpinner(binding.prioritySpinner)
         initDeadlineTextView(binding.deadlineTextView)
@@ -61,7 +59,10 @@ class NewTaskFragment : BaseFragment() {
             .toolbarImageTitle("Tap to select")
 
         binding.imagesButton.setOnClickListener {
-            imagePicker.start()
+            imagePicker
+                .limit(10)
+                .origin(images)
+                .start()
         }
 
         binding.acceptButton.setOnClickListener {
@@ -69,14 +70,12 @@ class NewTaskFragment : BaseFragment() {
             val addedPriority = binding.prioritySpinner.selectedItem as Priority
             val addedDescription = binding.descriptionEditText.text.toString()
 
-            val task = Task(addedName, addedPriority, date.time)
+            task.name = addedName
+            task.priority = addedPriority
             task.deadline = deadlineDate?.time
             task.description = addedDescription
             task.autoReschedule = binding.autoRescheduleSwitch.isChecked
-
-            val uuidList = mutableListOf<String>()
-            images?.forEach { uuidList.add(saveImage(context!!, it)) }
-            task.images = uuidList
+            task.images = images.map { it.path }
 
             val taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(requireContext()).taskDao())
             taskRepository.insert(task)
@@ -90,11 +89,8 @@ class NewTaskFragment : BaseFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
-            if (images == null) {
-                images = mutableListOf()
-            }
-            val result = ImagePicker.getImages(data)
-            result.forEach { images?.add(it.path) }
+            images.clear()
+            images.addAll(ImagePicker.getImages(data))
             updateChild()
         }
         super.onActivityResult(requestCode, resultCode, data)
@@ -118,9 +114,7 @@ class NewTaskFragment : BaseFragment() {
     }
 
     private fun updateChild() {
-        if (images != null) {
-            child.onImagesAppeared(images!!)
-        }
+        child.onImagesAppeared(images.map { it.path })
     }
 
     private fun initPrioritySpinner(spinner: Spinner) {
