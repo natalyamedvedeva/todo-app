@@ -17,7 +17,7 @@
     <string name="new_task_fragment_title">New task</string>
     <string name="delete">Delete</string>
     <string name="images">Images</string>
-    <string name="add_images">Add images...</string>
+    <string name="select_images">Select images…</string>
     <string name="categories">Categories</string>
     <string name="label">Label</string>
     <string name="cancel">Cancel</string>

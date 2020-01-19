@@ -30,7 +30,7 @@ class ImagesFragment : BaseFragment(), BaseFragment.OnImagesFragmentDataListener
         binding.imagesLayout.removeAllViews()
         images.forEachIndexed { index, path ->
             val view = SimpleDraweeView(context)
-            val linearLayout = LinearLayout.LayoutParams(600, 600)
+            val linearLayout = LinearLayout.LayoutParams(400, 400)
             if (index < images.lastIndex) {
                 linearLayout.marginEnd = 32
             }

@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.esafirm.imagepicker.features.ImagePicker
+import com.esafirm.imagepicker.model.Image
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.Priority
@@ -20,6 +21,7 @@ import com.github.natalyamedvedeva.todoapp.databinding.FragmentNewTaskBinding
 import java.lang.RuntimeException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class NewTaskFragment : BaseFragment() {
 
@@ -29,9 +31,7 @@ class NewTaskFragment : BaseFragment() {
     private val date: Calendar = Calendar.getInstance()
     private var deadlineDate: Calendar? = null
 
-    private val maxImagesCount = 10
-    private var imagesCount = 0
-    private var images: MutableList<String>? = null
+    private var images: ArrayList<Image> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,7 +61,8 @@ class NewTaskFragment : BaseFragment() {
 
         binding.imagesButton.setOnClickListener {
             imagePicker
-                .limit(maxImagesCount - imagesCount)
+                .limit(10)
+                .origin(images)
                 .start()
         }
 
@@ -74,7 +75,7 @@ class NewTaskFragment : BaseFragment() {
             task.deadline = deadlineDate?.time
             task.description = addedDescription
             task.autoReschedule = binding.autoRescheduleSwitch.isChecked
-            task.images = images
+            task.images = images.map { it.path }
 
             val taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(requireContext()).taskDao())
             taskRepository.insert(task)
@@ -88,12 +89,8 @@ class NewTaskFragment : BaseFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
-            if (images == null) {
-                images = mutableListOf()
-            }
-            val result = ImagePicker.getImages(data)
-            imagesCount += result.size
-            result.forEach { images?.add(it.path) }
+            images.clear()
+            images.addAll(ImagePicker.getImages(data))
             updateChild()
         }
         super.onActivityResult(requestCode, resultCode, data)
@@ -117,9 +114,7 @@ class NewTaskFragment : BaseFragment() {
     }
 
     private fun updateChild() {
-        if (images != null) {
-            child.onImagesAppeared(images!!)
-        }
+        child.onImagesAppeared(images.map { it.path })
     }
 
     private fun initPrioritySpinner(spinner: Spinner) {
