@@ -20,8 +20,8 @@
         android:name="com.github.natalyamedvedeva.todoapp.view.NewTaskFragment"
         android:label="@string/new_task_fragment_title">
         <argument
-            android:name="date"
-            app:argType="java.util.Date" />
+            android:name="task"
+            app:argType="com.github.natalyamedvedeva.todoapp.data.Task" />
     </fragment>
     <fragment
         android:id="@+id/taskFragment"

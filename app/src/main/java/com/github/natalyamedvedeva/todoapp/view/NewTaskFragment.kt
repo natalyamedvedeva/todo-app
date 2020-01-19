@@ -28,7 +28,6 @@ class NewTaskFragment : BaseFragment() {
     private lateinit var binding: FragmentNewTaskBinding
     private lateinit var child: OnImagesFragmentDataListener
 
-    private val date: Calendar = Calendar.getInstance()
     private var deadlineDate: Calendar? = null
 
     private var images: ArrayList<Image> = ArrayList()
@@ -40,7 +39,7 @@ class NewTaskFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_new_task, container, false)
-        date.time = arguments?.getSerializable("date") as Date
+        val task = arguments?.getSerializable("task") as Task
 
         initPrioritySpinner(binding.prioritySpinner)
         initDeadlineTextView(binding.deadlineTextView)
@@ -71,7 +70,8 @@ class NewTaskFragment : BaseFragment() {
             val addedPriority = binding.prioritySpinner.selectedItem as Priority
             val addedDescription = binding.descriptionEditText.text.toString()
 
-            val task = Task(addedName, addedPriority, date.time)
+            task.name = addedName
+            task.priority = addedPriority
             task.deadline = deadlineDate?.time
             task.description = addedDescription
             task.autoReschedule = binding.autoRescheduleSwitch.isChecked

@@ -1,16 +1,13 @@
 package com.github.natalyamedvedeva.todoapp.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import java.util.*
 
 @Dao
 interface TaskDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(task: Task)
 
     @Delete
