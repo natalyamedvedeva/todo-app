@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.esafirm.imagepicker.features.ImagePicker
 import com.facebook.drawee.view.SimpleDraweeView
@@ -17,14 +18,17 @@ import com.github.natalyamedvedeva.todoapp.data.Priority
 import com.github.natalyamedvedeva.todoapp.data.Task
 import com.github.natalyamedvedeva.todoapp.data.TaskRepository
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentNewTaskBinding
+import com.github.natalyamedvedeva.todoapp.utils.getImagePath
 import com.github.natalyamedvedeva.todoapp.utils.saveImage
 import com.stfalcon.frescoimageviewer.ImageViewer
+import java.lang.RuntimeException
 import java.text.SimpleDateFormat
 import java.util.*
 
 class NewTaskFragment : BaseFragment() {
 
     private lateinit var binding: FragmentNewTaskBinding
+    private lateinit var child: OnImagesFragmentDataListener
 
     private val date: Calendar = Calendar.getInstance()
     private var deadlineDate: Calendar? = null
@@ -91,24 +95,32 @@ class NewTaskFragment : BaseFragment() {
             }
             val result = ImagePicker.getImages(data)
             result.forEach { images?.add(it.path) }
-
-            result.forEachIndexed { index, image ->
-                // Add the image to images layout
-                val view = SimpleDraweeView(context)
-                view.layoutParams = LinearLayout.LayoutParams(600, 600)
-                view.setImageURI("file://" + image.path)
-                binding.imagesLayout.addView(view)
-
-                val uris = mutableListOf<String>()
-                images?.forEach { path -> uris.add("file://$path") }
-                view.setOnClickListener {
-                    ImageViewer.Builder(context, uris)
-                        .setStartPosition(index)
-                        .show()
-                }
-            }
+            updateChild()
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val childFragment = ImagesFragment()
+        childFragmentManager.beginTransaction()
+            .replace(R.id.child_fragment_container, childFragment)
+            .commit()
+    }
+
+    override fun onAttachFragment(childFragment: Fragment) {
+        super.onAttachFragment(childFragment)
+        if (childFragment is OnImagesFragmentDataListener) {
+            child = childFragment
+            updateChild()
+        } else {
+            throw RuntimeException("$childFragment must implements OnImagesFragmentDataListener")
+        }
+    }
+
+    private fun updateChild() {
+        if (images != null) {
+            child.onImagesAppeared(images!!)
+        }
     }
 
     private fun initPrioritySpinner(spinner: Spinner) {

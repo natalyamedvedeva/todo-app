@@ -2,22 +2,22 @@ package com.github.natalyamedvedeva.todoapp.view
 
 import android.os.Bundle
 import android.view.*
-import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.facebook.drawee.view.SimpleDraweeView
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.Task
 import com.github.natalyamedvedeva.todoapp.data.TaskRepository
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentTaskBinding
 import com.github.natalyamedvedeva.todoapp.utils.getImagePath
-import com.stfalcon.frescoimageviewer.ImageViewer
+import java.lang.RuntimeException
 import java.text.SimpleDateFormat
 
 class TaskFragment : BaseFragment() {
 
     private lateinit var binding: FragmentTaskBinding
+    private lateinit var child: OnImagesFragmentDataListener
 
     private lateinit var task: Task
 
@@ -39,23 +39,30 @@ class TaskFragment : BaseFragment() {
         binding.descriptionTextView.text = task.description
         binding.autoRescheduleTextView.text = task.autoReschedule.toString()
 
-        // Read the images from the internal storage and add to the images layout
-        task.images?.forEachIndexed { index, image ->
-            val view = SimpleDraweeView(context)
-            view.layoutParams = LinearLayout.LayoutParams(600, 600)
-            view.setImageURI("file://" + getImagePath(context!!, image))
-            binding.imagesLayout.addView(view)
-
-            val uris = mutableListOf<String>()
-            task.images?.forEach { uuid -> uris.add("file://" + getImagePath(context!!, uuid)) }
-            view.setOnClickListener {
-                ImageViewer.Builder(context, uris)
-                    .setStartPosition(index)
-                    .show()
-            }
-        }
-
         return  binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val childFragment = ImagesFragment()
+        childFragmentManager.beginTransaction()
+            .replace(R.id.child_fragment_container, childFragment)
+            .commit()
+    }
+
+    override fun onAttachFragment(childFragment: Fragment) {
+        super.onAttachFragment(childFragment)
+        if (childFragment is OnImagesFragmentDataListener) {
+            child = childFragment
+            updateChild()
+        } else {
+            throw RuntimeException("$childFragment must implements OnImagesFragmentDataListener")
+        }
+    }
+
+    private fun updateChild() {
+        val paths = mutableListOf<String>()
+        task.images?.forEach { paths.add(getImagePath(context!!, it)) }
+        child.onImagesAppeared(paths)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
