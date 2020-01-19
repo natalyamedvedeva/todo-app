@@ -11,6 +11,7 @@ import android.widget.*
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.esafirm.imagepicker.features.ImagePicker
+import com.facebook.drawee.view.SimpleDraweeView
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.Priority
@@ -18,6 +19,7 @@ import com.github.natalyamedvedeva.todoapp.data.Task
 import com.github.natalyamedvedeva.todoapp.data.TaskRepository
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentNewTaskBinding
 import com.github.natalyamedvedeva.todoapp.utils.saveImage
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -93,10 +95,9 @@ class NewTaskFragment : BaseFragment() {
                 images?.add(it.path)
 
                 // Add the image to images layout
-                val image = ImageView(context)
-                image.setImageURI(Uri.parse(it.path))
+                val image = SimpleDraweeView(context)
                 image.layoutParams = LinearLayout.LayoutParams(600, 600)
-                image.scaleType = ImageView.ScaleType.CENTER_CROP
+                image.setImageURI("file://" + it.path)
                 binding.imagesLayout.addView(image)
             }
         }

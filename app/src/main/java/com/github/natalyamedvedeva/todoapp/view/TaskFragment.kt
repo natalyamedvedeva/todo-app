@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import com.facebook.drawee.view.SimpleDraweeView
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.Task
@@ -43,10 +44,9 @@ class TaskFragment : BaseFragment() {
 
         // Read the images from internal storage and add to the images layout
         task.images?.forEach {
-            val image = ImageView(context)
-            image.setImageURI(Uri.fromFile(getImageFile(context!!, it)))
+            val image = SimpleDraweeView(context)
             image.layoutParams = LinearLayout.LayoutParams(600, 600)
-            image.scaleType = ImageView.ScaleType.CENTER_CROP
+            image.setImageURI("file://" + getImageFile(context!!, it).absolutePath)
             binding.imagesLayout.addView(image)
         }
 
