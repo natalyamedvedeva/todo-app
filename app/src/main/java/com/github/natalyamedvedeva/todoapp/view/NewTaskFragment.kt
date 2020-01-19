@@ -18,6 +18,7 @@ import com.github.natalyamedvedeva.todoapp.data.Task
 import com.github.natalyamedvedeva.todoapp.data.TaskRepository
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentNewTaskBinding
 import com.github.natalyamedvedeva.todoapp.utils.saveImage
+import com.stfalcon.frescoimageviewer.ImageViewer
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -89,14 +90,22 @@ class NewTaskFragment : BaseFragment() {
                 images = mutableListOf()
             }
             val result = ImagePicker.getImages(data)
-            result.forEach {
-                images?.add(it.path)
+            result.forEach { images?.add(it.path) }
 
+            result.forEachIndexed { index, image ->
                 // Add the image to images layout
-                val image = SimpleDraweeView(context)
-                image.layoutParams = LinearLayout.LayoutParams(600, 600)
-                image.setImageURI("file://" + it.path)
-                binding.imagesLayout.addView(image)
+                val view = SimpleDraweeView(context)
+                view.layoutParams = LinearLayout.LayoutParams(600, 600)
+                view.setImageURI("file://" + image.path)
+                binding.imagesLayout.addView(view)
+
+                val uris = mutableListOf<String>()
+                images?.forEach { path -> uris.add("file://$path") }
+                view.setOnClickListener {
+                    ImageViewer.Builder(context, uris)
+                        .setStartPosition(index)
+                        .show()
+                }
             }
         }
         super.onActivityResult(requestCode, resultCode, data)

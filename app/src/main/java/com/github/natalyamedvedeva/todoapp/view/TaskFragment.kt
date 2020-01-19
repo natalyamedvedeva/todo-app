@@ -12,6 +12,7 @@ import com.github.natalyamedvedeva.todoapp.data.Task
 import com.github.natalyamedvedeva.todoapp.data.TaskRepository
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentTaskBinding
 import com.github.natalyamedvedeva.todoapp.utils.getImagePath
+import com.stfalcon.frescoimageviewer.ImageViewer
 import java.text.SimpleDateFormat
 
 class TaskFragment : BaseFragment() {
@@ -39,11 +40,19 @@ class TaskFragment : BaseFragment() {
         binding.autoRescheduleTextView.text = task.autoReschedule.toString()
 
         // Read the images from the internal storage and add to the images layout
-        task.images?.forEach {
-            val image = SimpleDraweeView(context)
-            image.layoutParams = LinearLayout.LayoutParams(600, 600)
-            image.setImageURI("file://" + getImagePath(context!!, it))
-            binding.imagesLayout.addView(image)
+        task.images?.forEachIndexed { index, image ->
+            val view = SimpleDraweeView(context)
+            view.layoutParams = LinearLayout.LayoutParams(600, 600)
+            view.setImageURI("file://" + getImagePath(context!!, image))
+            binding.imagesLayout.addView(view)
+
+            val uris = mutableListOf<String>()
+            task.images?.forEach { uuid -> uris.add("file://" + getImagePath(context!!, uuid)) }
+            view.setOnClickListener {
+                ImageViewer.Builder(context, uris)
+                    .setStartPosition(index)
+                    .show()
+            }
         }
 
         return  binding.root
