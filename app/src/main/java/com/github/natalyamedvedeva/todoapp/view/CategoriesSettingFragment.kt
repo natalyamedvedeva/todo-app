@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.AppDatabase
@@ -19,7 +20,7 @@ import java.lang.RuntimeException
 class CategoriesSettingFragment : BaseFragment() {
 
     private lateinit var binding: FragmentCategoriesSettingsBinding
-    private lateinit var child: OnCategoryListFragmentDataListener
+    private lateinit var categoryListFragment: OnCategoryListFragmentDataListener
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +46,7 @@ class CategoriesSettingFragment : BaseFragment() {
     override fun onAttachFragment(childFragment: Fragment) {
         super.onAttachFragment(childFragment)
         if (childFragment is OnCategoryListFragmentDataListener) {
-            child = childFragment
+            categoryListFragment = childFragment
             updateChild()
         } else {
             throw RuntimeException("$childFragment must implements OnCategoryListFragmentDataListener")
@@ -54,6 +55,9 @@ class CategoriesSettingFragment : BaseFragment() {
 
     private fun updateChild() {
         val categoryRepository = CategoryRepository.getInstance(AppDatabase.getInstance(requireContext()).categoryDao())
-        child.onCategoryListAppeared(categoryRepository.getCategories())
+        val categoryListLiveData = categoryRepository.getCategories()
+        categoryListLiveData.observe(this, Observer {
+            categoryListFragment.onCategoryListAppeared(it)
+        })
     }
 }

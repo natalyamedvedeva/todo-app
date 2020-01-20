@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.natalyamedvedeva.todoapp.view.BaseFragment
@@ -22,7 +20,7 @@ class TaskListFragment : BaseFragment(),
     private lateinit var binding: FragmentTaskListBinding
     private lateinit var tasksRecyclerView: RecyclerView
     private lateinit var taskItemAdapter: TaskItemAdapter
-    private var taskListLiveData: LiveData<List<Task>>? = null
+    private var taskList: List<Task>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,13 +46,11 @@ class TaskListFragment : BaseFragment(),
     }
 
     private fun updateTaskList() {
-        taskListLiveData?.observe(this, Observer {
-            taskItemAdapter.resetItems(it)
-        })
+        taskList?.let { taskItemAdapter.resetItems(it) }
     }
 
-    override fun onTaskListAppeared(data: LiveData<List<Task>>) {
-        taskListLiveData = data
+    override fun onTaskListAppeared(data: List<Task>) {
+        taskList = data
         updateTaskList()
     }
 }

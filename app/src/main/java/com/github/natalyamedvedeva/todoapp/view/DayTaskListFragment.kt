@@ -10,6 +10,7 @@ import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.AppDatabase
@@ -25,7 +26,7 @@ import java.util.*
 class DayTaskListFragment : BaseFragment() {
 
     private lateinit var binding: FragmentDayTaskListBinding
-    private lateinit var child: OnTaskListFragmentDataListener
+    private lateinit var taskListFragment: OnTaskListFragmentDataListener
 
     private var currentDate = Calendar.getInstance()
 
@@ -83,17 +84,15 @@ class DayTaskListFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val childFragment =
-            TaskListFragment()
         childFragmentManager.beginTransaction()
-            .replace(R.id.child_content_container, childFragment)
+            .replace(R.id.child_content_container, TaskListFragment())
             .commit()
     }
 
     override fun onAttachFragment(childFragment: Fragment) {
         super.onAttachFragment(childFragment)
         if (childFragment is OnTaskListFragmentDataListener) {
-            child = childFragment
+            taskListFragment = childFragment
             updateChild()
         } else {
             throw RuntimeException("$childFragment must implements OnTaskListFragmentDataListener")
@@ -101,9 +100,10 @@ class DayTaskListFragment : BaseFragment() {
     }
 
     private fun updateChild() {
-        child.onTaskListAppeared(
-            TaskRepository.getInstance(AppDatabase.getInstance(requireContext()).taskDao())
-                .getTaskList(currentDate.time)
-        )
+        val taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(requireContext()).taskDao())
+        val taskListLiveData = taskRepository.getTaskList(currentDate.time)
+        taskListLiveData.observe(this, Observer {
+            taskListFragment.onTaskListAppeared(it)
+        })
     }
 }
