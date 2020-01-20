@@ -14,7 +14,7 @@ enum class Priority(val color: Int) {
 }
 
 @Entity(tableName = "task")
-class Task(
+data class Task(
     @ColumnInfo(name = "tName")
     var name: String,
     var priority: Priority,

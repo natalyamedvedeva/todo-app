@@ -13,12 +13,8 @@ import androidx.navigation.findNavController
 import com.esafirm.imagepicker.features.ImagePicker
 import com.esafirm.imagepicker.model.Image
 import com.github.natalyamedvedeva.todoapp.R
-import com.github.natalyamedvedeva.todoapp.data.AppDatabase
-import com.github.natalyamedvedeva.todoapp.data.Priority
-import com.github.natalyamedvedeva.todoapp.data.Task
-import com.github.natalyamedvedeva.todoapp.data.TaskRepository
+import com.github.natalyamedvedeva.todoapp.data.*
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentNewTaskBinding
-import kotlinx.android.synthetic.main.fragment_new_task.view.*
 import java.lang.RuntimeException
 import java.text.SimpleDateFormat
 import java.util.*

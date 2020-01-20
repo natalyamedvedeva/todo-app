@@ -37,7 +37,7 @@ class TaskItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             )
         )
 
-        itemView.setOnCreateContextMenuListener { menu, v, menuInfo ->
+        itemView.setOnCreateContextMenuListener { menu, v, _ ->
             MenuInflater(v.context).inflate(R.menu.task_menu, menu)
         }
     }

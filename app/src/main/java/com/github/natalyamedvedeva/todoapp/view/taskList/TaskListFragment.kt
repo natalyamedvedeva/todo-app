@@ -23,7 +23,7 @@ class TaskListFragment : BaseFragment(),
     private lateinit var binding: FragmentTaskListBinding
     private lateinit var tasksRecyclerView: RecyclerView
     private lateinit var taskItemAdapter: TaskItemAdapter
-    private var taskList: LiveData<List<TaskWithCategories>>? = null
+    private var taskList: List<TaskWithCategories>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

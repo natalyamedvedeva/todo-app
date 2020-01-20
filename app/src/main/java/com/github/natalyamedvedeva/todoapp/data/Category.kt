@@ -8,7 +8,7 @@ import java.io.Serializable
 
 @Entity(tableName = "category", indices = [ Index("cName", unique = true),
                                             Index("emoji", unique = true) ])
-class Category(
+data class Category(
     @ColumnInfo(name = "cName")
     var name: String,
     @ColumnInfo(name = "emoji")

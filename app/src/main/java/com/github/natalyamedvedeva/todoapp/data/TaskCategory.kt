@@ -4,13 +4,15 @@ import androidx.room.*
 import java.io.Serializable
 import java.util.*
 
-@Entity(primaryKeys = ["taskId", "categoryId"])
-class TaskCategoryCrossRef(
+@Entity(primaryKeys = ["taskId", "categoryId"], indices = [Index("taskId"), Index("categoryId")])
+data class TaskCategoryCrossRef(
+    @ColumnInfo(name = "taskId")
     val taskId: Long,
+    @ColumnInfo(name = "categoryId")
     val categoryId: Long
 )
 
-class TaskWithCategories (
+data class TaskWithCategories (
     @Embedded
     var task: Task,
     @Relation(
