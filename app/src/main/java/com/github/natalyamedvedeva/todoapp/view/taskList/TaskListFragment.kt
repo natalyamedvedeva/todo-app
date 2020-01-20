@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.natalyamedvedeva.todoapp.view.BaseFragment
@@ -40,6 +41,12 @@ class TaskListFragment : BaseFragment(),
     private fun initRecyclerView() {
         tasksRecyclerView = binding.tasksRecyclerView
         tasksRecyclerView.layoutManager = LinearLayoutManager(this.context)
+        tasksRecyclerView.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                DividerItemDecoration.VERTICAL
+            )
+        )
         taskItemAdapter = TaskItemAdapter()
         tasksRecyclerView.adapter = taskItemAdapter
         updateTaskList()
