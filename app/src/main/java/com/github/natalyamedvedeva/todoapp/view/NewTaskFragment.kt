@@ -38,7 +38,7 @@ class NewTaskFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        super.onCreate(savedInstanceState)
+        retainInstance = true
         binding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_new_task, container, false)
         val task = arguments?.getSerializable("task") as Task
