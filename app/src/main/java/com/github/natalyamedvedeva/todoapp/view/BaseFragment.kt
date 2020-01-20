@@ -4,10 +4,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import com.github.natalyamedvedeva.todoapp.data.Category
 import com.github.natalyamedvedeva.todoapp.data.Task
+import com.github.natalyamedvedeva.todoapp.data.TaskWithCategories
 
 open class BaseFragment: Fragment() {
     interface OnTaskListFragmentDataListener {
-        fun onTaskListAppeared(data: LiveData<List<Task>>)
+        fun onTaskListAppeared(data: LiveData<List<TaskWithCategories>>)
     }
 
     interface OnCategoryListFragmentDataListener {

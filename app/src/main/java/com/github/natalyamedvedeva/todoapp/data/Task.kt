@@ -1,5 +1,6 @@
 package com.github.natalyamedvedeva.todoapp.data
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
@@ -10,17 +11,19 @@ enum class Priority {
 }
 
 @Entity(tableName = "task")
-data class Task(
+class Task(
+    @ColumnInfo(name = "tName")
     var name: String,
     var priority: Priority,
     var date: Date
 ) : Serializable {
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
+    @ColumnInfo(name = "tId")
+    var id: Long = 0L
 
     var deadline: Date? = null
     var autoReschedule: Boolean = true
     var description: String? = null
 
-    var images: List<String>? = null
+    var images: MutableList<String> = mutableListOf()
 }

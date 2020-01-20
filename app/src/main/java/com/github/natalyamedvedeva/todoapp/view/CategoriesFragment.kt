@@ -48,7 +48,7 @@ class CategoriesFragment : BaseFragment(), BaseFragment.OnCategoriesFragmentData
             button.text = if (categories.isEmpty()) getString(R.string.add_category) else getString(R.string.add)
             binding.categoriesLayout.addView(button)
             button.setOnClickListener {
-                categories.add(Category("Caaaaaat", "\uD83D\uDC08"))
+                categories.add(Category("Caaaat", "\uD83D\uDC08"))
                 update()
             }
         }

@@ -12,10 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.github.natalyamedvedeva.todoapp.R
-import com.github.natalyamedvedeva.todoapp.data.AppDatabase
-import com.github.natalyamedvedeva.todoapp.data.Priority
-import com.github.natalyamedvedeva.todoapp.data.Task
-import com.github.natalyamedvedeva.todoapp.data.TaskRepository
+import com.github.natalyamedvedeva.todoapp.data.*
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentDayTaskListBinding
 import com.github.natalyamedvedeva.todoapp.view.taskList.TaskListFragment
 import java.lang.RuntimeException
@@ -75,7 +72,7 @@ class DayTaskListFragment : BaseFragment() {
         binding.addBtn.setOnClickListener {
             view?.findNavController()?.navigate(
                 R.id.action_dayTaskListFragment_to_newTaskFragment,
-                bundleOf("task" to Task("", Priority.Normal, currentDate.time))
+                bundleOf("task" to TaskWithCategories(Task("", Priority.Normal, currentDate.time), mutableListOf()))
             )
         }
 
@@ -102,7 +99,7 @@ class DayTaskListFragment : BaseFragment() {
 
     private fun updateChild() {
         child.onTaskListAppeared(
-            TaskRepository.getInstance(AppDatabase.getInstance(requireContext()).taskDao())
+            TaskCategoryRepository.getInstance(AppDatabase.getInstance(requireContext()).taskCategoryDao())
                 .getTaskList(currentDate.time)
         )
     }

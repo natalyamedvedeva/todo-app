@@ -6,16 +6,17 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
-@Entity(tableName = "category", indices = [ Index("name", unique = true),
+@Entity(tableName = "category", indices = [ Index("cName", unique = true),
                                             Index("emoji", unique = true) ])
-data class Category(
-    @ColumnInfo(name = "name")
+class Category(
+    @ColumnInfo(name = "cName")
     var name: String,
     @ColumnInfo(name = "emoji")
     var emoji: String
 ) : Serializable {
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
+    @ColumnInfo(name = "cId")
+    var id: Long = 0L
 
     override fun equals(other: Any?): Boolean {
         if (other is Category && name == other.name && emoji == other.emoji) return true

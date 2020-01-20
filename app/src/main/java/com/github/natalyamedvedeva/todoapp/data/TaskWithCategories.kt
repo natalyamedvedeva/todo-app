@@ -1,30 +1,14 @@
-package com.github.natalyamedvedeva.todoapp.data
 
-import androidx.room.*
+package com.github.natalyamedvedeva.todoapp.data
+/*
 import java.io.Serializable
 import java.util.*
 
-@Entity(primaryKeys = ["taskId", "categoryId"])
-class TaskCategoryCrossRef(
-    val taskId: Long,
-    val categoryId: Long
-)
-
-class TaskWithCategories (
-    @Embedded
-    var task: Task,
-    @Relation(
-        parentColumn = "tId",
-        entity = Category::class,
-        entityColumn = "cId",
-        associateBy = Junction(
-            value = TaskCategoryCrossRef::class,
-            parentColumn = "taskId",
-            entityColumn = "categoryId"
-        )
-    )
+class TaskWithCategories(
+    val task: Task,
     val categories: MutableList<Category>
 ) : Serializable {
+
     var name: String
         get() = task.name
         set(value) { task.name = value }
@@ -55,4 +39,4 @@ class TaskWithCategories (
     var images: MutableList<String>
         get() = task.images
         set(value) { task.images.clear(); task.images.addAll(value) }
-}
+}*/

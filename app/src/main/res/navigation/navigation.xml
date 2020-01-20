@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_activity_graph"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_activity_graph"
     app:startDestination="@id/dayTaskListFragment">
 
     <fragment
@@ -21,7 +23,7 @@
         android:label="@string/new_task_fragment_title">
         <argument
             android:name="task"
-            app:argType="com.github.natalyamedvedeva.todoapp.data.Task" />
+            app:argType="com.github.natalyamedvedeva.todoapp.data.TaskWithCategories" />
     </fragment>
     <fragment
         android:id="@+id/taskFragment"
@@ -29,7 +31,7 @@
         android:label="@string/task_fragment_title">
         <argument
             android:name="task"
-            app:argType="com.github.natalyamedvedeva.todoapp.data.Task" />
+            app:argType="com.github.natalyamedvedeva.todoapp.data.TaskWithCategories" />
     </fragment>
     <action
             android:id="@+id/action_global_taskFragment"

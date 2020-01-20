@@ -13,10 +13,7 @@ import androidx.navigation.findNavController
 import com.esafirm.imagepicker.features.ImagePicker
 import com.esafirm.imagepicker.model.Image
 import com.github.natalyamedvedeva.todoapp.R
-import com.github.natalyamedvedeva.todoapp.data.AppDatabase
-import com.github.natalyamedvedeva.todoapp.data.Priority
-import com.github.natalyamedvedeva.todoapp.data.Task
-import com.github.natalyamedvedeva.todoapp.data.TaskRepository
+import com.github.natalyamedvedeva.todoapp.data.*
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentNewTaskBinding
 import java.lang.RuntimeException
 import java.text.SimpleDateFormat
@@ -41,7 +38,7 @@ class NewTaskFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_new_task, container, false)
-        val task = arguments?.getSerializable("task") as Task
+        val task = arguments?.getSerializable("task") as TaskWithCategories
 
         initPrioritySpinner(binding.prioritySpinner)
         initDeadlineTextView(binding.deadlineTextView)
@@ -76,10 +73,10 @@ class NewTaskFragment : BaseFragment() {
             task.deadline = deadlineDate?.time
             task.description = addedDescription
             task.autoReschedule = binding.autoRescheduleSwitch.isChecked
-            task.images = images.map { it.path }
+            task.images = images.map { it.path }.toMutableList()
 
             val taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(requireContext()).taskDao())
-            taskRepository.insert(task)
+            taskRepository.insert(task.task)
 
             view?.clearFocus()
             view?.findNavController()?.popBackStack()

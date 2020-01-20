@@ -9,6 +9,7 @@ import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.Task
 import com.github.natalyamedvedeva.todoapp.data.TaskRepository
+import com.github.natalyamedvedeva.todoapp.data.TaskWithCategories
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentTaskBinding
 import java.lang.RuntimeException
 import java.text.SimpleDateFormat
@@ -18,7 +19,7 @@ class TaskFragment : BaseFragment() {
     private lateinit var binding: FragmentTaskBinding
     private lateinit var imagesFragment: OnImagesFragmentDataListener
 
-    private lateinit var task: Task
+    private lateinit var task: TaskWithCategories
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,7 +28,7 @@ class TaskFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_task, container, false)
-        task = arguments?.getSerializable("task") as Task
+        task = arguments?.getSerializable("task") as TaskWithCategories
         setHasOptionsMenu(true)
 
         binding.nameTextView.text = String.format("%s - %s", task.name, task.priority.name)
@@ -59,7 +60,7 @@ class TaskFragment : BaseFragment() {
 
     private fun updateChild() {
         task.images.let {
-            imagesFragment.onImagesAppeared(task.images!!)
+            imagesFragment.onImagesAppeared(task.images)
         }
     }
 
@@ -71,7 +72,7 @@ class TaskFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.delete_task) {
             val taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(context!!).taskDao())
-            taskRepository.delete(task)
+            taskRepository.delete(task.task)
             view?.findNavController()?.popBackStack()
         }
         return super.onOptionsItemSelected(item)

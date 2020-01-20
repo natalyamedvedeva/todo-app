@@ -6,10 +6,11 @@ import android.view.LayoutInflater
 import androidx.recyclerview.widget.DiffUtil
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.Task
+import com.github.natalyamedvedeva.todoapp.data.TaskWithCategories
 
 class TaskItemAdapter : RecyclerView.Adapter<TaskItemViewHolder>() {
 
-    private var taskList = mutableListOf<Task>()
+    private var taskList = mutableListOf<TaskWithCategories>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskItemViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.task_item_view, parent, false)
@@ -22,8 +23,8 @@ class TaskItemAdapter : RecyclerView.Adapter<TaskItemViewHolder>() {
 
     override fun getItemCount() = taskList.size
 
-    fun addItem(Task: Task) {
-        taskList.add(Task)
+    fun addItem(task: TaskWithCategories) {
+        taskList.add(task)
         notifyItemInserted(taskList.size - 1)
     }
 
@@ -32,7 +33,7 @@ class TaskItemAdapter : RecyclerView.Adapter<TaskItemViewHolder>() {
         notifyItemRemoved(position)
     }
 
-    fun resetItems(tasks: List<Task>) {
+    fun resetItems(tasks: List<TaskWithCategories>) {
         val diffCallback: DiffUtil.Callback = object : DiffUtil.Callback() {
             override fun getOldListSize(): Int = this@TaskItemAdapter.taskList.size
 

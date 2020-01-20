@@ -7,13 +7,14 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.Task
+import com.github.natalyamedvedeva.todoapp.data.TaskWithCategories
 
 class TaskItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private val taskItem: View = itemView.findViewById(R.id.task_item)
     private val taskNameTextView: TextView = itemView.findViewById(R.id.task_name_text_view)
 
-    fun bind(task: Task) {
+    fun bind(task: TaskWithCategories) {
         taskNameTextView.text = String.format("%s - %s", task.name, task.priority.name)
         taskItem.setOnClickListener(
             Navigation.createNavigateOnClickListener(

@@ -35,13 +35,15 @@ class CategoryListFragment : BaseFragment(),
 
     private fun initRecyclerView() {
         categoriesRecyclerView = binding.categoriesRecyclerView
-        categoriesRecyclerView.layoutManager = LinearLayoutManager(this.context)
-        categoriesRecyclerView.addItemDecoration(
-            DividerItemDecoration(
-                requireContext(),
-                DividerItemDecoration.VERTICAL
+        categoriesRecyclerView.apply {
+            layoutManager = LinearLayoutManager(this.context)
+            addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(),
+                    DividerItemDecoration.VERTICAL
+                )
             )
-        )
+        }
         categoryItemAdapter = CategoryItemAdapter()
         categoriesRecyclerView.adapter = categoryItemAdapter
         updateCategoryList()
