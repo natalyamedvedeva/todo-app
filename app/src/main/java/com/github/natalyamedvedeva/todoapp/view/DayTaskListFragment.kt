@@ -23,7 +23,10 @@ import java.util.*
 class DayTaskListFragment : BaseFragment() {
 
     private lateinit var binding: FragmentDayTaskListBinding
-    private lateinit var taskListFragment: OnTaskListFragmentDataListener
+
+    private val taskListFragment = TaskListFragment()
+
+    private lateinit var taskListFragmentDataListener: OnTaskListFragmentDataListener
 
     private var currentDate = Calendar.getInstance()
 
@@ -88,14 +91,14 @@ class DayTaskListFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         childFragmentManager.beginTransaction()
-            .replace(R.id.child_content_container, TaskListFragment())
+            .replace(R.id.child_content_container, taskListFragment)
             .commit()
     }
 
     override fun onAttachFragment(childFragment: Fragment) {
         super.onAttachFragment(childFragment)
         if (childFragment is OnTaskListFragmentDataListener) {
-            taskListFragment = childFragment
+            taskListFragmentDataListener = childFragment
             updateChild()
         } else {
             throw RuntimeException("$childFragment must implements OnTaskListFragmentDataListener")
@@ -106,7 +109,7 @@ class DayTaskListFragment : BaseFragment() {
         val taskCategoryRepository = TaskCategoryRepository.getInstance(AppDatabase.getInstance(requireContext()).taskCategoryDao())
         val taskListLiveData = taskCategoryRepository.getTaskList(currentDate.time)
         taskListLiveData.observe(this, Observer {
-            taskListFragment.onTaskListAppeared(it)
+            taskListFragmentDataListener.onTaskListAppeared(it)
         })
     }
 }

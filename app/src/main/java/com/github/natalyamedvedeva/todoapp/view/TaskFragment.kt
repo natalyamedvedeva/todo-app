@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.AppDatabase
-import com.github.natalyamedvedeva.todoapp.data.Task
 import com.github.natalyamedvedeva.todoapp.data.TaskRepository
 import com.github.natalyamedvedeva.todoapp.data.TaskWithCategories
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentTaskBinding
@@ -17,7 +16,10 @@ import java.text.SimpleDateFormat
 class TaskFragment : BaseFragment() {
 
     private lateinit var binding: FragmentTaskBinding
-    private lateinit var imagesFragment: OnImagesFragmentDataListener
+
+    private val imagesFragment = ImagesFragment()
+
+    private lateinit var imagesFragmentDataListener: OnImagesFragmentDataListener
 
     private lateinit var task: TaskWithCategories
 
@@ -44,14 +46,14 @@ class TaskFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         childFragmentManager.beginTransaction()
-            .replace(R.id.images_fragment_container, ImagesFragment())
+            .replace(R.id.images_fragment_container, imagesFragment)
             .commit()
     }
 
     override fun onAttachFragment(childFragment: Fragment) {
         super.onAttachFragment(childFragment)
         if (childFragment is OnImagesFragmentDataListener) {
-            imagesFragment = childFragment
+            imagesFragmentDataListener = childFragment
             updateChild()
         } else {
             throw RuntimeException("$childFragment must implements OnImagesFragmentDataListener")
@@ -60,7 +62,7 @@ class TaskFragment : BaseFragment() {
 
     private fun updateChild() {
         if (::task.isInitialized && !task.images.isNullOrEmpty()) {
-            imagesFragment.onImagesAppeared(task.images)
+            imagesFragmentDataListener.onImagesAppeared(task.images)
         }
     }
 

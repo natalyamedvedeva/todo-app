@@ -20,7 +20,10 @@ import java.lang.RuntimeException
 class CategoriesSettingFragment : BaseFragment() {
 
     private lateinit var binding: FragmentCategoriesSettingsBinding
-    private lateinit var categoryListFragment: OnCategoryListFragmentDataListener
+
+    private val categoryListFragment = CategoryListFragment()
+
+    private lateinit var categoryListFragmentDataListener: OnCategoryListFragmentDataListener
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,16 +40,15 @@ class CategoriesSettingFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val childFragment = CategoryListFragment()
         childFragmentManager.beginTransaction()
-            .replace(R.id.child_fragment_container, childFragment)
+            .replace(R.id.child_fragment_container, categoryListFragment)
             .commit()
     }
 
     override fun onAttachFragment(childFragment: Fragment) {
         super.onAttachFragment(childFragment)
         if (childFragment is OnCategoryListFragmentDataListener) {
-            categoryListFragment = childFragment
+            categoryListFragmentDataListener = childFragment
             updateChild()
         } else {
             throw RuntimeException("$childFragment must implements OnCategoryListFragmentDataListener")
@@ -57,7 +59,7 @@ class CategoriesSettingFragment : BaseFragment() {
         val categoryRepository = CategoryRepository.getInstance(AppDatabase.getInstance(requireContext()).categoryDao())
         val categoryListLiveData = categoryRepository.getCategories()
         categoryListLiveData.observe(this, Observer {
-            categoryListFragment.onCategoryListAppeared(it)
+            categoryListFragmentDataListener.onCategoryListAppeared(it)
         })
     }
 }
