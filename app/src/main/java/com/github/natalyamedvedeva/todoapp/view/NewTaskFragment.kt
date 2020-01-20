@@ -83,11 +83,15 @@ class NewTaskFragment : BaseFragment() {
             val taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(requireContext()).taskDao())
             taskRepository.insert(task)
 
-            view?.clearFocus()
             view?.findNavController()?.popBackStack()
         }
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        view?.clearFocus()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
