@@ -19,6 +19,7 @@
     <string name="delete">Delete</string>
     <string name="images">Images</string>
     <string name="select_images">Select images…</string>
+    <string name="add_category">Add category</string>
     <string name="categories">Categories</string>
     <string name="label">Label</string>
     <string name="cancel">Cancel</string>

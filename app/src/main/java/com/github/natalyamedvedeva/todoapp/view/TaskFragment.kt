@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat
 class TaskFragment : BaseFragment() {
 
     private lateinit var binding: FragmentTaskBinding
-    private lateinit var child: OnImagesFragmentDataListener
+    private lateinit var imagesFragment: OnImagesFragmentDataListener
 
     private lateinit var task: Task
 
@@ -42,16 +42,15 @@ class TaskFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val childFragment = ImagesFragment()
         childFragmentManager.beginTransaction()
-            .replace(R.id.child_fragment_container, childFragment)
+            .replace(R.id.images_fragment_container, ImagesFragment())
             .commit()
     }
 
     override fun onAttachFragment(childFragment: Fragment) {
         super.onAttachFragment(childFragment)
         if (childFragment is OnImagesFragmentDataListener) {
-            child = childFragment
+            imagesFragment = childFragment
             updateChild()
         } else {
             throw RuntimeException("$childFragment must implements OnImagesFragmentDataListener")
@@ -60,7 +59,7 @@ class TaskFragment : BaseFragment() {
 
     private fun updateChild() {
         task.images.let {
-            child.onImagesAppeared(task.images!!)
+            imagesFragment.onImagesAppeared(task.images!!)
         }
     }
 
