@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
-            name="category"
-            type="com.github.natalyamedvedeva.todoapp.data.Category" />
+                name="category"
+                type="com.github.natalyamedvedeva.todoapp.data.Category"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/view_group"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".view.EditCategoryDialog"
-        android:padding="10dp">
+            android:id="@+id/view_group"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".view.EditCategoryDialog"
+            android:padding="10dp">
 
         <com.vanniktech.emoji.EmojiEditText
-            android:id="@+id/emoji_edit_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@={category.emoji}"
-            android:hint="@string/label"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/name_edit_text"/>
+                android:id="@+id/emoji_edit_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@={category.emoji}"
+                android:hint="@string/label"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/name_edit_text"/>
 
         <EditText
-            android:id="@+id/name_edit_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:inputType="text"
-            android:text="@={category.name}"
-            android:hint="@string/name"
-            app:layout_constraintHorizontal_weight="3"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/emoji_edit_text"
-            app:layout_constraintEnd_toEndOf="parent"/>
+                android:id="@+id/name_edit_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:inputType="text"
+                android:text="@={category.name}"
+                android:hint="@string/name"
+                app:layout_constraintHorizontal_weight="3"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/emoji_edit_text"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

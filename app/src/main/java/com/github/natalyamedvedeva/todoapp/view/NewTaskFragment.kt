@@ -13,8 +13,12 @@ import androidx.navigation.findNavController
 import com.esafirm.imagepicker.features.ImagePicker
 import com.esafirm.imagepicker.model.Image
 import com.github.natalyamedvedeva.todoapp.R
-import com.github.natalyamedvedeva.todoapp.data.*
+import com.github.natalyamedvedeva.todoapp.data.AppDatabase
+import com.github.natalyamedvedeva.todoapp.data.Priority
+import com.github.natalyamedvedeva.todoapp.data.Task
+import com.github.natalyamedvedeva.todoapp.data.TaskRepository
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentNewTaskBinding
+import kotlinx.android.synthetic.main.fragment_new_task.view.*
 import java.lang.RuntimeException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -35,7 +39,7 @@ class NewTaskFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        super.onCreate(savedInstanceState)
+        retainInstance = true
         binding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_new_task, container, false)
         val task = arguments?.getSerializable("task") as TaskWithCategories
@@ -73,16 +77,23 @@ class NewTaskFragment : BaseFragment() {
             task.deadline = deadlineDate?.time
             task.description = addedDescription
             task.autoReschedule = binding.autoRescheduleSwitch.isChecked
-            task.images = images.map { it.path }.toMutableList()
+            if (!images.isNullOrEmpty()) {
+                task.images.clear()
+                task.images.addAll(images.map { it.path })
+            }
 
             val taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(requireContext()).taskDao())
             taskRepository.insert(task.task)
 
-            view?.clearFocus()
             view?.findNavController()?.popBackStack()
         }
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        view?.clearFocus()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

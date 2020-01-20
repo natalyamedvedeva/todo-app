@@ -15,7 +15,6 @@ import com.github.natalyamedvedeva.todoapp.databinding.FragmentEditCategoryDialo
 class EditCategoryDialog : DialogFragment() {
 
     private lateinit var binding: FragmentEditCategoryDialogBinding
-    private lateinit var category: Category
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = DataBindingUtil.inflate(
@@ -24,14 +23,18 @@ class EditCategoryDialog : DialogFragment() {
             null,
             false
         )
-        binding.category = arguments?.get("category") as Category
+
+        val category = arguments?.get("category") as Category
+        binding.category = category.copy()
 
         val builder = AlertDialog.Builder(activity)
         builder.setTitle("Edit category")
         builder.setView(binding.root)
         builder.setPositiveButton(R.string.save){ _, _ ->
             val repository = CategoryRepository.getInstance(AppDatabase.getInstance(requireContext()).categoryDao())
-            repository.insert(binding.category as Category)
+            val changedCategory = binding.category as Category
+            changedCategory.id = category.id
+            repository.insert(changedCategory)
         }
             .setNegativeButton(R.string.cancel) { _, _ -> dismiss() }
         return builder.create()

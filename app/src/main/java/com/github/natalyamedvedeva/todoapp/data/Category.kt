@@ -19,7 +19,16 @@ class Category(
     var id: Long = 0L
 
     override fun equals(other: Any?): Boolean {
-        if (other is Category && name == other.name && emoji == other.emoji) return true
+        if (other is Category && name == other.name && emoji == other.emoji) {
+            return true
+        }
         return false
+    }
+
+    override fun hashCode(): Int {
+        var result = name.hashCode()
+        result = 31 * result + emoji.hashCode()
+        result = 31 * result + id.hashCode()
+        return result
     }
 }

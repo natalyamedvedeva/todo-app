@@ -20,6 +20,7 @@ class ImagesFragment : BaseFragment(), BaseFragment.OnImagesFragmentDataListener
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        retainInstance = true
         binding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_images, container, false)
         update()

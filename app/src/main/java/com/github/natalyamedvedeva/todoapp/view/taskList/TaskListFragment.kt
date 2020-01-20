@@ -23,7 +23,7 @@ class TaskListFragment : BaseFragment(),
     private lateinit var binding: FragmentTaskListBinding
     private lateinit var tasksRecyclerView: RecyclerView
     private lateinit var taskItemAdapter: TaskItemAdapter
-    private var taskListLiveData: LiveData<List<TaskWithCategories>>? = null
+    private var taskList: LiveData<List<TaskWithCategories>>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,13 +57,11 @@ class TaskListFragment : BaseFragment(),
     }
 
     private fun updateTaskList() {
-        taskListLiveData?.observe(this, Observer {
-            taskItemAdapter.resetItems(it)
-        })
+        taskList?.let { taskItemAdapter.resetItems(it) }
     }
 
-    override fun onTaskListAppeared(data: LiveData<List<TaskWithCategories>>) {
-        taskListLiveData = data
+    override fun onTaskListAppeared(data: List<TaskWithCategories>) {
+        taskList = data
         updateTaskList()
     }
 }

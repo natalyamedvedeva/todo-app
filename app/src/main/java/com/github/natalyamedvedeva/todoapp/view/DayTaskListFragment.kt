@@ -10,6 +10,7 @@ import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.*
@@ -22,7 +23,7 @@ import java.util.*
 class DayTaskListFragment : BaseFragment() {
 
     private lateinit var binding: FragmentDayTaskListBinding
-    private lateinit var child: OnTaskListFragmentDataListener
+    private lateinit var taskListFragment: OnTaskListFragmentDataListener
 
     private var currentDate = Calendar.getInstance()
 
@@ -43,15 +44,21 @@ class DayTaskListFragment : BaseFragment() {
         calendarBtn.setOnClickListener {
             if (calendarCard.visibility == View.GONE) {
                 calendarCard.visibility = View.VISIBLE
+                calendarCard.animate()
+                    .alpha(1.0f)
             } else {
-                calendarCard.visibility = View.GONE
+                calendarCard.animate()
+                    .alpha(0.0f)
+                    .withEndAction { calendarCard.visibility = View.GONE }
             }
         }
 
         binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             currentDate.set(year, month, dayOfMonth)
             calendarBtn.text = dateFormat.format(currentDate.time)
-            calendarCard.visibility = View.GONE
+            calendarCard.animate()
+                .alpha(0.0f)
+                .withEndAction { calendarCard.visibility = View.GONE }
             updateChild()
         }
 
@@ -80,17 +87,15 @@ class DayTaskListFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val childFragment =
-            TaskListFragment()
         childFragmentManager.beginTransaction()
-            .replace(R.id.child_content_container, childFragment)
+            .replace(R.id.child_content_container, TaskListFragment())
             .commit()
     }
 
     override fun onAttachFragment(childFragment: Fragment) {
         super.onAttachFragment(childFragment)
         if (childFragment is OnTaskListFragmentDataListener) {
-            child = childFragment
+            taskListFragment = childFragment
             updateChild()
         } else {
             throw RuntimeException("$childFragment must implements OnTaskListFragmentDataListener")
@@ -98,9 +103,10 @@ class DayTaskListFragment : BaseFragment() {
     }
 
     private fun updateChild() {
-        child.onTaskListAppeared(
-            TaskCategoryRepository.getInstance(AppDatabase.getInstance(requireContext()).taskCategoryDao())
-                .getTaskList(currentDate.time)
-        )
+        val taskCategoryRepository = TaskCategoryRepository.getInstance(AppDatabase.getInstance(requireContext()).taskCategoryDao())
+        val taskListLiveData = taskCategoryRepository.getTaskList(currentDate.time)
+        taskListLiveData.observe(this, Observer {
+            taskListFragment.onTaskListAppeared(it)
+        })
     }
 }
