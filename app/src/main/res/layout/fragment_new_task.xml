@@ -37,7 +37,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="@string/name"
-                            android:inputType="text"
+                            android:inputType="text|textCapSentences"
                             android:importantForAutofill="no"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -139,7 +139,7 @@
                             android:layout_height="150dp"
                             android:gravity="top"
                             android:hint="@string/description"
-                            android:inputType="textMultiLine"
+                            android:inputType="textMultiLine|textCapSentences"
                             android:padding="12dp"
                             android:importantForAutofill="no"/>
 
