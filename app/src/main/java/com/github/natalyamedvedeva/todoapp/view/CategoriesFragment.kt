@@ -39,7 +39,6 @@ class CategoriesFragment : BaseFragment(), BaseFragment.OnCategoriesFragmentData
                 view.setOnClickListener { v ->
                     val index = binding.categoriesLayout.indexOfChild(v)
                     categories.removeAt(index)
-                    binding.categoriesLayout.removeView(v)
                     update()
                 }
             }
