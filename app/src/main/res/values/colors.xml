@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#2EA3C4</color>
     <color name="colorAccent">#35C4E6</color>
     <color name="activityBackground">#F0F0F0</color>
+
+    <color name="lowPriority">#4CAF50</color>
+    <color name="normalPriority">#FF9800</color>
+    <color name="highPriority">#FF5722</color>
 </resources>

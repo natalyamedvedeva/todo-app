@@ -9,6 +9,15 @@
         android:padding="8dp">
 
     <TextView
+            android:id="@+id/priority_icon_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/task_name_text_view"
+            android:layout_alignBottom="@+id/task_name_text_view"
+            android:layout_alignTop="@+id/task_name_text_view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+    <TextView
             android:id="@+id/task_name_text_view"
             android:textSize="18sp"
             style="@style/TextAppearance.MaterialComponents.Body1"
@@ -16,14 +25,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|start"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/priority_icon_text_view" android:layout_marginStart="8dp"/>
 
     <com.vanniktech.emoji.EmojiTextView
             android:id="@+id/icons_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/task_name_text_view"
-            android:layout_alignBottom="@+id/task_name_text_view" android:layout_alignTop="@+id/task_name_text_view"
+            android:layout_alignBottom="@+id/task_name_text_view"
+            android:layout_alignTop="@+id/task_name_text_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
