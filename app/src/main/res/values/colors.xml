@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#2789BE</color>
     <color name="colorAccent">#2D9CDB</color>
 
+    <color name="toolbar">#E2E2E2</color>
+
     <color name="lowPriority">#48BB4C</color>
     <color name="normalPriority">#FFA200</color>
     <color name="highPriority">#F4491E</color>
