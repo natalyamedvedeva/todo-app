@@ -76,7 +76,9 @@ class NewTaskFragment : BaseFragment() {
             task.deadline = deadlineDate?.time
             task.description = addedDescription
             task.autoReschedule = binding.autoRescheduleSwitch.isChecked
-            task.images = images.map { it.path }
+            if (!images.isNullOrEmpty()) {
+                task.images = images.map { it.path }
+            }
 
             val taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(requireContext()).taskDao())
             taskRepository.insert(task)
