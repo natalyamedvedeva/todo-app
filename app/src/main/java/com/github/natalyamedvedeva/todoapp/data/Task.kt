@@ -23,4 +23,14 @@ data class Task(
     var description: String? = null
 
     var images: List<String>? = null
+
+    fun isDeadlineClose(): Boolean {
+        val nextDay = Calendar.getInstance()
+        nextDay.add(Calendar.DAY_OF_MONTH, 1)
+
+        if (deadline != null && nextDay.time > deadline) {
+            return true
+        }
+        return false
+    }
 }
