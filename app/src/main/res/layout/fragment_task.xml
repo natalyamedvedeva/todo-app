@@ -55,7 +55,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/description_text_view"/>
 
         <FrameLayout
-                android:id="@+id/child_fragment_container"
+                android:id="@+id/images_fragment_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"

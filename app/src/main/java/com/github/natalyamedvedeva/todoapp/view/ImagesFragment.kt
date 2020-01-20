@@ -22,11 +22,11 @@ class ImagesFragment : BaseFragment(), BaseFragment.OnImagesFragmentDataListener
     ): View? {
         binding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_images, container, false)
-        updateImages()
+        update()
         return binding.root
     }
 
-    private fun updateImages() {
+    private fun update() {
         binding.imagesLayout.removeAllViews()
         images.forEachIndexed { index, path ->
             val view = SimpleDraweeView(context)
@@ -50,7 +50,7 @@ class ImagesFragment : BaseFragment(), BaseFragment.OnImagesFragmentDataListener
         this.images.clear()
         images.forEach { this.images.add("file://$it") }
         if (::binding.isInitialized) {
-            updateImages()
+            update()
         }
     }
 }

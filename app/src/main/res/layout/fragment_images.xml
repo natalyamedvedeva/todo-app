@@ -4,7 +4,6 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <HorizontalScrollView
-            android:id="@+id/images_layout_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"

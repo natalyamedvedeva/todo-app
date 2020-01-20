@@ -38,7 +38,7 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     <fragment
         android:id="@+id/categoriesFragment"
-        android:name="com.github.natalyamedvedeva.todoapp.view.CategoriesFragment"
+        android:name="com.github.natalyamedvedeva.todoapp.view.CategoriesSettingFragment"
         android:label="Categories" />
     <dialog
         android:id="@+id/editCategoryDialog"

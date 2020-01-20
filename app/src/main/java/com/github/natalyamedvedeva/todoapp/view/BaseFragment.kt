@@ -17,4 +17,8 @@ open class BaseFragment: Fragment() {
     interface OnImagesFragmentDataListener {
         fun onImagesAppeared(images: List<String>)
     }
+
+    interface OnCategoriesFragmentDataListener {
+        fun onCategoriesAppeared(categories: List<Category>)
+    }
 }
