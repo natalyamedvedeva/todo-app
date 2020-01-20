@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#35C4E6</color>
-    <color name="colorPrimaryDark">#2EA3C4</color>
-    <color name="colorAccent">#35C4E6</color>
-    <color name="activityBackground">#F0F0F0</color>
+    <color name="colorPrimary">#2D9CDB</color>
+    <color name="colorPrimaryDark">#2789BE</color>
+    <color name="colorAccent">#2D9CDB</color>
 
-    <color name="lowPriority">#8BC34A</color>
+    <color name="lowPriority">#7CB342</color>
     <color name="normalPriority">#FF9800</color>
-    <color name="highPriority">#FF5722</color>
+    <color name="highPriority">#F4511E</color>
 </resources>

@@ -1,5 +1,6 @@
 package com.github.natalyamedvedeva.todoapp.view.taskList
 
+import android.view.MenuInflater
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -35,5 +36,9 @@ class TaskItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 bundleOf("task" to task)
             )
         )
+
+        itemView.setOnCreateContextMenuListener { menu, v, menuInfo ->
+            MenuInflater(v.context).inflate(R.menu.task_menu, menu)
+        }
     }
 }
