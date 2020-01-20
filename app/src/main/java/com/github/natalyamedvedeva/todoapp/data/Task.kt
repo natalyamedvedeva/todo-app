@@ -2,11 +2,14 @@ package com.github.natalyamedvedeva.todoapp.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.github.natalyamedvedeva.todoapp.R
 import java.io.Serializable
 import java.util.*
 
-enum class Priority {
-    Low, Normal, High
+enum class Priority(val color: Int) {
+    Low(R.color.lowPriority),
+    Normal(R.color.normalPriority),
+    High(R.color.highPriority)
 }
 
 @Entity(tableName = "task")

@@ -2,6 +2,7 @@ package com.github.natalyamedvedeva.todoapp.view.taskList
 
 import android.view.View
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +19,8 @@ class TaskItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(task: Task) {
         priorityIconTextView.text = "●"
+        priorityIconTextView.setTextColor(ContextCompat.getColor(itemView.context, task.priority.color))
+
         taskNameTextView.text = task.name
 
         if (task.isDeadlineClose()) {
