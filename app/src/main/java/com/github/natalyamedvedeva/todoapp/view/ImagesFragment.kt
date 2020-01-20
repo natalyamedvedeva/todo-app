@@ -36,6 +36,7 @@ class ImagesFragment : BaseFragment(), BaseFragment.OnImagesFragmentDataListener
             }
             view.layoutParams = linearLayout
             view.setImageURI(path)
+            view.hierarchy.setPlaceholderImage(R.drawable.placeholder)
             binding.imagesLayout.addView(view)
 
             view.setOnClickListener {

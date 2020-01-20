@@ -15,6 +15,7 @@ import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.Task
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentTaskListBinding
 
+//TODO это все должно быть переделано на TaskWithCategories
 class TaskListFragment : BaseFragment(),
     BaseFragment.OnTaskListFragmentDataListener {
 
@@ -48,8 +49,7 @@ class TaskListFragment : BaseFragment(),
 
     private fun updateTaskList() {
         taskListLiveData?.observe(this, Observer {
-            taskItemAdapter.clearItems()
-            taskItemAdapter.addItems(it)
+            taskItemAdapter.resetItems(it)
         })
     }
 

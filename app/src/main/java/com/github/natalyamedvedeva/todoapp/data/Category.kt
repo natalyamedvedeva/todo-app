@@ -16,4 +16,9 @@ data class Category(
 ) : Serializable {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
+
+    override fun equals(other: Any?): Boolean {
+        if (other is Category && name == other.name && emoji == other.emoji) return true
+        return false
+    }
 }

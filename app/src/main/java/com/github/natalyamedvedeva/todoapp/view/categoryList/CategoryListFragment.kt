@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.natalyamedvedeva.todoapp.R
@@ -35,6 +36,12 @@ class CategoryListFragment : BaseFragment(),
     private fun initRecyclerView() {
         categoriesRecyclerView = binding.categoriesRecyclerView
         categoriesRecyclerView.layoutManager = LinearLayoutManager(this.context)
+        categoriesRecyclerView.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                DividerItemDecoration.VERTICAL
+            )
+        )
         categoryItemAdapter = CategoryItemAdapter()
         categoriesRecyclerView.adapter = categoryItemAdapter
         updateCategoryList()
@@ -42,8 +49,7 @@ class CategoryListFragment : BaseFragment(),
 
     private fun updateCategoryList() {
         categoryListLiveData?.observe(this, Observer {
-            categoryItemAdapter.clearItems()
-            categoryItemAdapter.addItems(it)
+            categoryItemAdapter.resetItems(it)
         })
     }
 
