@@ -22,6 +22,7 @@ class CategoriesFragment : BaseFragment(), BaseFragment.OnCategoriesFragmentData
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        retainInstance = true
         binding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_categories, container, false)
         update()

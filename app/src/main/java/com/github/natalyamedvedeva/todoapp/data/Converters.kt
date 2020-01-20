@@ -30,6 +30,7 @@ class Converters {
 
     @TypeConverter
     fun stringToImages(value: String?): List<String>? {
+        if (value == "") return emptyList()
         return value?.split(", ")
     }
 
