@@ -31,7 +31,7 @@ data class Task(
         val nextDay = Calendar.getInstance()
         nextDay.add(Calendar.DAY_OF_MONTH, 1)
 
-        if (deadline != null && nextDay.time > deadline) {
+        if (deadline != null && nextDay.time >= deadline) {
             return true
         }
         return false

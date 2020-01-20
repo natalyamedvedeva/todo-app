@@ -25,6 +25,8 @@ class TaskItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         if (task.isDeadlineClose()) {
             iconsTextView.text = "🔥"
+        } else {
+            iconsTextView.text = ""
         }
 
         taskItem.setOnClickListener(
