@@ -58,7 +58,7 @@ class TaskFragment : BaseFragment() {
     }
 
     private fun updateChild() {
-        if (!task.images.isNullOrEmpty()) {
+        if (::task.isInitialized && !task.images.isNullOrEmpty()) {
             imagesFragment.onImagesAppeared(task.images!!)
         }
     }
