@@ -42,15 +42,15 @@ class CategoryListFragment : BaseFragment(),
         )
         categoryItemAdapter = CategoryItemAdapter()
         categoriesRecyclerView.adapter = categoryItemAdapter
-        updateCategoryList()
+        update()
     }
 
-    private fun updateCategoryList() {
+    private fun update() {
         categoryList?.let { categoryItemAdapter.resetItems(it) }
     }
 
     override fun onCategoryListAppeared(data: List<Category>) {
         categoryList = data
-        updateCategoryList()
+        update()
     }
 }
