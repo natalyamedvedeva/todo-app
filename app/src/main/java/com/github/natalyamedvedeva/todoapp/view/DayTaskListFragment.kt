@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
 import android.widget.Button
 import android.widget.CalendarView
 import androidx.cardview.widget.CardView
@@ -47,15 +48,21 @@ class DayTaskListFragment : BaseFragment() {
         calendarBtn.setOnClickListener {
             if (calendarCard.visibility == View.GONE) {
                 calendarCard.visibility = View.VISIBLE
+                calendarCard.animate()
+                    .alpha(1.0f)
             } else {
-                calendarCard.visibility = View.GONE
+                calendarCard.animate()
+                    .alpha(0.0f)
+                    .withEndAction { calendarCard.visibility = View.GONE }
             }
         }
 
         binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             currentDate.set(year, month, dayOfMonth)
             calendarBtn.text = dateFormat.format(currentDate.time)
-            calendarCard.visibility = View.GONE
+            calendarCard.animate()
+                .alpha(0.0f)
+                .withEndAction { calendarCard.visibility = View.GONE }
             updateChild()
         }
 
