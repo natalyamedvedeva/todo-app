@@ -4,7 +4,9 @@
     <color name="colorPrimaryDark">#2789BE</color>
     <color name="colorAccent">#2D9CDB</color>
 
-    <color name="lowPriority">#7CB342</color>
-    <color name="normalPriority">#FF9800</color>
-    <color name="highPriority">#F4511E</color>
+    <color name="lowPriority">#48BB4C</color>
+    <color name="normalPriority">#FFA200</color>
+    <color name="highPriority">#F4491E</color>
+
+    <color name="category">#48BB4C</color>
 </resources>
