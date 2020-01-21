@@ -15,6 +15,7 @@ class TaskFragment : BaseFragment() {
     private lateinit var binding: FragmentTaskBinding
 
     private val imagesFragment = ImagesFragment()
+    private val categoriesFragment = CategoriesFragment()
 
     private lateinit var task: TaskWithCategories
 
@@ -61,7 +62,19 @@ class TaskFragment : BaseFragment() {
             binding.autoRescheduleTextView.visibility = View.GONE
         }
 
-        binding.descriptionTextView.text = task.description
+        if (!task.description.isNullOrEmpty()) {
+            binding.descriptionTextView.text = task.description
+        } else {
+            binding.descriptionTextView.visibility = View.GONE
+        }
+
+        if (task.images.isEmpty()) {
+            binding.imagesFragmentContainer.visibility = View.GONE
+        }
+
+        if (task.categories.isEmpty()) {
+            binding.categoriesLabelTextView.visibility = View.GONE
+        }
 
         return binding.root
     }
@@ -69,13 +82,21 @@ class TaskFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         childFragmentManager.beginTransaction()
             .replace(R.id.images_fragment_container, imagesFragment)
+            .replace(R.id.categories_fragment_container, categoriesFragment)
             .commit()
         updateImagesFragment()
+        updateCategoriesFragment()
     }
 
     private fun updateImagesFragment() {
-        if (::task.isInitialized && !task.images.isNullOrEmpty()) {
+        if (::task.isInitialized && task.images.isNotEmpty()) {
             imagesFragment.onImagesAppeared(task.images)
+        }
+    }
+
+    private fun updateCategoriesFragment() {
+        if (::task.isInitialized && task.categories.isNotEmpty()) {
+            categoriesFragment.onCategoriesAppeared(task.categories)
         }
     }
 

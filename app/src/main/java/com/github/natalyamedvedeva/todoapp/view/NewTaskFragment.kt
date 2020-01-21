@@ -113,7 +113,9 @@ class NewTaskFragment : BaseFragment() {
             images = oldImages
         }
 
-        // TODO: Categories
+        if (categoriesFragment.categoryList.isEmpty()) {
+            categoriesFragment.onCategoriesAppeared(task.categories)
+        }
     }
 
     override fun onDestroyView() {
@@ -144,7 +146,7 @@ class NewTaskFragment : BaseFragment() {
     }
 
     private fun updateCategoriesFragment() {
-        categoriesFragment.onCategoriesAppeared(task.categories)
+        categoriesFragment.onCategoriesAppeared(categoriesFragment.categoryList)
     }
 
     private fun initPrioritySpinner(spinner: Spinner) {
