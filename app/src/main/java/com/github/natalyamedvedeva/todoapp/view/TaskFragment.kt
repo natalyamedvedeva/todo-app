@@ -1,5 +1,6 @@
 package com.github.natalyamedvedeva.todoapp.view
 
+import android.graphics.Paint
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
@@ -32,6 +33,9 @@ class TaskFragment : BaseFragment() {
         setHasOptionsMenu(true)
 
         binding.nameTextView.text = task.name
+        if (task.done) {
+            binding.nameTextView.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+        }
 
         val priorityText = getString(R.string.priority) + ": " + task.priority.name
         binding.priorityTextView.text = priorityText
@@ -53,7 +57,6 @@ class TaskFragment : BaseFragment() {
         } else {
             binding.autoRescheduleTextView.visibility = View.GONE
         }
-
 
         binding.descriptionTextView.text = task.description
 
@@ -85,15 +88,20 @@ class TaskFragment : BaseFragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.task_menu, menu)
+        menu.findItem(R.id.done_task).isVisible = !task.done
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val menuController = TaskMenuController(view!!, task.task)
+        if (item.itemId == R.id.done_task) {
+            menuController.done()
+            view?.findNavController()?.popBackStack()
+        }
         if (item.itemId == R.id.edit_task) {
-            menuController.editTask()
+            menuController.edit()
         }
         if (item.itemId == R.id.delete_task) {
-            menuController.deleteTask()
+            menuController.delete()
             view?.findNavController()?.popBackStack()
         }
         return super.onOptionsItemSelected(item)

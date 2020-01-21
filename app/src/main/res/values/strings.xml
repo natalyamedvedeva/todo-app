@@ -26,6 +26,6 @@
     <string name="categories">Categories</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
-    <string name="remove">Remove</string>
+    <string name="done">Done</string>
     <string name="no_category_msg">No available categories</string>
 </resources>

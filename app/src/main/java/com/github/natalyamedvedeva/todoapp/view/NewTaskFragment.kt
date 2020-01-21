@@ -89,6 +89,7 @@ class NewTaskFragment : BaseFragment() {
                 task.images.clear()
                 task.images.addAll(images.map { it.path })
             }
+            task.done = false
 
             val taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(requireContext()).taskDao())
             taskRepository.insert(task.task)

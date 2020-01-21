@@ -30,6 +30,8 @@ data class Task(
 
     var images: MutableList<String> = mutableListOf()
 
+    var done: Boolean = false
+
     fun isDeadlineClose(): Boolean {
         val nextDay = Calendar.getInstance()
         nextDay.add(Calendar.DAY_OF_MONTH, 1)

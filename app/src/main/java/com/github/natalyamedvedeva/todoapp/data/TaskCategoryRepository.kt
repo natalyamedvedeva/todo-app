@@ -5,7 +5,7 @@ import java.util.*
 
 class TaskCategoryRepository private constructor(private val taskCategoryDao: TaskCategoryDao) {
 
-    fun getTaskList(date: Date): LiveData<List<TaskWithCategories>> =taskCategoryDao.getTasksWithCategories(date)
+    fun getTaskList(date: Date): LiveData<List<TaskWithCategories>> = taskCategoryDao.getTasksWithCategories(date)
 
     companion object {
 

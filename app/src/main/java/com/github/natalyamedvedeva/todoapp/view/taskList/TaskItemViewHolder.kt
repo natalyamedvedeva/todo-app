@@ -1,5 +1,6 @@
 package com.github.natalyamedvedeva.todoapp.view.taskList
 
+import android.graphics.Paint
 import android.view.MenuInflater
 import android.view.View
 import android.widget.TextView
@@ -23,6 +24,11 @@ class TaskItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         priorityIconTextView.setTextColor(ContextCompat.getColor(itemView.context, task.priority.color))
 
         taskNameTextView.text = task.name
+        if (task.done) {
+            taskNameTextView.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+        } else {
+            taskNameTextView.paintFlags = Paint.LINEAR_TEXT_FLAG
+        }
 
         if (task.task.isDeadlineClose()) {
             iconsTextView.text = "🔥"
@@ -40,12 +46,17 @@ class TaskItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.setOnCreateContextMenuListener { menu, v, _ ->
             MenuInflater(v.context).inflate(R.menu.task_menu, menu)
             val menuController = TaskMenuController(v, task.task)
+            menu.findItem(R.id.done_task).isVisible = !task.done
+            menu.findItem(R.id.done_task).setOnMenuItemClickListener {
+                menuController.done()
+                true
+            }
             menu.findItem(R.id.edit_task).setOnMenuItemClickListener {
-                menuController.editTask()
+                menuController.edit()
                 true
             }
             menu.findItem(R.id.delete_task).setOnMenuItemClickListener {
-                menuController.deleteTask()
+                menuController.delete()
                 true
             }
         }
