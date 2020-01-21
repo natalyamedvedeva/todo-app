@@ -33,9 +33,16 @@ class TaskFragment : BaseFragment() {
         setHasOptionsMenu(true)
 
         binding.nameTextView.text = task.name
+        var icon = ""
         if (task.done) {
             binding.nameTextView.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+        } else {
+            if (task.task.isDeadlineClose()) {
+                icon = " 🔥"
+            }
         }
+        val nameText = task.name + icon
+        binding.nameTextView.text = nameText
 
         val priorityText = getString(R.string.priority) + ": " + task.priority.name
         binding.priorityTextView.text = priorityText
