@@ -34,7 +34,7 @@ class CategoriesSettingFragment : BaseFragment() {
             R.layout.fragment_categories_settings, container, false
         )
         binding.addCategoryButton.setOnClickListener {
-            findNavController().navigate(R.id.editCategoryDialog, bundleOf("category" to Category("", "")))
+            findNavController().navigate(R.id.editCategoryDialog, bundleOf("category" to Category("", null)))
         }
         return binding.root
     }

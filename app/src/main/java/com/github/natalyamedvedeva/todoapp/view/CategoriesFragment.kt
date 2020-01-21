@@ -1,5 +1,6 @@
 package com.github.natalyamedvedeva.todoapp.view
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,8 +34,9 @@ class CategoriesFragment : BaseFragment(), BaseFragment.OnCategoriesFragmentData
         binding.categoriesLayout.removeAllViews()
         categories.forEach {
             val view = layoutInflater.inflate(R.layout.category_card_view,  binding.categoriesLayout, false)
-            val text = it.emoji + " " + it.name
-            view.emoji_edit_text.text = text
+            it.color?.let { color -> view.setBackgroundColor(color) }
+            val text = it.name
+            view.textView.text = text
             binding.categoriesLayout.addView(view)
             if (editable) {
                 view.setOnClickListener { v ->
@@ -49,7 +51,7 @@ class CategoriesFragment : BaseFragment(), BaseFragment.OnCategoriesFragmentData
             button.text = if (categories.isEmpty()) getString(R.string.add_category) else getString(R.string.add)
             binding.categoriesLayout.addView(button)
             button.setOnClickListener {
-                categories.add(Category("Caaaat", "\uD83D\uDC08"))
+                categories.add(Category("Caaaat", Color.GREEN))
                 update()
             }
         }

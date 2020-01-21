@@ -1,7 +1,6 @@
 package com.github.natalyamedvedeva.todoapp.view
 
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import com.github.natalyamedvedeva.todoapp.data.Category
 import com.github.natalyamedvedeva.todoapp.data.TaskWithCategories
 

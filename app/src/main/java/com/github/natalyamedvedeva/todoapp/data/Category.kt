@@ -6,20 +6,19 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
-@Entity(tableName = "category", indices = [ Index("cName", unique = true),
-                                            Index("emoji", unique = true) ])
+@Entity(tableName = "category")
 data class Category(
     @ColumnInfo(name = "cName")
     var name: String,
-    @ColumnInfo(name = "emoji")
-    var emoji: String
+    @ColumnInfo(name = "color")
+    var color: Int?
 ) : Serializable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "cId")
     var id: Long = 0L
 
     override fun equals(other: Any?): Boolean {
-        if (other is Category && name == other.name && emoji == other.emoji) {
+        if (other is Category && name == other.name && color == other.color) {
             return true
         }
         return false
@@ -27,7 +26,7 @@ data class Category(
 
     override fun hashCode(): Int {
         var result = name.hashCode()
-        result = 31 * result + emoji.hashCode()
+        result = 31 * result + color.hashCode()
         result = 31 * result + id.hashCode()
         return result
     }

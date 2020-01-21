@@ -16,7 +16,7 @@ class TaskItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val taskItem: View = itemView.findViewById(R.id.task_item)
     private val priorityIconTextView: TextView = itemView.findViewById(R.id.priority_icon_text_view)
     private val taskNameTextView: TextView = itemView.findViewById(R.id.task_name_text_view)
-    private val iconsTextView: EmojiTextView = itemView.findViewById(R.id.icons_text_view)
+    private val iconsTextView: TextView = itemView.findViewById(R.id.icons_text_view)
 
     fun bind(task: TaskWithCategories) {
         priorityIconTextView.text = "●"

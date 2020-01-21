@@ -54,13 +54,13 @@ class TaskFragment : BaseFragment() {
         super.onAttachFragment(childFragment)
         if (childFragment is OnImagesFragmentDataListener) {
             imagesFragmentDataListener = childFragment
-            updateChild()
+            updateImagesFragment()
         } else {
             throw RuntimeException("$childFragment must implements OnImagesFragmentDataListener")
         }
     }
 
-    private fun updateChild() {
+    private fun updateImagesFragment() {
         if (::task.isInitialized && !task.images.isNullOrEmpty()) {
             imagesFragmentDataListener.onImagesAppeared(task.images)
         }
