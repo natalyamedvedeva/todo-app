@@ -13,6 +13,7 @@ class TaskMenuController(val view: View, val task: Task) {
 
     fun done() {
         task.done = true
+        task.autoReschedule = false
         taskRepository.insert(task)
     }
 
