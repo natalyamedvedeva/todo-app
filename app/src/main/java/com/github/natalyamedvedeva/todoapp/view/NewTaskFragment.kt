@@ -208,7 +208,8 @@ class NewTaskFragment : BaseFragment() {
             val text = getString(R.string.deadline) + ": " + dateFormat.format(deadlineDate!!.time)
             textView.text = text
             binding.autoRescheduleSwitch.apply {
-                this.isClickable = true
+                this.isClickable = false
+                this.isChecked = true
             }
         }
 
@@ -223,8 +224,7 @@ class NewTaskFragment : BaseFragment() {
             deadlineDate = null
             textView.text = noneText
             binding.autoRescheduleSwitch.apply {
-                this.isClickable = false
-                this.isChecked = true
+                this.isClickable = true
             }
         }
     }

@@ -133,7 +133,6 @@
                         android:id="@+id/auto_reschedule_switch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:clickable="false"
                         app:layout_constraintStart_toEndOf="@id/auto_reschedule_text_view"
                         app:layout_constraintTop_toTopOf="@id/auto_reschedule_text_view"
                         android:layout_marginStart="8dp"/>

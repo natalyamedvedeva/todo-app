@@ -25,7 +25,7 @@ data class Task(
     var id: Long = 0L
 
     var deadline: Date? = null
-    var autoReschedule: Boolean = true
+    var autoReschedule: Boolean = false
     var description: String? = null
 
     var images: List<String> = emptyList()
