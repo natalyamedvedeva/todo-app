@@ -7,6 +7,8 @@ class TaskCategoryRepository private constructor(private val taskCategoryDao: Ta
 
     fun getTaskList(date: Date): LiveData<List<TaskWithCategories>> = taskCategoryDao.getTasksWithCategories(date)
 
+    fun getTasksByName(name: String) = taskCategoryDao.getTasksWithCategoriesByName(name)
+
     fun insertTask(task: TaskWithCategories) {
         Thread {
             val taskId = taskCategoryDao.insertTask(task.task)

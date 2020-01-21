@@ -47,8 +47,8 @@ class TaskItemAdapter : RecyclerView.Adapter<TaskItemViewHolder>() {
 
         }
         val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(diffCallback)
-        this.taskList.clear()
-        this.taskList.addAll(tasks)
+        taskList.clear()
+        taskList.addAll(tasks)
         diffResult.dispatchUpdatesTo(this)
     }
 }

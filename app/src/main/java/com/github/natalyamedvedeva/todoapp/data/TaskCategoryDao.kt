@@ -20,4 +20,9 @@ interface TaskCategoryDao {
 
     @Query("DELETE FROM taskcategorycrossref WHERE taskId = :id")
     fun deleteByTask(id: Long)
+
+    @Transaction
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @Query("SELECT * FROM task WHERE tName LIKE '%' || :name || '%'")
+    fun getTasksWithCategoriesByName(name: String): LiveData<List<TaskWithCategories>>
 }

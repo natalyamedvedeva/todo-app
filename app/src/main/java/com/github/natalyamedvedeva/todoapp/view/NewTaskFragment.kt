@@ -207,6 +207,9 @@ class NewTaskFragment : BaseFragment() {
             deadlineDate = GregorianCalendar(year, month, day)
             val text = getString(R.string.deadline) + ": " + dateFormat.format(deadlineDate!!.time)
             textView.text = text
+            binding.autoRescheduleSwitch.apply {
+                this.isClickable = true
+            }
         }
 
         binding.setDeadlineButton.setOnClickListener {
@@ -219,6 +222,10 @@ class NewTaskFragment : BaseFragment() {
         binding.clearDeadlineButton.setOnClickListener {
             deadlineDate = null
             textView.text = noneText
+            binding.autoRescheduleSwitch.apply {
+                this.isClickable = false
+                this.isChecked = true
+            }
         }
     }
 }
