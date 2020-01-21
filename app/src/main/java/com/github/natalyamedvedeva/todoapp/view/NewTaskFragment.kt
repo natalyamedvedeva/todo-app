@@ -26,11 +26,13 @@ class NewTaskFragment : BaseFragment() {
 
     private val imagesFragment = ImagesFragment()
     private val categoriesFragment = CategoriesFragment()
-    private lateinit var task :TaskWithCategories
 
     private lateinit var imagesFragmentDataListener: OnImagesFragmentDataListener
     private lateinit var categoriesFragmentDataListener: OnCategoriesFragmentDataListener
 
+    private lateinit var task :TaskWithCategories
+
+    private var date: Calendar = Calendar.getInstance()
     private var deadlineDate: Calendar? = null
 
     private var images: ArrayList<Image> = ArrayList()
@@ -45,6 +47,7 @@ class NewTaskFragment : BaseFragment() {
         task = arguments?.getSerializable("task") as TaskWithCategories
 
         initPrioritySpinner(binding.prioritySpinner)
+        initDateTextView(binding.dateTextView)
         initDeadlineTextView(binding.deadlineTextView)
 
         binding.autoRescheduleSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -76,6 +79,7 @@ class NewTaskFragment : BaseFragment() {
 
             task.name = addedName
             task.priority = addedPriority
+            task.date = date.time
             task.deadline = deadlineDate?.time
             task.description = addedDescription
             task.autoReschedule = binding.autoRescheduleSwitch.isChecked
@@ -143,21 +147,46 @@ class NewTaskFragment : BaseFragment() {
         spinner.setSelection(1)
     }
 
+    private fun initDateTextView(textView: TextView) {
+        val dateFormat = SimpleDateFormat.getDateInstance()
+        val defaultText = getString(R.string.date) + ": " + dateFormat.format(task.date)
+        textView.text = defaultText
+
+        val listener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
+            val newDate = GregorianCalendar(year, month, day)
+            if (validateDate(newDate)) {
+                date = newDate
+                val text = getString(R.string.date) + ": " + dateFormat.format(date.time)
+                textView.text = text
+            }
+        }
+
+        binding.changeDateButton.setOnClickListener {
+            val currentDate = date
+            val datePickerDialog = DatePickerDialog(this.requireContext(), listener,
+                currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH))
+            datePickerDialog.show()
+        }
+    }
+
     private fun initDeadlineTextView(textView: TextView) {
-        val defaultText = getString(R.string.deadline) + ": " +  getString(
+        val defaultText = getString(R.string.deadline) + ": " + getString(
             R.string.none
         )
         textView.text = defaultText
 
         val listener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
-            deadlineDate = GregorianCalendar(year, month, day)
-            val dateFormat = SimpleDateFormat.getDateInstance()
-            val text = getString(R.string.deadline) + ": " + dateFormat.format(deadlineDate!!.time)
-            textView.text = text
+            val newDeadline = GregorianCalendar(year, month, day)
+            if (validateDate(newDeadline)) {
+                deadlineDate = newDeadline
+                val dateFormat = SimpleDateFormat.getDateInstance()
+                val text = getString(R.string.deadline) + ": " + dateFormat.format(deadlineDate!!.time)
+                textView.text = text
+            }
         }
 
         binding.setDeadlineButton.setOnClickListener {
-            val currentDate = Calendar.getInstance()
+            val currentDate = deadlineDate ?: Calendar.getInstance()
             val datePickerDialog = DatePickerDialog(this.requireContext(), listener,
                 currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH))
             datePickerDialog.show()
@@ -167,5 +196,14 @@ class NewTaskFragment : BaseFragment() {
             deadlineDate = null
             textView.text = defaultText
         }
+    }
+
+    private fun validateDate(calendar: Calendar) : Boolean {
+        val currentDate = Calendar.getInstance()
+        currentDate.add(Calendar.DAY_OF_MONTH, -1)
+        if (currentDate < calendar) {
+            return true
+        }
+        return false
     }
 }

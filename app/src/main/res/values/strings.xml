@@ -5,9 +5,11 @@
     <string name="next_day">Next day</string>
     <string name="name">Name</string>
     <string name="priority">Priority</string>
+    <string name="date">Date</string>
     <string name="deadline">Deadline</string>
     <string name="auto_reschedule">Auto-Reschedule</string>
     <string name="auto_reschedule_hint">This task will be automatically moved to the next day</string>
+    <string name="change">change</string>
     <string name="none">None</string>
     <string name="set">Set</string>
     <string name="clear">Clear</string>
