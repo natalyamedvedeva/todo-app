@@ -89,9 +89,11 @@ class NewTaskFragment : BaseFragment() {
                 task.images.clear()
                 task.images.addAll(images.map { it.path })
             }
+            task.categories.clear()
+            task.categories.addAll(categoriesFragment.categoryList)
 
-            val taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(requireContext()).taskDao())
-            taskRepository.insert(task.task)
+            val taskCategoryRepository = TaskCategoryRepository.getInstance(AppDatabase.getInstance(requireContext()).taskCategoryDao())
+            taskCategoryRepository.insertTask(task)
 
             view?.findNavController()?.popBackStack()
         }
@@ -148,17 +150,13 @@ class NewTaskFragment : BaseFragment() {
         } else if (childFragment is OnCategoriesFragmentDataListener) {
             categoriesFragmentDataListener = childFragment
             updateCategoriesFragment()
-        } else {
+        } /*else {
             throw RuntimeException("$childFragment must implements OnImagesFragmentDataListener or OnCategoriesFragmentDataListener")
-        }
+        }*/
     }
 
     private fun updateImagesFragment() {
         imagesFragmentDataListener.onImagesAppeared(images.map { it.path })
-    }
-
-    fun addCategory(category: Category) {
-        categoriesFragment.addCategory(category)
     }
 
     private fun updateCategoriesFragment() {

@@ -4,7 +4,18 @@ import androidx.room.*
 import java.io.Serializable
 import java.util.*
 
-@Entity(primaryKeys = ["taskId", "categoryId"], indices = [Index("taskId"), Index("categoryId")])
+@Entity(primaryKeys = ["taskId", "categoryId"],
+    indices = [Index("taskId"), Index("categoryId")],
+    foreignKeys = [
+        ForeignKey(entity = Task::class,
+            parentColumns = ["tId"],
+            childColumns = ["taskId"],
+            onDelete = ForeignKey.CASCADE),
+        ForeignKey(entity = Category::class,
+            parentColumns = ["cId"],
+            childColumns = ["categoryId"],
+            onDelete = ForeignKey.CASCADE)
+    ])
 data class TaskCategoryCrossRef(
     @ColumnInfo(name = "taskId")
     val taskId: Long,

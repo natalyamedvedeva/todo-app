@@ -7,6 +7,15 @@ class TaskCategoryRepository private constructor(private val taskCategoryDao: Ta
 
     fun getTaskList(date: Date): LiveData<List<TaskWithCategories>> =taskCategoryDao.getTasksWithCategories(date)
 
+    fun insertTask(task: TaskWithCategories) {
+        Thread {
+            val taskId = taskCategoryDao.insertTask(task.task)
+            taskCategoryDao.deleteByTask(taskId)
+            task.categories.forEach {
+                taskCategoryDao.insertTaskCategory(TaskCategoryCrossRef(taskId, it.id))
+            }
+        }.start()
+    }
     companion object {
 
         // For Singleton instantiation

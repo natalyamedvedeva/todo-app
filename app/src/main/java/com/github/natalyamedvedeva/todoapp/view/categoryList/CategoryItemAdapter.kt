@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.Category
+import com.github.natalyamedvedeva.todoapp.view.BaseFragment
 import java.lang.IllegalArgumentException
 
 const val EDITABLE_TYPE = 0
@@ -14,6 +15,7 @@ const val SELECTABLE_TYPE = 1
 class CategoryItemAdapter(private val type: Int): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var categoryList = mutableListOf<Category>()
+    private var listener: BaseFragment.OnCategorySelectedDataListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == EDITABLE_TYPE) {
@@ -66,6 +68,11 @@ class CategoryItemAdapter(private val type: Int): RecyclerView.Adapter<RecyclerV
             (holder as CategoryItemViewHolder).bind(categoryList[position])
         } else if (getItemViewType(position) == SELECTABLE_TYPE) {
             (holder as SelectableCategoryItemViewHolder).bind(categoryList[position])
+            listener?.let {holder.setListener(listener as BaseFragment.OnCategorySelectedDataListener)}
         }
+    }
+
+    fun setListener(listener: BaseFragment.OnCategorySelectedDataListener) {
+        this.listener = listener
     }
 }
