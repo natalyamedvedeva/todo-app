@@ -28,4 +28,6 @@
     <string name="save">Save</string>
     <string name="done">Done</string>
     <string name="no_category_msg">No available categories</string>
+    <string name="all_tasks">All Tasks</string>
+    <string name="search">Find task</string>
 </resources>

@@ -4,7 +4,8 @@
         android:title="@string/categories"
         android:icon="@drawable/ic_apps_black_24dp"/>
     <item
-        android:title="All Tasks"
+        android:id="@+id/allTasksFragment"
+        android:title="@string/all_tasks"
         android:icon="@drawable/ic_view_list_black_24dp"/>
     <item
         android:title="About"

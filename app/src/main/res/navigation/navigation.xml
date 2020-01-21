@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_activity_graph"
     app:startDestination="@id/dayTaskListFragment">
 
@@ -54,4 +55,9 @@
         android:id="@+id/selectCategoryDialog"
         android:name="com.github.natalyamedvedeva.todoapp.view.SelectCategoryDialog"
         android:label="SelectCategoryDialog"/>
+    <fragment
+        android:id="@+id/allTasksFragment"
+        android:name="com.github.natalyamedvedeva.todoapp.view.AllTasksFragment"
+        android:label="All Tasks"
+        tools:layout="@layout/fragment_all_tasks" />
 </navigation>

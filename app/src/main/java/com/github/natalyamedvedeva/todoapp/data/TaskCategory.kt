@@ -72,4 +72,10 @@ data class TaskWithCategories (
     var done: Boolean
         get() = task.done
         set(value) { task.done = value }
+
+    override fun equals(other: Any?): Boolean {
+        if (other !is TaskWithCategories) return false
+        if (task == other.task && categories == other.categories) return true
+        return false
+    }
 }

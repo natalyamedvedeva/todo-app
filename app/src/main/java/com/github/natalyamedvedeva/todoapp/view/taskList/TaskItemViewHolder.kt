@@ -27,9 +27,9 @@ class TaskItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         taskNameTextView.text = task.name
         if (task.done) {
-            taskNameTextView.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+            taskNameTextView.paintFlags = Paint.ANTI_ALIAS_FLAG or Paint.STRIKE_THRU_TEXT_FLAG
         } else {
-            taskNameTextView.paintFlags = Paint.LINEAR_TEXT_FLAG
+            taskNameTextView.paintFlags = Paint.ANTI_ALIAS_FLAG
             if (task.task.isDeadlineClose()) {
                 iconsTextView.text = "🔥"
             }
