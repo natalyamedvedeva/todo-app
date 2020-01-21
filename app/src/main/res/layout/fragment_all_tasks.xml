@@ -14,6 +14,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintHorizontal_weight="5"
             app:layout_constraintStart_toStartOf="parent"
+            android:queryHint="@string/search"
             android:inputType="textCapSentences|text"
             app:layout_constraintEnd_toStartOf="@id/sort"/>
         <ImageView
