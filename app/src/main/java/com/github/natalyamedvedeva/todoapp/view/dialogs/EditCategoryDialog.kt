@@ -1,4 +1,4 @@
-package com.github.natalyamedvedeva.todoapp.view
+package com.github.natalyamedvedeva.todoapp.view.dialogs
 
 import android.app.AlertDialog
 import android.app.Dialog

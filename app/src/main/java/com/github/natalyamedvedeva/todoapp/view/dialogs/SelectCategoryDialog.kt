@@ -1,4 +1,4 @@
-package com.github.natalyamedvedeva.todoapp.view
+package com.github.natalyamedvedeva.todoapp.view.dialogs
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -20,6 +20,7 @@ import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.Category
 import com.github.natalyamedvedeva.todoapp.data.CategoryRepository
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentSelectCategoryDialogBinding
+import com.github.natalyamedvedeva.todoapp.view.BaseFragment
 import com.github.natalyamedvedeva.todoapp.view.categoryList.CategoryItemAdapter
 import com.github.natalyamedvedeva.todoapp.view.categoryList.SELECTABLE_TYPE
 
