@@ -34,7 +34,10 @@ class AllTasksFragment : Fragment() {
         )
         binding.searchField.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             android.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean = true
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                view?.clearFocus()
+                return true
+            }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 query = newText ?: ""
