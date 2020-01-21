@@ -85,6 +85,23 @@ class NewTaskFragment : BaseFragment() {
             task.categories.addAll(categoriesFragment.categoryList)
             task.done = false
 
+
+            // Date check
+            val today = Calendar.getInstance()
+            today[Calendar.HOUR_OF_DAY] = 0
+            today[Calendar.MINUTE] = 0
+            today[Calendar.SECOND] = 0
+
+            if (task.autoReschedule) {
+                if (task.deadline != null
+                    && task.date < task.deadline && task.deadline!! < today.time) {
+                    task.date = task.deadline!!
+                }
+                if (task.date < today.time) {
+                    task.date = today.time
+                }
+            }
+
             val taskCategoryRepository = TaskCategoryRepository.getInstance(AppDatabase.getInstance(requireContext()).taskCategoryDao())
             taskCategoryRepository.insertTask(task)
 

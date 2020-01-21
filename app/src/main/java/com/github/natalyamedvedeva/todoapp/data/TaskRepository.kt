@@ -10,6 +10,12 @@ class TaskRepository private constructor(private val taskDao: TaskDao) {
         }.start()
     }
 
+    fun update(task: Task) {
+        Thread {
+            taskDao.update(task)
+        }.start()
+    }
+
     fun delete(task: Task) {
         Thread {
             taskDao.delete(task)
@@ -17,6 +23,8 @@ class TaskRepository private constructor(private val taskDao: TaskDao) {
     }
 
     fun getTaskList(date: Date) = taskDao.getTaskList(date)
+
+    fun getReschedulingTaskList() = taskDao.getReschedulingTaskList()
 
     companion object {
 
