@@ -175,12 +175,9 @@ class NewTaskFragment : BaseFragment() {
         textView.text = text
 
         val listener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
-            val newDate = GregorianCalendar(year, month, day)
-            if (validateDate(newDate)) {
-                date = newDate
-                val str  = getString(R.string.date) + ": " + dateFormat.format(date.time)
-                textView.text = str
-            }
+            date = GregorianCalendar(year, month, day)
+            val str  = getString(R.string.date) + ": " + dateFormat.format(date.time)
+            textView.text = str
         }
 
         binding.changeDateButton.setOnClickListener {
@@ -202,12 +199,9 @@ class NewTaskFragment : BaseFragment() {
         }
 
         val listener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
-            val newDeadline = GregorianCalendar(year, month, day)
-            if (validateDate(newDeadline)) {
-                deadlineDate = newDeadline
-                val text = getString(R.string.deadline) + ": " + dateFormat.format(deadlineDate!!.time)
-                textView.text = text
-            }
+            deadlineDate = GregorianCalendar(year, month, day)
+            val text = getString(R.string.deadline) + ": " + dateFormat.format(deadlineDate!!.time)
+            textView.text = text
         }
 
         binding.setDeadlineButton.setOnClickListener {
@@ -221,14 +215,5 @@ class NewTaskFragment : BaseFragment() {
             deadlineDate = null
             textView.text = noneText
         }
-    }
-
-    private fun validateDate(calendar: Calendar) : Boolean {
-        val prevDay = Calendar.getInstance()
-        prevDay.add(Calendar.DAY_OF_MONTH, -1)
-        if (prevDay < calendar) {
-            return true
-        }
-        return false
     }
 }
