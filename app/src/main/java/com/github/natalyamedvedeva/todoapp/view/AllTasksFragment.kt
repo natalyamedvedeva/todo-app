@@ -56,6 +56,11 @@ class AllTasksFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        view?.clearFocus()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         childFragmentManager.beginTransaction()
             .replace(R.id.child_content_container, child)
@@ -66,7 +71,6 @@ class AllTasksFragment : Fragment() {
         super.onAttachFragment(childFragment)
         findByName()
     }
-
 
     private fun findByName() {//TODO time delay
         taskCategoryRepository.getTasksByName(query).observe(this, Observer {
