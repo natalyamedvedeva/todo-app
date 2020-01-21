@@ -24,9 +24,12 @@ class NewTaskFragment : BaseFragment() {
 
     private lateinit var binding: FragmentNewTaskBinding
 
-    private lateinit var imagesFragment: OnImagesFragmentDataListener
-    private lateinit var categoriesFragment: OnCategoriesFragmentDataListener
+    private val imagesFragment = ImagesFragment()
+    private val categoriesFragment = CategoriesFragment()
     private lateinit var task :TaskWithCategories
+
+    private lateinit var imagesFragmentDataListener: OnImagesFragmentDataListener
+    private lateinit var categoriesFragmentDataListener: OnCategoriesFragmentDataListener
 
     private var deadlineDate: Calendar? = null
 
@@ -53,6 +56,8 @@ class NewTaskFragment : BaseFragment() {
                 ).show()
             }
         }
+
+        categoriesFragment.editable = true
 
         val imagePicker = ImagePicker.create(this)
             .theme(R.style.AppTheme)
@@ -103,10 +108,8 @@ class NewTaskFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val categoriesFragment = CategoriesFragment()
-        categoriesFragment.editable = true
         childFragmentManager.beginTransaction()
-            .replace(R.id.images_fragment_container, ImagesFragment())
+            .replace(R.id.images_fragment_container, imagesFragment)
             .replace(R.id.categories_fragment_container, categoriesFragment)
             .commit()
     }
@@ -114,10 +117,10 @@ class NewTaskFragment : BaseFragment() {
     override fun onAttachFragment(childFragment: Fragment) {
         super.onAttachFragment(childFragment)
         if (childFragment is OnImagesFragmentDataListener) {
-            imagesFragment = childFragment
+            imagesFragmentDataListener = childFragment
             updateImagesFragment()
         } else if (childFragment is OnCategoriesFragmentDataListener) {
-            categoriesFragment = childFragment
+            categoriesFragmentDataListener = childFragment
             updateCategoriesFragment()
         } else {
             throw RuntimeException("$childFragment must implements OnImagesFragmentDataListener or OnCategoriesFragmentDataListener")
@@ -125,7 +128,7 @@ class NewTaskFragment : BaseFragment() {
     }
 
     private fun updateImagesFragment() {
-        imagesFragment.onImagesAppeared(images.map { it.path })
+        imagesFragmentDataListener.onImagesAppeared(images.map { it.path })
     }
 
     private fun updateCategoriesFragment() {
