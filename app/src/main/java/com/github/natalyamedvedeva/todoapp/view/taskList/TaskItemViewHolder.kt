@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.core.view.get
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.github.natalyamedvedeva.todoapp.R

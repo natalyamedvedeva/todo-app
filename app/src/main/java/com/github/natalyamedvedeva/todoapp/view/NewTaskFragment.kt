@@ -198,7 +198,7 @@ class NewTaskFragment : BaseFragment() {
         if (deadlineDate == null) {
             textView.text = noneText
         } else {
-            val text = getString(R.string.date) + ": " + dateFormat.format(deadlineDate!!.time)
+            val text = getString(R.string.deadline) + ": " + dateFormat.format(deadlineDate!!.time)
             textView.text = text
         }
 
