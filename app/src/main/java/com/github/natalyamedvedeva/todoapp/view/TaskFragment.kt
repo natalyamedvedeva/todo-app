@@ -6,8 +6,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.github.natalyamedvedeva.todoapp.R
-import com.github.natalyamedvedeva.todoapp.data.AppDatabase
-import com.github.natalyamedvedeva.todoapp.data.TaskRepository
 import com.github.natalyamedvedeva.todoapp.data.TaskWithCategories
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentTaskBinding
 import java.lang.RuntimeException
@@ -72,9 +70,12 @@ class TaskFragment : BaseFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val menuController = TaskMenuController(view!!, task.task)
+        if (item.itemId == R.id.edit_task) {
+            menuController.editTask()
+        }
         if (item.itemId == R.id.delete_task) {
-            val taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(context!!).taskDao())
-            taskRepository.delete(task.task)
+            menuController.deleteTask()
             view?.findNavController()?.popBackStack()
         }
         return super.onOptionsItemSelected(item)

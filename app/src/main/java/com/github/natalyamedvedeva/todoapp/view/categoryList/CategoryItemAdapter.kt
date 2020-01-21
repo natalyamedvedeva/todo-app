@@ -49,7 +49,7 @@ class CategoryItemAdapter(private val type: Int): RecyclerView.Adapter<RecyclerV
                 this@CategoryItemAdapter.categoryList[oldItemPosition].id == categories[newItemPosition].id
 
             override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
-                this@CategoryItemAdapter.categoryList[oldItemPosition] == categories[newItemPosition]
+                this@CategoryItemAdapter.categoryList[oldItemPosition] === categories[newItemPosition]
         }
         val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(diffCallback)
         this.categoryList.clear()

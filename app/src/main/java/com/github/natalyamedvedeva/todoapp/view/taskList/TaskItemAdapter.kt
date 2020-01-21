@@ -41,8 +41,10 @@ class TaskItemAdapter : RecyclerView.Adapter<TaskItemViewHolder>() {
             override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
                 this@TaskItemAdapter.taskList[oldItemPosition].id == tasks[newItemPosition].id
 
-            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
-                this@TaskItemAdapter.taskList[oldItemPosition] == tasks[newItemPosition]
+            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                return this@TaskItemAdapter.taskList[oldItemPosition] === tasks[newItemPosition]
+            }
+
         }
         val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(diffCallback)
         this.taskList.clear()

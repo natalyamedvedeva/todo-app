@@ -5,10 +5,12 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.view.get
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.TaskWithCategories
+import com.github.natalyamedvedeva.todoapp.view.TaskMenuController
 
 class TaskItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -38,6 +40,15 @@ class TaskItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         itemView.setOnCreateContextMenuListener { menu, v, _ ->
             MenuInflater(v.context).inflate(R.menu.task_menu, menu)
+            val menuController = TaskMenuController(v, task.task)
+            menu.findItem(R.id.edit_task).setOnMenuItemClickListener {
+                menuController.editTask()
+                true
+            }
+            menu.findItem(R.id.delete_task).setOnMenuItemClickListener {
+                menuController.deleteTask()
+                true
+            }
         }
     }
 }

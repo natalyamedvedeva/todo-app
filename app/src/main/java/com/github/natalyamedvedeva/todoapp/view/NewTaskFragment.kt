@@ -46,6 +46,8 @@ class NewTaskFragment : BaseFragment() {
             R.layout.fragment_new_task, container, false)
         task = arguments?.getSerializable("task") as TaskWithCategories
 
+        loadFragment()
+
         initPrioritySpinner(binding.prioritySpinner)
         initDateTextView(binding.dateTextView)
         initDeadlineTextView(binding.deadlineTextView)
@@ -97,6 +99,26 @@ class NewTaskFragment : BaseFragment() {
         return binding.root
     }
 
+    private fun loadFragment() {
+        binding.nameEditText.setText(task.name)
+        date.time = task.date
+
+        task.deadline?.let {
+            deadlineDate = Calendar.getInstance()
+            deadlineDate!!.time = it
+        }
+
+        binding.autoRescheduleSwitch.isChecked = task.autoReschedule
+
+        binding.descriptionEditText.setText(task.description)
+
+        val oldImages = ArrayList<Image>()
+        oldImages.addAll(task.images.map { Image(0, "", it) })
+        images = oldImages
+
+        // TODO: Categories
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         view?.clearFocus()
@@ -144,20 +166,20 @@ class NewTaskFragment : BaseFragment() {
         val adapter = ArrayAdapter(this.requireContext(), android.R.layout.simple_spinner_item, priorityArray)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
-        spinner.setSelection(1)
+        spinner.setSelection(priorityArray.indexOf(task.priority))
     }
 
     private fun initDateTextView(textView: TextView) {
         val dateFormat = SimpleDateFormat.getDateInstance()
-        val defaultText = getString(R.string.date) + ": " + dateFormat.format(task.date)
-        textView.text = defaultText
+        val text = getString(R.string.date) + ": " + dateFormat.format(task.date)
+        textView.text = text
 
         val listener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
             val newDate = GregorianCalendar(year, month, day)
             if (validateDate(newDate)) {
                 date = newDate
-                val text = getString(R.string.date) + ": " + dateFormat.format(date.time)
-                textView.text = text
+                val str  = getString(R.string.date) + ": " + dateFormat.format(date.time)
+                textView.text = str
             }
         }
 
@@ -170,16 +192,19 @@ class NewTaskFragment : BaseFragment() {
     }
 
     private fun initDeadlineTextView(textView: TextView) {
-        val defaultText = getString(R.string.deadline) + ": " + getString(
-            R.string.none
-        )
-        textView.text = defaultText
+        val dateFormat = SimpleDateFormat.getDateInstance()
+        val noneText = getString(R.string.deadline) + ": " + getString(R.string.none)
+        if (deadlineDate == null) {
+            textView.text = noneText
+        } else {
+            val text = getString(R.string.date) + ": " + dateFormat.format(deadlineDate!!.time)
+            textView.text = text
+        }
 
         val listener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
             val newDeadline = GregorianCalendar(year, month, day)
             if (validateDate(newDeadline)) {
                 deadlineDate = newDeadline
-                val dateFormat = SimpleDateFormat.getDateInstance()
                 val text = getString(R.string.deadline) + ": " + dateFormat.format(deadlineDate!!.time)
                 textView.text = text
             }
@@ -194,14 +219,14 @@ class NewTaskFragment : BaseFragment() {
 
         binding.clearDeadlineButton.setOnClickListener {
             deadlineDate = null
-            textView.text = defaultText
+            textView.text = noneText
         }
     }
 
     private fun validateDate(calendar: Calendar) : Boolean {
-        val currentDate = Calendar.getInstance()
-        currentDate.add(Calendar.DAY_OF_MONTH, -1)
-        if (currentDate < calendar) {
+        val prevDay = Calendar.getInstance()
+        prevDay.add(Calendar.DAY_OF_MONTH, -1)
+        if (prevDay < calendar) {
             return true
         }
         return false

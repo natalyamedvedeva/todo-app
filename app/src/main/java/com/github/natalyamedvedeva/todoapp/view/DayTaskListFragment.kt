@@ -81,8 +81,11 @@ class DayTaskListFragment : BaseFragment() {
 
         binding.addBtn.setOnClickListener {
             view?.findNavController()?.navigate(
-                R.id.action_dayTaskListFragment_to_newTaskFragment,
-                bundleOf("task" to TaskWithCategories(Task("", Priority.Normal, currentDate.time), mutableListOf()))
+                R.id.action_global_newTaskFragment,
+                bundleOf(
+                    "title" to getString(R.string.new_task_fragment_title),
+                    "task" to TaskWithCategories(Task("", Priority.Normal, currentDate.time), mutableListOf())
+                )
             )
         }
 

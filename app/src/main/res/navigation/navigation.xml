@@ -8,18 +8,21 @@
             android:id="@+id/dayTaskListFragment"
             android:name="com.github.natalyamedvedeva.todoapp.view.DayTaskListFragment"
             android:label="@string/day_task_list_fragment_title">
-        <action
-                android:id="@+id/action_dayTaskListFragment_to_newTaskFragment"
-                app:destination="@id/newTaskFragment"
-                app:enterAnim="@anim/nav_default_enter_anim"
-                app:exitAnim="@anim/nav_default_exit_anim"
-                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
+    <action
+            android:id="@+id/action_global_newTaskFragment"
+            app:destination="@id/newTaskFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     <fragment
         android:id="@+id/newTaskFragment"
         android:name="com.github.natalyamedvedeva.todoapp.view.NewTaskFragment"
-        android:label="@string/new_task_fragment_title">
+        android:label="{title}">
+        <argument
+                android:name="title"
+                app:argType="string"/>
         <argument
             android:name="task"
             app:argType="com.github.natalyamedvedeva.todoapp.data.TaskWithCategories" />
@@ -34,8 +37,10 @@
     </fragment>
     <action
             android:id="@+id/action_global_taskFragment"
-            app:destination="@id/taskFragment" app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:destination="@id/taskFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     <fragment
         android:id="@+id/categoriesFragment"
