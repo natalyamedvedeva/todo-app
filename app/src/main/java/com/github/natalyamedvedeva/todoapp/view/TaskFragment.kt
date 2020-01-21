@@ -4,12 +4,10 @@ import android.graphics.Paint
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.TaskWithCategories
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentTaskBinding
-import java.lang.RuntimeException
 import java.text.SimpleDateFormat
 
 class TaskFragment : BaseFragment() {
@@ -17,8 +15,7 @@ class TaskFragment : BaseFragment() {
     private lateinit var binding: FragmentTaskBinding
 
     private val imagesFragment = ImagesFragment()
-
-    private lateinit var imagesFragmentDataListener: OnImagesFragmentDataListener
+    private val categoriesFragment = CategoriesFragment()
 
     private lateinit var task: TaskWithCategories
 
@@ -65,30 +62,41 @@ class TaskFragment : BaseFragment() {
             binding.autoRescheduleTextView.visibility = View.GONE
         }
 
-        binding.descriptionTextView.text = task.description
+        if (!task.description.isNullOrEmpty()) {
+            binding.descriptionTextView.text = task.description
+        } else {
+            binding.descriptionTextView.visibility = View.GONE
+        }
 
-        return  binding.root
+        if (task.images.isEmpty()) {
+            binding.imagesFragmentContainer.visibility = View.GONE
+        }
+
+        if (task.categories.isEmpty()) {
+            binding.categoriesLabelTextView.visibility = View.GONE
+        }
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         childFragmentManager.beginTransaction()
             .replace(R.id.images_fragment_container, imagesFragment)
+            .replace(R.id.categories_fragment_container, categoriesFragment)
             .commit()
-    }
-
-    override fun onAttachFragment(childFragment: Fragment) {
-        super.onAttachFragment(childFragment)
-        if (childFragment is OnImagesFragmentDataListener) {
-            imagesFragmentDataListener = childFragment
-            updateImagesFragment()
-        } else {
-            throw RuntimeException("$childFragment must implements OnImagesFragmentDataListener")
-        }
+        updateImagesFragment()
+        updateCategoriesFragment()
     }
 
     private fun updateImagesFragment() {
-        if (::task.isInitialized && !task.images.isNullOrEmpty()) {
-            imagesFragmentDataListener.onImagesAppeared(task.images)
+        if (::task.isInitialized && task.images.isNotEmpty()) {
+            imagesFragment.onImagesAppeared(task.images)
+        }
+    }
+
+    private fun updateCategoriesFragment() {
+        if (::task.isInitialized && task.categories.isNotEmpty()) {
+            categoriesFragment.onCategoriesAppeared(task.categories)
         }
     }
 

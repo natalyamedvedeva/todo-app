@@ -3,20 +3,17 @@ package com.github.natalyamedvedeva.todoapp.view
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.esafirm.imagepicker.features.ImagePicker
 import com.esafirm.imagepicker.model.Image
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.*
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentNewTaskBinding
-import java.lang.RuntimeException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -27,9 +24,6 @@ class NewTaskFragment : BaseFragment() {
 
     private val imagesFragment = ImagesFragment()
     private val categoriesFragment = CategoriesFragment()
-
-    private lateinit var imagesFragmentDataListener: OnImagesFragmentDataListener
-    private lateinit var categoriesFragmentDataListener: OnCategoriesFragmentDataListener
 
     private lateinit var task :TaskWithCategories
 
@@ -86,10 +80,7 @@ class NewTaskFragment : BaseFragment() {
             task.deadline = deadlineDate?.time
             task.description = addedDescription
             task.autoReschedule = binding.autoRescheduleSwitch.isChecked
-            if (!images.isNullOrEmpty()) {
-                task.images.clear()
-                task.images.addAll(images.map { it.path })
-            }
+            task.images = images.map { it.path }
             task.categories.clear()
             task.categories.addAll(categoriesFragment.categoryList)
             task.done = false
@@ -116,11 +107,15 @@ class NewTaskFragment : BaseFragment() {
 
         binding.descriptionEditText.setText(task.description)
 
-        val oldImages = ArrayList<Image>()
-        oldImages.addAll(task.images.map { Image(0, "", it) })
-        images = oldImages
+        if (images.isEmpty()) {
+            val oldImages = ArrayList<Image>()
+            oldImages.addAll(task.images.map { Image(0, "", it) })
+            images = oldImages
+        }
 
-        // TODO: Categories
+        if (categoriesFragment.categoryList.isEmpty()) {
+            categoriesFragment.onCategoriesAppeared(task.categories)
+        }
     }
 
     override fun onDestroyView() {
@@ -142,26 +137,16 @@ class NewTaskFragment : BaseFragment() {
             .replace(R.id.images_fragment_container, imagesFragment)
             .replace(R.id.categories_fragment_container, categoriesFragment)
             .commit()
-    }
-
-    override fun onAttachFragment(childFragment: Fragment) {
-        super.onAttachFragment(childFragment)
-        if (childFragment is OnImagesFragmentDataListener) {
-            imagesFragmentDataListener = childFragment
-            updateImagesFragment()
-        } else if (childFragment is OnCategoriesFragmentDataListener) {
-            categoriesFragmentDataListener = childFragment
-            updateCategoriesFragment()
-        }
+        updateImagesFragment()
+        updateCategoriesFragment()
     }
 
     private fun updateImagesFragment() {
-        imagesFragmentDataListener.onImagesAppeared(images.map { it.path })
+        imagesFragment.onImagesAppeared(images.map { it.path })
     }
 
     private fun updateCategoriesFragment() {
-        Log.e("*****************", task.categories.toString())
-        categoriesFragment.onCategoriesAppeared(task.categories)
+        categoriesFragment.onCategoriesAppeared(categoriesFragment.categoryList)
     }
 
     private fun initPrioritySpinner(spinner: Spinner) {

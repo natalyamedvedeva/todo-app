@@ -1,7 +1,6 @@
 package com.github.natalyamedvedeva.todoapp.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,15 +15,12 @@ import com.github.natalyamedvedeva.todoapp.data.CategoryRepository
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentCategoriesSettingsBinding
 import com.github.natalyamedvedeva.todoapp.view.categoryList.CategoryListFragment
 import com.github.natalyamedvedeva.todoapp.view.categoryList.EDITABLE_TYPE
-import java.lang.RuntimeException
 
 class CategoriesSettingFragment : BaseFragment() {
 
     private lateinit var binding: FragmentCategoriesSettingsBinding
 
     private val categoryListFragment = CategoryListFragment(EDITABLE_TYPE)
-
-    private lateinit var categoryListFragmentDataListener: OnCategoryListFragmentDataListener
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,23 +40,14 @@ class CategoriesSettingFragment : BaseFragment() {
         childFragmentManager.beginTransaction()
             .replace(R.id.child_fragment_container, categoryListFragment)
             .commit()
-    }
-
-    override fun onAttachFragment(childFragment: Fragment) {
-        super.onAttachFragment(childFragment)
-        if (childFragment is OnCategoryListFragmentDataListener) {
-            categoryListFragmentDataListener = childFragment
-            updateChild()
-        } else {
-            throw RuntimeException("$childFragment must implements OnCategoryListFragmentDataListener")
-        }
+        updateChild()
     }
 
     private fun updateChild() {
         val categoryRepository = CategoryRepository.getInstance(AppDatabase.getInstance(requireContext()).categoryDao())
         val categoryListLiveData = categoryRepository.getCategories()
         categoryListLiveData.observe(this, Observer {
-            categoryListFragmentDataListener.onCategoryListAppeared(it)
+            categoryListFragment.onCategoryListAppeared(it)
         })
     }
 }
