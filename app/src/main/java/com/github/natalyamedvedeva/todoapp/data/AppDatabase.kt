@@ -28,6 +28,6 @@ abstract class AppDatabase : RoomDatabase() {
 
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(context.applicationContext,
-                AppDatabase::class.java, "todo_database8.db").build()
+                AppDatabase::class.java, "todo_database.db").build()
     }
 }
