@@ -68,4 +68,8 @@ data class TaskWithCategories (
     var images: MutableList<String>
         get() = task.images
         set(value) { task.images.clear(); task.images.addAll(value) }
+
+    var done: Boolean
+        get() = task.done
+        set(value) { task.done = value }
 }

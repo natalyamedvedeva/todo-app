@@ -53,7 +53,7 @@
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@id/priority_spinner"
-                        app:layout_constraintBottom_toBottomOf="@id/priority_spinner" android:layout_marginTop="8dp"
+                        app:layout_constraintBottom_toBottomOf="@id/priority_spinner"
                         android:layout_marginStart="16dp" android:layout_marginEnd="8dp"/>
 
                 <Spinner
@@ -64,7 +64,7 @@
                         app:layout_constraintHorizontal_weight="2"
                         app:layout_constraintStart_toEndOf="@id/priority_hint"
                         app:layout_constraintTop_toBottomOf="@id/name_text_input_layout"
-                        android:layout_marginEnd="8dp" android:layout_marginTop="8dp"/>
+                        android:layout_marginEnd="8dp" android:layout_marginTop="16dp"/>
 
                 <TextView
                         android:id="@+id/date_text_view"
@@ -182,7 +182,7 @@
                         android:text="@string/categories"
                         style="@style/TextAppearance.AppCompat.Medium"
                         app:layout_constraintTop_toBottomOf="@+id/images_button"
-                        app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"/>
+                        app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"/>
 
                 <FrameLayout
                         android:id="@+id/categories_fragment_container"

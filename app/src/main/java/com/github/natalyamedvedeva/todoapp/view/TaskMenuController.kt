@@ -9,8 +9,15 @@ import com.github.natalyamedvedeva.todoapp.data.*
 class TaskMenuController(val view: View, val task: Task) {
 
     private val context = view.context
+    private val taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(context).taskDao())
 
-    fun editTask() {
+    fun done() {
+        task.done = true
+        task.autoReschedule = false
+        taskRepository.insert(task)
+    }
+
+    fun edit() {
         view.findNavController().navigate(
             R.id.action_global_newTaskFragment,
             bundleOf(
@@ -20,8 +27,7 @@ class TaskMenuController(val view: View, val task: Task) {
         )
     }
 
-    fun deleteTask() {
-        val taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(context).taskDao())
+    fun delete() {
         taskRepository.delete(task)
     }
 }

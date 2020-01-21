@@ -91,6 +91,7 @@ class NewTaskFragment : BaseFragment() {
             }
             task.categories.clear()
             task.categories.addAll(categoriesFragment.categoryList)
+            task.done = false
 
             val taskCategoryRepository = TaskCategoryRepository.getInstance(AppDatabase.getInstance(requireContext()).taskCategoryDao())
             taskCategoryRepository.insertTask(task)
@@ -150,9 +151,7 @@ class NewTaskFragment : BaseFragment() {
         } else if (childFragment is OnCategoriesFragmentDataListener) {
             categoriesFragmentDataListener = childFragment
             updateCategoriesFragment()
-        } /*else {
-            throw RuntimeException("$childFragment must implements OnImagesFragmentDataListener or OnCategoriesFragmentDataListener")
-        }*/
+        }
     }
 
     private fun updateImagesFragment() {
@@ -196,7 +195,7 @@ class NewTaskFragment : BaseFragment() {
         if (deadlineDate == null) {
             textView.text = noneText
         } else {
-            val text = getString(R.string.date) + ": " + dateFormat.format(deadlineDate!!.time)
+            val text = getString(R.string.deadline) + ": " + dateFormat.format(deadlineDate!!.time)
             textView.text = text
         }
 
