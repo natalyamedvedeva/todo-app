@@ -2,7 +2,6 @@ package com.github.natalyamedvedeva.todoapp.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.io.Serializable
 

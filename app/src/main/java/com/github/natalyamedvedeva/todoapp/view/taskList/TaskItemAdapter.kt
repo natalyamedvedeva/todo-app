@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.DiffUtil
 import com.github.natalyamedvedeva.todoapp.R
-import com.github.natalyamedvedeva.todoapp.data.Task
 import com.github.natalyamedvedeva.todoapp.data.TaskWithCategories
 
 class TaskItemAdapter : RecyclerView.Adapter<TaskItemViewHolder>() {

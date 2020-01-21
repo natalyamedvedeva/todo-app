@@ -1,7 +1,6 @@
 package com.github.natalyamedvedeva.todoapp.view.categoryList
 
 import android.view.View
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.cardview.widget.CardView
