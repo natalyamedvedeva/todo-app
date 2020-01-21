@@ -20,4 +20,8 @@ open class BaseFragment: Fragment() {
     interface OnCategoriesFragmentDataListener {
         fun onCategoriesAppeared(categories: List<Category>)
     }
+
+    interface OnCategorySelectedDataListener {
+        fun onCategorySelected(category: Category)
+    }
 }

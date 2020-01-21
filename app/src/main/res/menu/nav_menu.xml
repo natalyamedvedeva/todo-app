@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/categoriesFragment"
-        android:title="@string/categories"/>
+        android:title="@string/categories"
+        android:icon="@drawable/ic_apps_black_24dp"/>
     <item
-            android:title="Item2"/>
+        android:title="All Tasks"
+        android:icon="@drawable/ic_view_list_black_24dp"/>
     <item
-            android:title="Item3"/>
+        android:title="About"
+        android:icon="@drawable/ic_info_outline_black_24dp"/>
 </menu>

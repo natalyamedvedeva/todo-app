@@ -157,6 +157,10 @@ class NewTaskFragment : BaseFragment() {
         imagesFragmentDataListener.onImagesAppeared(images.map { it.path })
     }
 
+    fun addCategory(category: Category) {
+        categoriesFragment.addCategory(category)
+    }
+
     private fun updateCategoriesFragment() {
         categoriesFragment.onCategoriesAppeared(task.categories)
     }

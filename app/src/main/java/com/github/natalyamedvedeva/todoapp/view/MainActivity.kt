@@ -8,9 +8,10 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.github.natalyamedvedeva.todoapp.R
+import com.github.natalyamedvedeva.todoapp.data.Category
 import com.github.natalyamedvedeva.todoapp.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), BaseFragment.OnCategorySelectedDataListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var drawerLayout: DrawerLayout
@@ -31,5 +32,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, drawerLayout)
+    }
+
+    override fun onCategorySelected(category: Category) {
+        val fragment = supportFragmentManager.findFragmentById(R.id.newTaskFragment) as NewTaskFragment
+        fragment.addCategory(category)
     }
 }

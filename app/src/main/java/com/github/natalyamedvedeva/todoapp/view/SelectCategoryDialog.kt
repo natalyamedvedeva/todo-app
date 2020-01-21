@@ -7,21 +7,22 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.CategoryRepository
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentSelectCategoryDialogBinding
-import com.github.natalyamedvedeva.todoapp.view.categoryList.CategoryListFragment
+import com.github.natalyamedvedeva.todoapp.view.categoryList.CategoryItemAdapter
 import com.github.natalyamedvedeva.todoapp.view.categoryList.SELECTABLE_TYPE
-import java.lang.RuntimeException
 
 class SelectCategoryDialog : DialogFragment() {
 
     private lateinit var binding: FragmentSelectCategoryDialogBinding
-    private lateinit var categoryListFragment: BaseFragment.OnCategoryListFragmentDataListener
+    private lateinit var adapter: CategoryItemAdapter
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = DataBindingUtil.inflate(
@@ -30,35 +31,45 @@ class SelectCategoryDialog : DialogFragment() {
             null,
             false
         )
+        initRecyclerView()
         val builder = AlertDialog.Builder(activity)
         builder.setTitle("Select category")
         builder.setView(binding.root)
             .setNegativeButton(R.string.cancel) { _, _ -> dismiss() }
+            .setPositiveButton(R.string.edit) { _, _ ->
+                findNavController()
+                    .navigate(R.id.categoriesFragment)
+            }
         return builder.create()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val childFragment = CategoryListFragment(SELECTABLE_TYPE)
-        childFragmentManager.beginTransaction()
-            .replace(R.id.child_content_container, childFragment)
-            .commit()
-    }
-
-    override fun onAttachFragment(childFragment: Fragment) {
-        super.onAttachFragment(childFragment)
-        if (childFragment is BaseFragment.OnCategoryListFragmentDataListener) {
-            categoryListFragment = childFragment
-            updateChild()
-        } else {
-            throw RuntimeException("$childFragment must implements OnCategoryListFragmentDataListener")
+    private fun initRecyclerView() {
+        val categoriesRecyclerView = binding.recyclerView
+        categoriesRecyclerView.apply {
+            layoutManager = LinearLayoutManager(this.context)
+            addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(),
+                    DividerItemDecoration.VERTICAL
+                )
+            )
         }
+        adapter = CategoryItemAdapter(SELECTABLE_TYPE)
+        categoriesRecyclerView.adapter = adapter
+        update()
     }
 
-    private fun updateChild() {
+    @Suppress("UNCHECKED_CAST")
+    private fun update() {
+        val arg = arguments?.get("ids")
+        val ids = if (arg is List<*>) arg else listOf<Long>()
         val categoryRepository = CategoryRepository.getInstance(AppDatabase.getInstance(requireContext()).categoryDao())
-        val categoryListLiveData = categoryRepository.getCategoriesExcept(arguments?.get("ids") as List<Long>) // TODO: Fix it
+        val categoryListLiveData = categoryRepository.getCategoriesExcept( ids as List<Long>)
         categoryListLiveData.observe(this, Observer {
-            categoryListFragment.onCategoryListAppeared(it)
+            if(it.isEmpty()) {
+                binding.msg.visibility = View.VISIBLE
+            }
+            adapter.resetItems(it)
         })
     }
 }

@@ -66,4 +66,8 @@ class CategoriesFragment : BaseFragment(), BaseFragment.OnCategoriesFragmentData
             update()
         }
     }
+
+    fun addCategory(category: Category) {
+        categories.add(category)
+    }
 }
