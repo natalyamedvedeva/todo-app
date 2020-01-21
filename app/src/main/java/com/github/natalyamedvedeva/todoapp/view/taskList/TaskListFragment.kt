@@ -57,5 +57,6 @@ class TaskListFragment : BaseFragment(),
     override fun onTaskListAppeared(data: List<TaskWithCategories>) {
         taskList = data
         updateTaskList()
+        tasksRecyclerView.scrollToPosition(0)
     }
 }
