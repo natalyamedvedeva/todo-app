@@ -28,7 +28,7 @@ data class Task(
     var autoReschedule: Boolean = false
     var description: String? = null
 
-    var images: MutableList<String> = mutableListOf()
+    var images: List<String> = emptyList()
 
     var done: Boolean = false
 

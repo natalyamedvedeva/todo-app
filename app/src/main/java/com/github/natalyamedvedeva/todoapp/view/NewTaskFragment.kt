@@ -3,7 +3,6 @@ package com.github.natalyamedvedeva.todoapp.view
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,6 @@ import com.esafirm.imagepicker.model.Image
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.*
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentNewTaskBinding
-import java.lang.RuntimeException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -86,10 +84,7 @@ class NewTaskFragment : BaseFragment() {
             task.deadline = deadlineDate?.time
             task.description = addedDescription
             task.autoReschedule = binding.autoRescheduleSwitch.isChecked
-            if (!images.isNullOrEmpty()) {
-                task.images.clear()
-                task.images.addAll(images.map { it.path })
-            }
+            task.images = images.map { it.path }
             task.categories.clear()
             task.categories.addAll(categoriesFragment.categoryList)
             task.done = false
@@ -116,9 +111,11 @@ class NewTaskFragment : BaseFragment() {
 
         binding.descriptionEditText.setText(task.description)
 
-        val oldImages = ArrayList<Image>()
-        oldImages.addAll(task.images.map { Image(0, "", it) })
-        images = oldImages
+        if (images.isEmpty()) {
+            val oldImages = ArrayList<Image>()
+            oldImages.addAll(task.images.map { Image(0, "", it) })
+            images = oldImages
+        }
 
         // TODO: Categories
     }
@@ -160,7 +157,6 @@ class NewTaskFragment : BaseFragment() {
     }
 
     private fun updateCategoriesFragment() {
-        Log.e("*****************", task.categories.toString())
         categoriesFragment.onCategoriesAppeared(task.categories)
     }
 
