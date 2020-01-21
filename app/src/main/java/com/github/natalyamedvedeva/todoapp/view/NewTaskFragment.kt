@@ -26,6 +26,7 @@ class NewTaskFragment : BaseFragment() {
 
     private val imagesFragment = ImagesFragment()
     private val categoriesFragment = CategoriesFragment()
+    private lateinit var task :TaskWithCategories
 
     private lateinit var imagesFragmentDataListener: OnImagesFragmentDataListener
     private lateinit var categoriesFragmentDataListener: OnCategoriesFragmentDataListener
@@ -41,7 +42,7 @@ class NewTaskFragment : BaseFragment() {
         retainInstance = true
         binding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_new_task, container, false)
-        val task = arguments?.getSerializable("task") as TaskWithCategories
+        task = arguments?.getSerializable("task") as TaskWithCategories
 
         initPrioritySpinner(binding.prioritySpinner)
         initDeadlineTextView(binding.deadlineTextView)
@@ -120,6 +121,7 @@ class NewTaskFragment : BaseFragment() {
             updateImagesFragment()
         } else if (childFragment is OnCategoriesFragmentDataListener) {
             categoriesFragmentDataListener = childFragment
+            updateCategoriesFragment()
         } else {
             throw RuntimeException("$childFragment must implements OnImagesFragmentDataListener or OnCategoriesFragmentDataListener")
         }
@@ -127,6 +129,10 @@ class NewTaskFragment : BaseFragment() {
 
     private fun updateImagesFragment() {
         imagesFragmentDataListener.onImagesAppeared(images.map { it.path })
+    }
+
+    private fun updateCategoriesFragment() {
+        categoriesFragment.onCategoriesAppeared(task.categories)
     }
 
     private fun initPrioritySpinner(spinner: Spinner) {

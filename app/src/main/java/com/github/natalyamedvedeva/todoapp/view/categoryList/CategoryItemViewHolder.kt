@@ -12,6 +12,7 @@ import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.Category
 
 class CategoryItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
     fun bind(category: Category) {
         category.color?.let {
             itemView.findViewById<CardView>(R.id.color).setCardBackgroundColor(it)

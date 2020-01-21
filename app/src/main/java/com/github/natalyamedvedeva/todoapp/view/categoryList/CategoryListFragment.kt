@@ -13,7 +13,7 @@ import com.github.natalyamedvedeva.todoapp.data.Category
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentCategoryListBinding
 import com.github.natalyamedvedeva.todoapp.view.BaseFragment
 
-class CategoryListFragment : BaseFragment(),
+class CategoryListFragment(private val type: Int) : BaseFragment(),
     BaseFragment.OnCategoryListFragmentDataListener {
 
     private lateinit var binding: FragmentCategoryListBinding
@@ -42,7 +42,7 @@ class CategoryListFragment : BaseFragment(),
                 )
             )
         }
-        categoryItemAdapter = CategoryItemAdapter()
+        categoryItemAdapter = CategoryItemAdapter(type)
         categoriesRecyclerView.adapter = categoryItemAdapter
         update()
     }

@@ -15,13 +15,14 @@ import com.github.natalyamedvedeva.todoapp.data.Category
 import com.github.natalyamedvedeva.todoapp.data.CategoryRepository
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentCategoriesSettingsBinding
 import com.github.natalyamedvedeva.todoapp.view.categoryList.CategoryListFragment
+import com.github.natalyamedvedeva.todoapp.view.categoryList.EDITABLE_TYPE
 import java.lang.RuntimeException
 
 class CategoriesSettingFragment : BaseFragment() {
 
     private lateinit var binding: FragmentCategoriesSettingsBinding
 
-    private val categoryListFragment = CategoryListFragment()
+    private val categoryListFragment = CategoryListFragment(EDITABLE_TYPE)
 
     private lateinit var categoryListFragmentDataListener: OnCategoryListFragmentDataListener
 
