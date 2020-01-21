@@ -52,7 +52,6 @@ dependencies {
     implementation 'com.google.android:flexbox:2.0.1'
 
     implementation 'com.pes.materialcolorpicker:library:1.2.5'
-    implementation 'com.vanniktech:emoji-ios:0.6.0'
 
     implementation 'com.facebook.fresco:fresco:2.0.0'
     implementation 'com.github.stfalcon:frescoimageviewer:0.5.0'

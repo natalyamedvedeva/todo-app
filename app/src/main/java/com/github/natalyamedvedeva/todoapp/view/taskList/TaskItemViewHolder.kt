@@ -9,7 +9,6 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.TaskWithCategories
-import com.vanniktech.emoji.EmojiTextView
 
 class TaskItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

@@ -1,6 +1,5 @@
 package com.github.natalyamedvedeva.todoapp.view
 
-
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
