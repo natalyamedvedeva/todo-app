@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.Category
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentCategoriesBinding
@@ -37,8 +40,8 @@ class CategoriesFragment : BaseFragment(), BaseFragment.OnCategoriesFragmentData
             view.emoji_edit_text.text = text
             binding.categoriesLayout.addView(view)
             if (editable) {
-                view.setOnClickListener { v ->
-                    val index = binding.categoriesLayout.indexOfChild(v)
+                view.findViewById<ImageView>(R.id.delete_button).setOnClickListener {
+                    val index = binding.categoriesLayout.indexOfChild(view)
                     categories.removeAt(index)
                     update()
                 }
@@ -49,8 +52,8 @@ class CategoriesFragment : BaseFragment(), BaseFragment.OnCategoriesFragmentData
             button.text = if (categories.isEmpty()) getString(R.string.add_category) else getString(R.string.add)
             binding.categoriesLayout.addView(button)
             button.setOnClickListener {
-                categories.add(Category("Caaaat", "\uD83D\uDC08"))
-                update()
+                findNavController()
+                    .navigate(R.id.selectCategoryDialog, bundleOf("ids" to categories.map { it.id }))
             }
         }
     }

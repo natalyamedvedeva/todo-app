@@ -10,6 +10,7 @@ import com.github.natalyamedvedeva.todoapp.data.Category
 import com.vanniktech.emoji.EmojiTextView
 
 class CategoryItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
     fun bind(category: Category) {
         itemView.findViewById<EmojiTextView>(R.id.emoji_text_view).text =
             String.format("%s %s", category.emoji, category.name)

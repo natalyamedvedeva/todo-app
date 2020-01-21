@@ -14,4 +14,7 @@ interface CategoryDao {
 
     @Delete
     fun delete(category: Category)
+
+    @Query("SELECT * FROM category WHERE cId NOT IN (:ids)")
+    fun getCategoriesExcept(ids: List<Long>) :LiveData<List<Category>>
 }

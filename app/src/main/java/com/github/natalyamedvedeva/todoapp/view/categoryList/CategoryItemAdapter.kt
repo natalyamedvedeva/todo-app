@@ -6,18 +6,25 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.Category
+import java.lang.IllegalArgumentException
 
-class CategoryItemAdapter: RecyclerView.Adapter<CategoryItemViewHolder>() {
+const val EDITABLE_TYPE = 0
+const val SELECTABLE_TYPE = 1
+
+class CategoryItemAdapter(private val type: Int): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var categoryList = mutableListOf<Category>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryItemViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.category_item_view, parent, false)
-        return CategoryItemViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: CategoryItemViewHolder, position: Int) {
-        holder.bind(categoryList[position])
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        if (viewType == EDITABLE_TYPE) {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.category_item_view, parent, false)
+            return CategoryItemViewHolder(view)
+        } else if (viewType == SELECTABLE_TYPE) {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.selectable_category_item_view, parent, false)
+            return SelectableCategoryItemViewHolder(view)
+        } else {
+            throw IllegalArgumentException("Unknown view type")
+        }
     }
 
     override fun getItemCount() = categoryList.size
@@ -48,5 +55,17 @@ class CategoryItemAdapter: RecyclerView.Adapter<CategoryItemViewHolder>() {
         this.categoryList.clear()
         this.categoryList.addAll(categories)
         diffResult.dispatchUpdatesTo(this)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return type
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if(getItemViewType(position) == EDITABLE_TYPE) {
+            (holder as CategoryItemViewHolder).bind(categoryList[position])
+        } else if (getItemViewType(position) == SELECTABLE_TYPE) {
+            (holder as SelectableCategoryItemViewHolder).bind(categoryList[position])
+        }
     }
 }

@@ -1,52 +1,53 @@
 package com.github.natalyamedvedeva.todoapp.view
 
+
+import android.app.AlertDialog
+import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
+
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.AppDatabase
-import com.github.natalyamedvedeva.todoapp.data.Category
 import com.github.natalyamedvedeva.todoapp.data.CategoryRepository
-import com.github.natalyamedvedeva.todoapp.databinding.FragmentCategoriesSettingsBinding
+import com.github.natalyamedvedeva.todoapp.databinding.FragmentSelectCategoryDialogBinding
 import com.github.natalyamedvedeva.todoapp.view.categoryList.CategoryListFragment
-import com.github.natalyamedvedeva.todoapp.view.categoryList.EDITABLE_TYPE
+import com.github.natalyamedvedeva.todoapp.view.categoryList.SELECTABLE_TYPE
 import java.lang.RuntimeException
 
-class CategoriesSettingFragment : BaseFragment() {
+class SelectCategoryDialog : DialogFragment() {
 
-    private lateinit var binding: FragmentCategoriesSettingsBinding
-    private lateinit var categoryListFragment: OnCategoryListFragmentDataListener
+    private lateinit var binding: FragmentSelectCategoryDialogBinding
+    private lateinit var categoryListFragment: BaseFragment.OnCategoryListFragmentDataListener
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_categories_settings, container, false
+            LayoutInflater.from(requireContext()),
+            R.layout.fragment_select_category_dialog,
+            null,
+            false
         )
-        binding.addCategoryButton.setOnClickListener {
-            findNavController().navigate(R.id.editCategoryDialog, bundleOf("category" to Category("", "")))
-        }
-        return binding.root
+        val builder = AlertDialog.Builder(activity)
+        builder.setTitle("Select category")
+        builder.setView(binding.root)
+            .setNegativeButton(R.string.cancel) { _, _ -> dismiss() }
+        return builder.create()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val childFragment = CategoryListFragment(EDITABLE_TYPE)
+        val childFragment = CategoryListFragment(SELECTABLE_TYPE)
         childFragmentManager.beginTransaction()
-            .replace(R.id.child_fragment_container, childFragment)
+            .replace(R.id.child_content_container, childFragment)
             .commit()
     }
 
     override fun onAttachFragment(childFragment: Fragment) {
         super.onAttachFragment(childFragment)
-        if (childFragment is OnCategoryListFragmentDataListener) {
+        if (childFragment is BaseFragment.OnCategoryListFragmentDataListener) {
             categoryListFragment = childFragment
             updateChild()
         } else {
@@ -56,7 +57,7 @@ class CategoriesSettingFragment : BaseFragment() {
 
     private fun updateChild() {
         val categoryRepository = CategoryRepository.getInstance(AppDatabase.getInstance(requireContext()).categoryDao())
-        val categoryListLiveData = categoryRepository.getCategories()
+        val categoryListLiveData = categoryRepository.getCategoriesExcept(arguments?.get("ids") as List<Long>)
         categoryListLiveData.observe(this, Observer {
             categoryListFragment.onCategoryListAppeared(it)
         })

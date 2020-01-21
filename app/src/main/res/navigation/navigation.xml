@@ -46,4 +46,8 @@
         android:id="@+id/editCategoryDialog"
         android:name="com.github.natalyamedvedeva.todoapp.view.EditCategoryDialog"
         android:label="EditCategoryDialog" />
+    <dialog
+        android:id="@+id/selectCategoryDialog"
+        android:name="com.github.natalyamedvedeva.todoapp.view.SelectCategoryDialog"
+        android:label="SelectCategoryDialog"/>
 </navigation>

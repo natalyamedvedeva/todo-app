@@ -16,6 +16,8 @@ class CategoryRepository private constructor(private val categoryDao: CategoryDa
         }.start()
     }
 
+    fun getCategoriesExcept(ids: List<Long>) = categoryDao.getCategoriesExcept(ids)
+
     companion object {
 
         // For Singleton instantiation

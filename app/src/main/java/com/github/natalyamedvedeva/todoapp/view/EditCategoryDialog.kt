@@ -39,4 +39,6 @@ class EditCategoryDialog : DialogFragment() {
             .setNegativeButton(R.string.cancel) { _, _ -> dismiss() }
         return builder.create()
     }
+
+
 }
