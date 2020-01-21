@@ -18,14 +18,10 @@ import com.github.natalyamedvedeva.todoapp.data.TaskCategoryRepository
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentAllTasksBinding
 import com.github.natalyamedvedeva.todoapp.view.taskList.TaskListFragment
 
-/**
- * A simple [Fragment] subclass.
- */
 class AllTasksFragment : Fragment() {
 
     private lateinit var binding: FragmentAllTasksBinding
     private val child = TaskListFragment()
-    private lateinit var taskCategoryRepository: TaskCategoryRepository
     private var ascOrder = false
     private var query: String = ""
 
@@ -33,7 +29,6 @@ class AllTasksFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        taskCategoryRepository = TaskCategoryRepository.getInstance(AppDatabase.getInstance(requireContext()).taskCategoryDao())
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_all_tasks, container, false
@@ -74,6 +69,7 @@ class AllTasksFragment : Fragment() {
 
 
     private fun findByName() {
+        val taskCategoryRepository = TaskCategoryRepository.getInstance(AppDatabase.getInstance(requireContext()).taskCategoryDao())
         taskCategoryRepository.getTasksByName(query).observe(this, Observer {
             child.onTaskListAppeared(it.toMutableList().also {
                 if (ascOrder) it.sortBy { it.priority } else it.sortByDescending { it.priority }
