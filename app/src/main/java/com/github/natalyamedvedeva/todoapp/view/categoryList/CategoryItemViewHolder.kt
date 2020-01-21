@@ -9,7 +9,9 @@ import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.github.natalyamedvedeva.todoapp.R
+import com.github.natalyamedvedeva.todoapp.data.AppDatabase
 import com.github.natalyamedvedeva.todoapp.data.Category
+import com.github.natalyamedvedeva.todoapp.data.CategoryRepository
 
 class CategoryItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -25,7 +27,8 @@ class CategoryItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
             )
         )
         itemView.findViewById<ImageButton>(R.id.delete_category_button).setOnClickListener {
-            //TODO delete
+            val categoryRepository = CategoryRepository.getInstance(AppDatabase.getInstance(itemView.context).categoryDao())
+            categoryRepository.delete(category)
         }
     }
 }
