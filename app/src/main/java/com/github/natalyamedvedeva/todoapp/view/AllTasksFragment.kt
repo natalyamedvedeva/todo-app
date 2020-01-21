@@ -1,6 +1,5 @@
 package com.github.natalyamedvedeva.todoapp.view
 
-
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -72,9 +71,9 @@ class AllTasksFragment : Fragment() {
 
     private fun findByName() {
         val taskCategoryRepository = TaskCategoryRepository.getInstance(AppDatabase.getInstance(requireContext()).taskCategoryDao())
-        taskCategoryRepository.getTasksByName(query).observe(this, Observer {
-            child.onTaskListAppeared(it.toMutableList().also {
-                if (ascOrder) it.sortBy { it.priority } else it.sortByDescending { it.priority }
+        taskCategoryRepository.getTasksByName(query).observe(this, Observer { list ->
+            child.onTaskListAppeared(list.toMutableList().also { mList ->
+                if (ascOrder) mList.sortBy { it.priority } else mList.sortByDescending { it.priority }
             })
         })
     }
