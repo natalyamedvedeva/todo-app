@@ -31,13 +31,31 @@ class TaskFragment : BaseFragment() {
         task = arguments?.getSerializable("task") as TaskWithCategories
         setHasOptionsMenu(true)
 
-        binding.nameTextView.text = String.format("%s - %s", task.name, task.priority.name)
+        binding.nameTextView.text = task.name
+
+        val priorityText = getString(R.string.priority) + ": " + task.priority.name
+        binding.priorityTextView.text = priorityText
+
+        val dateFormat = SimpleDateFormat.getDateInstance()
+        val dateText = getString(R.string.date) + ": " + dateFormat.format(task.date)
+        binding.dateTextView.text = dateText
+
         if (task.deadline != null) {
-            val dateFormat = SimpleDateFormat.getDateInstance()
-            binding.deadlineTextView.text = dateFormat.format(task.deadline!!.time)
+            val deadlineText = getString(R.string.deadline) + ": " + dateFormat.format(task.deadline!!)
+            binding.deadlineTextView.text = deadlineText
+        } else {
+            binding.deadlineTextView.visibility = View.GONE
         }
+
+        if (task.autoReschedule) {
+            val autoRescheduleText = getString(R.string.auto_reschedule) + " is enabled"
+            binding.autoRescheduleTextView.text = autoRescheduleText
+        } else {
+            binding.autoRescheduleTextView.visibility = View.GONE
+        }
+
+
         binding.descriptionTextView.text = task.description
-        binding.autoRescheduleTextView.text = task.autoReschedule.toString()
 
         return  binding.root
     }
