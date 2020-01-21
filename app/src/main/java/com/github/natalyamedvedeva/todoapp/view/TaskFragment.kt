@@ -99,7 +99,7 @@ class TaskFragment : BaseFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val menuController = TaskMenuController(view!!, task.task)
+        val menuController = TaskMenuController(view!!, task)
         if (item.itemId == R.id.done_task) {
             menuController.done()
             view?.findNavController()?.popBackStack()

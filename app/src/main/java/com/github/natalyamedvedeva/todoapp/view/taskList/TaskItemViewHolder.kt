@@ -44,7 +44,7 @@ class TaskItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         itemView.setOnCreateContextMenuListener { menu, v, _ ->
             MenuInflater(v.context).inflate(R.menu.task_menu, menu)
-            val menuController = TaskMenuController(v, task.task)
+            val menuController = TaskMenuController(v, task)
             menu.findItem(R.id.done_task).isVisible = !task.done
             menu.findItem(R.id.done_task).setOnMenuItemClickListener {
                 menuController.done()

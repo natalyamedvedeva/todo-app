@@ -6,15 +6,15 @@ import androidx.navigation.findNavController
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.*
 
-class TaskMenuController(val view: View, val task: Task) {
+class TaskMenuController(val view: View, val task: TaskWithCategories) {
 
     private val context = view.context
-    private val taskRepository = TaskRepository.getInstance(AppDatabase.getInstance(context).taskDao())
+    private val taskCategoryRepository = TaskCategoryRepository.getInstance(AppDatabase.getInstance(context).taskCategoryDao())
 
     fun done() {
         task.done = true
         task.autoReschedule = false
-        taskRepository.insert(task)
+        taskCategoryRepository.insertTask(task)
     }
 
     fun edit() {
@@ -22,12 +22,12 @@ class TaskMenuController(val view: View, val task: Task) {
             R.id.action_global_newTaskFragment,
             bundleOf(
                 "title" to context.getString(R.string.edit_task_fragment_title),
-                "task" to TaskWithCategories(task, mutableListOf())
+                "task" to task
             )
         )
     }
 
     fun delete() {
-        taskRepository.delete(task)
+        TaskRepository.getInstance(AppDatabase.getInstance(context).taskDao()).delete(task.task)
     }
 }

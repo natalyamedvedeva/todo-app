@@ -3,6 +3,7 @@ package com.github.natalyamedvedeva.todoapp.view
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -159,6 +160,7 @@ class NewTaskFragment : BaseFragment() {
     }
 
     private fun updateCategoriesFragment() {
+        Log.e("*****************", task.categories.toString())
         categoriesFragment.onCategoriesAppeared(task.categories)
     }
 
