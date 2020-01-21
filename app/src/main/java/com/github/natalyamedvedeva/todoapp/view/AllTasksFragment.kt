@@ -72,10 +72,10 @@ class AllTasksFragment : Fragment() {
         findByName()
     }
 
-    private fun findByName() {//TODO time delay
-        taskCategoryRepository.getTasksByName(query).observe(this, Observer {
-            child.onTaskListAppeared(it.toMutableList().also {
-                if (ascOrder) it.sortBy { it.priority } else it.sortByDescending { it.priority }
+    private fun findByName() { // TODO time delay
+        taskCategoryRepository.getTasksByName(query).observe(this, Observer { list ->
+            child.onTaskListAppeared(list.toMutableList().also { mList ->
+                if (ascOrder) mList.sortBy { it.priority } else mList.sortByDescending { it.priority }
             })
         })
     }
