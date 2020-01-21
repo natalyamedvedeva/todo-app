@@ -3,27 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_activity_graph"
+    android:label="About"
     app:startDestination="@id/dayTaskListFragment">
 
     <fragment
-            android:id="@+id/dayTaskListFragment"
-            android:name="com.github.natalyamedvedeva.todoapp.view.DayTaskListFragment"
-            android:label="@string/day_task_list_fragment_title">
-    </fragment>
+        android:id="@+id/dayTaskListFragment"
+        android:name="com.github.natalyamedvedeva.todoapp.view.DayTaskListFragment"
+        android:label="@string/day_task_list_fragment_title"></fragment>
     <action
-            android:id="@+id/action_global_newTaskFragment"
-            app:destination="@id/newTaskFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+        android:id="@+id/action_global_newTaskFragment"
+        app:destination="@id/newTaskFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     <fragment
         android:id="@+id/newTaskFragment"
         android:name="com.github.natalyamedvedeva.todoapp.view.NewTaskFragment"
         android:label="{title}">
         <argument
-                android:name="title"
-                app:argType="string"/>
+            android:name="title"
+            app:argType="string" />
         <argument
             android:name="task"
             app:argType="com.github.natalyamedvedeva.todoapp.data.TaskWithCategories" />
@@ -37,12 +37,12 @@
             app:argType="com.github.natalyamedvedeva.todoapp.data.TaskWithCategories" />
     </fragment>
     <action
-            android:id="@+id/action_global_taskFragment"
-            app:destination="@id/taskFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+        android:id="@+id/action_global_taskFragment"
+        app:destination="@id/taskFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     <fragment
         android:id="@+id/categoriesFragment"
         android:name="com.github.natalyamedvedeva.todoapp.view.CategoriesSettingFragment"
@@ -54,10 +54,14 @@
     <dialog
         android:id="@+id/selectCategoryDialog"
         android:name="com.github.natalyamedvedeva.todoapp.view.SelectCategoryDialog"
-        android:label="SelectCategoryDialog"/>
+        android:label="SelectCategoryDialog" />
     <fragment
         android:id="@+id/allTasksFragment"
         android:name="com.github.natalyamedvedeva.todoapp.view.AllTasksFragment"
         android:label="All Tasks"
         tools:layout="@layout/fragment_all_tasks" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.github.natalyamedvedeva.todoapp.view.AboutFragment"
+        android:label="About" />
 </navigation>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">todo-app</string>
+    <string name="app_name">Todo</string>
     <string name="add">Add</string>
     <string name="prev_day">Previous day</string>
     <string name="next_day">Next day</string>
@@ -30,4 +30,5 @@
     <string name="no_category_msg">No available categories</string>
     <string name="all_tasks">All Tasks</string>
     <string name="search">Find task</string>
+    <string name="about">About</string>
 </resources>

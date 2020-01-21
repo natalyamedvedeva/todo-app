@@ -8,6 +8,7 @@
         android:title="@string/all_tasks"
         android:icon="@drawable/ic_view_list_black_24dp"/>
     <item
-        android:title="About"
+        android:id="@+id/aboutFragment"
+        android:title="@string/about"
         android:icon="@drawable/ic_info_outline_black_24dp"/>
 </menu>
