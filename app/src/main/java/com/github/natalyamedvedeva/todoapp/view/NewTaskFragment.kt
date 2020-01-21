@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.esafirm.imagepicker.features.ImagePicker
 import com.esafirm.imagepicker.model.Image
@@ -25,9 +24,6 @@ class NewTaskFragment : BaseFragment() {
 
     private val imagesFragment = ImagesFragment()
     private val categoriesFragment = CategoriesFragment()
-
-    private lateinit var imagesFragmentDataListener: OnImagesFragmentDataListener
-    private lateinit var categoriesFragmentDataListener: OnCategoriesFragmentDataListener
 
     private lateinit var task :TaskWithCategories
 
@@ -139,21 +135,12 @@ class NewTaskFragment : BaseFragment() {
             .replace(R.id.images_fragment_container, imagesFragment)
             .replace(R.id.categories_fragment_container, categoriesFragment)
             .commit()
-    }
-
-    override fun onAttachFragment(childFragment: Fragment) {
-        super.onAttachFragment(childFragment)
-        if (childFragment is OnImagesFragmentDataListener) {
-            imagesFragmentDataListener = childFragment
-            updateImagesFragment()
-        } else if (childFragment is OnCategoriesFragmentDataListener) {
-            categoriesFragmentDataListener = childFragment
-            updateCategoriesFragment()
-        }
+        updateImagesFragment()
+        updateCategoriesFragment()
     }
 
     private fun updateImagesFragment() {
-        imagesFragmentDataListener.onImagesAppeared(images.map { it.path })
+        imagesFragment.onImagesAppeared(images.map { it.path })
     }
 
     private fun updateCategoriesFragment() {

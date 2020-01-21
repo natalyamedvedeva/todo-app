@@ -9,14 +9,12 @@ import android.widget.CalendarView
 import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.*
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentDayTaskListBinding
 import com.github.natalyamedvedeva.todoapp.view.taskList.TaskListFragment
-import java.lang.RuntimeException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -25,8 +23,6 @@ class DayTaskListFragment : BaseFragment() {
     private lateinit var binding: FragmentDayTaskListBinding
 
     private val taskListFragment = TaskListFragment()
-
-    private lateinit var taskListFragmentDataListener: OnTaskListFragmentDataListener
 
     private var currentDate = Calendar.getInstance()
 
@@ -96,23 +92,14 @@ class DayTaskListFragment : BaseFragment() {
         childFragmentManager.beginTransaction()
             .replace(R.id.child_content_container, taskListFragment)
             .commit()
-    }
-
-    override fun onAttachFragment(childFragment: Fragment) {
-        super.onAttachFragment(childFragment)
-        if (childFragment is OnTaskListFragmentDataListener) {
-            taskListFragmentDataListener = childFragment
-            updateChild()
-        } else {
-            throw RuntimeException("$childFragment must implements OnTaskListFragmentDataListener")
-        }
+        updateChild()
     }
 
     private fun updateChild() {
         val taskCategoryRepository = TaskCategoryRepository.getInstance(AppDatabase.getInstance(requireContext()).taskCategoryDao())
         val taskListLiveData = taskCategoryRepository.getTaskList(currentDate.time)
         taskListLiveData.observe(this, Observer {
-            taskListFragmentDataListener.onTaskListAppeared(it)
+            taskListFragment.onTaskListAppeared(it)
         })
     }
 }

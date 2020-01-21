@@ -8,19 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
-import androidx.core.app.BundleCompat
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.fragment.findNavController
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.Category
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentCategoriesBinding
 import kotlinx.android.synthetic.main.category_card_view.view.*
 
-class CategoriesFragment : BaseFragment(),
-                           BaseFragment.OnCategoriesFragmentDataListener {
+const val REQUEST_CATEGORY = 0
 
-    private val REQUEST_CATEGORY = 0
+class CategoriesFragment : BaseFragment(), BaseFragment.OnCategoriesFragmentDataListener {
 
     private lateinit var binding: FragmentCategoriesBinding
     private var categories: MutableList<Category> = mutableListOf()
