@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import com.github.natalyamedvedeva.todoapp.R
 import com.github.natalyamedvedeva.todoapp.data.Category
 import com.github.natalyamedvedeva.todoapp.databinding.FragmentCategoriesBinding
+import com.github.natalyamedvedeva.todoapp.view.dialogs.SelectCategoryDialog
 import kotlinx.android.synthetic.main.category_card_view.view.*
 
 const val REQUEST_CATEGORY = 0
@@ -60,7 +61,8 @@ class CategoriesFragment : BaseFragment(), BaseFragment.OnCategoriesFragmentData
                 if (categories.isEmpty()) getString(R.string.add_category) else getString(R.string.add)
             binding.categoriesLayout.addView(button)
             button.setOnClickListener {
-                val dialog = SelectCategoryDialog(categories.map { it.id })
+                val dialog =
+                    SelectCategoryDialog(categories.map { it.id })
                 dialog.setTargetFragment(this, REQUEST_CATEGORY)
                 dialog.show(requireFragmentManager(), dialog::class.java.name)
             }
