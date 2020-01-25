@@ -55,9 +55,9 @@ class EditCategoryDialog : DialogFragment() {
             .setView(binding.root)
             .setPositiveButton(R.string.save){ _, _ ->
                 val repository = CategoryRepository.getInstance(AppDatabase.getInstance(requireContext()).categoryDao())
-                val changedCategory = Category(binding.nameEditText.text.toString(), color)
-                changedCategory.id = category.id
-                repository.insert(changedCategory)
+                category.name = binding.nameEditText.text.toString()
+                category.color = color
+                repository.insert(category)
             }.setNegativeButton(R.string.cancel) { _, _ -> dismiss() }
             .create()
     }

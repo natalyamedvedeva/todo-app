@@ -78,4 +78,10 @@ data class TaskWithCategories (
         if (task == other.task && categories == other.categories) return true
         return false
     }
+
+    override fun hashCode(): Int {
+        var result = task.hashCode()
+        result = 31 * result + categories.hashCode()
+        return result
+    }
 }

@@ -6,7 +6,11 @@ class CategoryRepository private constructor(private val categoryDao: CategoryDa
 
     fun insert(category: Category) {
         Thread {
-            categoryDao.insert(category)
+            if (category.id == 0L) {
+                categoryDao.insert(category)
+            } else {
+                categoryDao.update(category)
+            }
         }.start()
     }
 
