@@ -49,11 +49,11 @@ class MainActivity : AppCompatActivity() {
 
         val context = this
         val timer = Timer()
-        rescheduleTasks(context, context)
+        rescheduleTasks(context)
         timer.scheduleAtFixedRate(object : TimerTask() {
             override fun run() {
                 runOnUiThread {
-                    rescheduleTasks(context, context)
+                    rescheduleTasks(context)
                 }
             }
         }, today.time, TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS))
