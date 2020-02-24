@@ -30,6 +30,7 @@ class DayTaskListFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        retainInstance = true
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_day_task_list, container, false

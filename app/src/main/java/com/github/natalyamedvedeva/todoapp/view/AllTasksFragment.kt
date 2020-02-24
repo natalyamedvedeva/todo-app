@@ -19,7 +19,7 @@ import com.github.natalyamedvedeva.todoapp.view.taskList.TaskListFragment
 class AllTasksFragment : Fragment() {
 
     private lateinit var binding: FragmentAllTasksBinding
-    private val child = TaskListFragment()
+    private val taskListFragment = TaskListFragment()
     private var ascOrder = false
     private var query: String = ""
 
@@ -59,7 +59,7 @@ class AllTasksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         childFragmentManager.beginTransaction()
-            .replace(R.id.child_content_container, child)
+            .replace(R.id.child_content_container, taskListFragment)
             .commit()
     }
 
@@ -72,7 +72,7 @@ class AllTasksFragment : Fragment() {
     private fun findByName() {
         val taskCategoryRepository = TaskCategoryRepository.getInstance(AppDatabase.getInstance(requireContext()).taskCategoryDao())
         taskCategoryRepository.getTasksByName(query).observe(this, Observer { list ->
-            child.onTaskListAppeared(list.toMutableList().also { mList ->
+            taskListFragment.onTaskListAppeared(list.toMutableList().also { mList ->
                 if (ascOrder) mList.sortBy { it.priority } else mList.sortByDescending { it.priority }
             })
         })
